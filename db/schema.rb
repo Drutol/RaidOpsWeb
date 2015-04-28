@@ -11,17 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428090933) do
+ActiveRecord::Schema.define(version: 20150428173939) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "guild_members", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.integer  "ep",         limit: 4
-    t.integer  "gp",         limit: 4
-    t.integer  "guild_id",   limit: 4
+    t.integer  "ep"
+    t.integer  "gp"
+    t.integer  "guild_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.float    "pr",         limit: 24
+    t.float    "pr"
     t.string   "strClass",   limit: 255
+    t.string   "strRole"
   end
 
   add_index "guild_members", ["guild_id"], name: "index_guild_members_on_guild_id", using: :btree
@@ -36,14 +40,14 @@ ActiveRecord::Schema.define(version: 20150428090933) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.integer  "ingame_id",       limit: 4
-    t.integer  "timestamp",       limit: 4
-    t.integer  "guild_member_id", limit: 4
-    t.integer  "gp_cost",         limit: 4
-    t.integer  "of_guild_id",     limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "of_member_id",    limit: 4
+    t.integer  "ingame_id"
+    t.integer  "timestamp"
+    t.integer  "guild_member_id"
+    t.integer  "gp_cost"
+    t.integer  "of_guild_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "of_member_id"
   end
 
   add_index "items", ["guild_member_id"], name: "index_items_on_guild_member_id", using: :btree
@@ -53,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150428090933) do
     t.string   "strComment",      limit: 255
     t.string   "strType",         limit: 255
     t.string   "strTimestamp",    limit: 255
-    t.integer  "guild_member_id", limit: 4
+    t.integer  "guild_member_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
@@ -67,7 +71,7 @@ ActiveRecord::Schema.define(version: 20150428090933) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "User",                        limit: 255
-    t.integer  "guild_id",                    limit: 4
+    t.integer  "guild_id"
     t.string   "activation_state",            limit: 255
     t.string   "activation_token",            limit: 255
     t.datetime "activation_token_expires_at"

@@ -10,7 +10,7 @@ class GuildsController < ApplicationController
 
 	def show
    		@guild = Guild.find(params[:id])
-   		@members_grid = initialize_grid(@guild.guild_members)
+   		@members_grid = initialize_grid(@guild.guild_members,:order => 'guild_members.pr',:order_direction => 'desc')
   	end
 
   	def index
@@ -58,9 +58,9 @@ class GuildsController < ApplicationController
 
 	def destroy
 		@guild = Guild.find(params[:id])
+		Item.where(:of_guild_id => params[:id].to_i).delete_all
 		for guild_member in @guild.guild_members do
-			guild_member.logs.destroy
-			guild_member.items.destroy
+			Log.where(:guild_member_id => guild_member.id).delete_all
 		end
 		@guild.guild_members.destroy
 		@guild.destroy

@@ -24,7 +24,7 @@ class Guild < ActiveRecord::Base
 	 		 	bFound = false
 	 		 	guild_members.each do |member|
 	 		 		if member.name == arr['strName']
-						member.update(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP']),:strClass => arr['class'])
+						member.update(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP']),:strClass => arr['class'],:strRole => ['strRole'])
 						update_counter += 1
 						bFound = true
 						if update_counter > 100 then
@@ -33,7 +33,7 @@ class Guild < ActiveRecord::Base
 	 		 		end
 	 		 	end
 	 		 	if not bFound
-	 		 		guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP']),:strClass => arr['class'])
+	 		 		guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP']),:strClass => arr['class'],:strRole => arr['strRole'])
 	 		 		create_counter += 1
 	 		 		if create_counter > 100 then
 						raise 'Import failed , maximum value of 100 guild members has been reached.'
