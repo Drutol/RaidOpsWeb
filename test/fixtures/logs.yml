@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  strModifier: MyString
+  strComment: MyString
+  strType: MyString
+  strTimestamp: MyString
+  guild_member_id: 
+
+two:
+  strModifier: MyString
+  strComment: MyString
+  strType: MyString
+  strTimestamp: MyString
+  guild_member_id: 

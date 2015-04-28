@@ -1,0 +1,6 @@
+class AddGpToItem < ActiveRecord::Migration
+  def change
+    add_column :items, :Item, :string
+    add_column :items, :gp_cost, :integer
+  end
+end

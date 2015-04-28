@@ -1,0 +1,39 @@
+
+
+  <% if @guild and @guild.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@guild.errors.count, "error") %> prohibited
+      this guild from being saved:
+    </h2>
+    <ul>
+      <% @guild.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+<div class="container">
+  <div align="center"><h1>New guild</h1></div>
+
+  <%= form_for :guild, url: guilds_path do |f| %>
+    <div class="form-group">
+      <%= f.label :Guild_name %>  <br>
+      <%= f.text_field :name , class: "form-control"%>
+    </div>
+    <div class="form-group">
+      <%= f.label :Guild_Master %>  <br>
+      <%= f.text_field :owner , class: "form-control"%>
+    </div>
+    <div class="form_group"></div>
+      <%= f.label :Realm %>  <br>
+      <%= f.select :realm, [['Jabbit', 'Jabbit'], ['Luminai', 'Luminai'], ['Entity', 'Entity'], ['Warhound', 'Warhound']] , class: "form-control" %>
+    </div>
+    <div align="center">   
+      <%= f.submit :class => 'btn btn-info' %>
+      <%= link_to 'Back' , guilds_path , class: 'btn btn-primary' %>
+    </div>
+
+    <% end %>
+</div>

@@ -1,0 +1,20 @@
+<div class="container">
+  <div align="center"><h1>Update guild</h1></div>
+
+  <%= form_for :guild, url: guild_path(@guild), method: :patch do |f| %>
+    <div class="form-group">
+      <%= f.label :Guild_name %>  <br>
+      <%= f.text_field :name , class: "form-control"%>
+    </div>
+    <div class="form-group">
+      <%= f.label :Nickname %>  <br>
+      <%= f.text_field :owner , class: "form-control"%>
+    </div>                
+    <div align="center">   
+      <%= f.submit :class => 'btn btn-info' %>
+      <%= link_to 'Back' , guild_path(@guild) , class: 'btn btn-primary' %>
+    </div>
+
+    <% end %>
+</div>
+ 

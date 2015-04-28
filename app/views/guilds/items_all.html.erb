@@ -1,0 +1,49 @@
+
+<head>
+<script src="http://www.jabbithole.com/api/tooltips.js"></script>
+<script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
+</head>
+
+
+
+<div class="container-fixed">
+     <div id="sidebar-wrapper">
+          <ul class="col-md-2">
+              <br><br>
+              <br><br>
+              <div class="list-group">
+                <a href="#" class="list-group-item active fixed">
+                  Listing items for <%= @guild.name %>
+                
+                </a>
+                <a><%= link_to 'Back', guild_path(@guild) ,class: 'list-group-item' %></a>
+              </div>         
+          </ul>
+      </div>
+    </div>
+
+
+<div class="col-md-10">
+    <%= grid(@items_grid) do |g|
+
+      g.column name:  'ID' , ordering: false do |item|
+        item.id
+      end
+
+      g.column name:  'Item name' do |item|
+       link_to(item.ingame_id, "http://www.jabbithole.com/items/i-#{item.ingame_id}")
+      end
+
+      g.column  name:  'GP', attribute: 'gp_cost' , filter: false do |item|
+        item.gp_cost
+      end            
+
+      g.column name: 'Looter' , attribute: 'of_member_id' , ordering: false , filter: false do |item|
+        @guild.guild_members.find(@item_owners[item.timestamp]).name
+      end
+
+      g.column  name:  'Looted on' , attribute: 'timestamp' , filter: false do |item|
+        Time.at(item.timestamp.to_i).strftime('%d/%m/%Y , %T')        
+      end
+    end -%>
+</div>

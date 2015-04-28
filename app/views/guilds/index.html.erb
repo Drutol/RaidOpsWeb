@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <%= grid(@guilds_grid) do |g|
+
+            g.column name:  'ID' , ordering: false do |guild|
+              guild.id
+            end
+
+            g.column name:  'Name' , attribute: 'name'  do |guild|
+              guild.name
+            end
+
+            g.column name:  'Realm', attribute: 'realm'  do |guild|
+              guild.realm
+            end
+
+            g.column  name:  'Owner', attribute: 'owner' do |guild|
+              guild.owner
+            end
+
+            g.column  name:  'Last update:', attribute: 'updated_at',filter: false do |guild|
+              guild.updated_at
+            end            
+            
+            g.column  name:  'Details' do |guild|
+              link_to 'More' , guild_path(guild.id)
+            end
+          end -%>
+  </body>
+</html>
+
+
+
+
+
+
+

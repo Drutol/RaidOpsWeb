@@ -1,0 +1,7 @@
+class AddDigestToGuilds < ActiveRecord::Migration
+  def change
+    add_column :guilds, :password_digest, :string
+    add_column :guilds, :salt, :remove
+    add_column :guilds, :enc_passwd, :remove
+  end
+end
