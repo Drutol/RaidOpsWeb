@@ -49,7 +49,7 @@ class Guild < ActiveRecord::Base
 	 						member.items.create(:ingame_id => item['itemID'],:timestamp => item['nDate'],:of_member_id => member.id.to_i,:of_guild_id => id.to_i,:gp_cost => 2)
 	 						item_counter += 1
 	 						if item_counter > 50 then
-								raise 'Import failed , your export string is not compliant with specifications (Loot Log count > 50).'
+								#raise 'Import failed , your export string is not compliant with specifications (Loot Log count > 50).'
 							end
 	 					end
 	 				end 				
@@ -59,7 +59,7 @@ class Guild < ActiveRecord::Base
 	 						member.logs.create(:strComment => log['strComment'],:strTimestamp => log['strTimestamp'],:strType => log['strType'],:strModifier => log['strModifier'])
 	 						log_counter += 1
 	 						if log_counter > 20 then
-								raise 'Import failed , your export string is not compliant with specifications (Logs count > 20).'
+								#raise 'Import failed , your export string is not compliant with specifications (Logs count > 20).'
 							end
 	 					end
 	 				end
