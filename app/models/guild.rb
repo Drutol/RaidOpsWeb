@@ -74,7 +74,7 @@ class Guild < ActiveRecord::Base
 
 	validates :name, presence: true
 	validates :owner, presence: true
-	validates :realm, presence: true
+	validates :realm, length: {minimum: 2}
 
 	
 	has_many  :guild_members

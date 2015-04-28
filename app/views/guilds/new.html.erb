@@ -2,26 +2,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div class="container">
   <div align="center"><h1>New guild</h1></div>
 
-  <%= form_for :guild, url: guilds_path do |f| %>
-    <div class="form-group">
-      <%= f.label :Guild_name %>  <br>
-      <%= f.text_field :name , class: "form-control"%>
+
+  <%= simple_form_for(@guild, html: { class: 'form-horizontal' }) do |f| %>
+    <%= f.input :name %>
+    <%= f.input :owner %>
+    <%= f.label :realm %>
+    <%= f.select(:realm,[['',''] , ['Jabbit', 'Jabbit'], ['Luminai', 'Luminai'], ['Entity', 'Entity'], ['Warhound', 'Warhound']], {}, { :class => 'form-control' }) %>
+    <div align="center">
+    <br><br>
+
+    <%= f.button :submit , class: 'btn btn-info' %>
     </div>
-    <div class="form-group">
-      <%= f.label :Guild_Master %>  <br>
-      <%= f.text_field :owner , class: "form-control"%>
-    </div>
-    <div class="form_group"></div>
-      <%= f.label :Realm %>  <br>
-      <%= f.select :realm, [['Jabbit', 'Jabbit'], ['Luminai', 'Luminai'], ['Entity', 'Entity'], ['Warhound', 'Warhound']] , class: "form-control" %>
-    </div>
-
-    <%= f.submit :class => 'btn btn-info' %>
+  <% end %>
 
 
-
-    <% end %>
 </div>

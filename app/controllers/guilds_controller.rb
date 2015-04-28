@@ -3,6 +3,8 @@ class GuildsController < ApplicationController
 	def new
 		if User.find_by_email(current_user.email).guild_id != nil then
 			redirect_to Guild.find(User.find_by_email(current_user.email).guild_id) , notice: 'You have already created guild , remove this one first'
+		else
+			@guild = Guild.new
 		end
 	end
 
@@ -15,7 +17,8 @@ class GuildsController < ApplicationController
   		@guilds_grid = initialize_grid(Guild.all)
   	end
   	def download
-	  send_file("#{Rails.root.to_s}/app/guild_data/json_import/guild_#{params[:id]}.txt")
+	  send_file("#{Rails.root.to_s}/app/guild_data/json_import/guild_#{params[:id]}.txt") if File.exist?("#{Rails.root.to_s}/app/guild_data/json_import/guild_#{params[:id]}.txt")
+	  redirect_to Guild.find(params[:id])
 	end
 
   	def items_all

@@ -36,6 +36,7 @@ gem "wice_grid"
 gem 'jquery-ui-rails'
 gem 'pg', '~> 0.18.1'
 gem 'puma'
+gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

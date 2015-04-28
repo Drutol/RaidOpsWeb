@@ -17,16 +17,13 @@
     <![endif]-->
   </head>
   <body>
-    <div align="center">
-      <div class="container">
-        <div class="col-lg-5">    
+    <div align="center">  
           <%= form_tag({controller: "guilds", action: "import"}, method: "post") do %>
-            <%= label_tag(:json, "Input Json Data") %>
-            <%= text_area_tag(:json, nil ,class: "form-control")%>
+            <h1>Input export data:</h1>
+            <%= text_area_tag(:json, nil ,class: "form-control",:size => "30x10")%>
+            <br>
             <%= submit_tag("Import" , class: "btn btn-primary") %></br>
           <% end %> 
-        </div> 
-      </div>
     </div>   
   </body>
 </html>

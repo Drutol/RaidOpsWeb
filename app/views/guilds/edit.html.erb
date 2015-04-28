@@ -1,20 +1,16 @@
 <div class="container">
   <div align="center"><h1>Update guild</h1></div>
 
-  <%= form_for :guild, url: guild_path(@guild), method: :patch do |f| %>
-    <div class="form-group">
-      <%= f.label :Guild_name %>  <br>
-      <%= f.text_field :name , class: "form-control"%>
-    </div>
-    <div class="form-group">
-      <%= f.label :Nickname %>  <br>
-      <%= f.text_field :owner , class: "form-control"%>
-    </div>                
-    <div align="center">   
-      <%= f.submit :class => 'btn btn-info' %>
-      <%= link_to 'Back' , guild_path(@guild) , class: 'btn btn-primary' %>
-    </div>
+  <%= simple_form_for(@guild, html: { class: 'form-horizontal' }) do |f| %>
+    <%= f.input :name %>
+    <%= f.input :owner %>
+    <%= f.label :realm %>
+    <%= f.select(:realm,[['',''] , ['Jabbit', 'Jabbit'], ['Luminai', 'Luminai'], ['Entity', 'Entity'], ['Warhound', 'Warhound']], {}, { :class => 'form-control' }) %>
+    <div align="center">
+    <br><br>
 
-    <% end %>
+    <%= f.button :submit , class: 'btn btn-info' %>
+    </div>
+  <% end %>
 </div>
  
