@@ -1,8 +1,5 @@
 
-<head>
-<script src="JH_API.js"></script>
-<script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
-</head>
+
 
 
 
@@ -17,13 +14,15 @@
                 
                 </a>
                 <a><%= link_to 'Back', guild_path(@guild) ,class: 'list-group-item' %></a>
-              </div>         
-          </ul>
-      </div>
-    </div>
+          </div>         
+      </ul>
+  </div>
+</div>
 
 
 <div class="col-md-10">
+  <script src="http://www.jabbithole.com/api/tooltips.js"></script>
+  <script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
     <%= grid(@items_grid) do |g|
 
       g.column name:  'ID' , ordering: false do |item|
