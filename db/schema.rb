@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428173939) do
+ActiveRecord::Schema.define(version: 20150429103719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,19 +65,23 @@ ActiveRecord::Schema.define(version: 20150428173939) do
   add_index "logs", ["guild_member_id"], name: "index_logs_on_guild_member_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                       limit: 255, null: false
-    t.string   "crypted_password",            limit: 255
-    t.string   "salt",                        limit: 255
+    t.string   "email",                           limit: 255, null: false
+    t.string   "crypted_password",                limit: 255
+    t.string   "salt",                            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "User",                        limit: 255
+    t.string   "User",                            limit: 255
     t.integer  "guild_id"
-    t.string   "activation_state",            limit: 255
-    t.string   "activation_token",            limit: 255
+    t.string   "activation_state",                limit: 255
+    t.string   "activation_token",                limit: 255
     t.datetime "activation_token_expires_at"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
   end
 
   add_index "users", ["activation_token"], name: "index_users_on_activation_token", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
 end

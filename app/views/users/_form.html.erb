@@ -1,15 +1,12 @@
-<%= form_for(@user) do |f| %>
+<%= simple_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
   <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email , class: "form-control" %>
+    <%= f.input :email  %>
   </div>
 <div class="field">
-   <%= f.label :password %><br />
-   <%= f.password_field :password , class: "form-control" %>
+   <%= f.input :password %>
 </div>
 <div class="field">
-   <%= f.label :password_confirmation %><br />
-   <%= f.password_field :password_confirmation , class: "form-control" %>
+   <%= f.input :password_confirmation %>
 </div>
   <div class="actions">
     <%= f.submit :class => 'btn btn-info' %>

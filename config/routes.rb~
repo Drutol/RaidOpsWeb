@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  default_url_options :host => "smtp.mandrillapp.com"  
-  get 'password_resets/create'
+ default_url_options :host => "example.com"  
+	get 'password_resets/create'
 
   get 'password_resets/edit'
 

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 3 }
   validates :password, confirmation: true
   validates :password_confirmation, presence: true
-
+  validates :password , presence: true
   validates :email, presence: true,
 			  :format => { :with => VALID_EMAIL_REGEX}
   validates_uniqueness_of :email
