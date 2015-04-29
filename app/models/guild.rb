@@ -46,7 +46,7 @@ class Guild < ActiveRecord::Base
 	 				if arr['tLLogs'] and member.name == arr['strName'] then
 	 					member.items.delete_all
 	 					arr['tLLogs'].each do |item|
-	 						member.items.create(:ingame_id => item['itemID'],:timestamp => item['nDate'],:of_member_id => member.id.to_i,:of_guild_id => id.to_i,:gp_cost => 2)
+	 						member.items.create(:ingame_id => item['itemID'],:timestamp => item['nDate'],:of_member_id => member.id.to_i,:of_guild_id => id.to_i,:gp_cost => item['nGP'])
 	 						item_counter += 1
 	 						if item_counter > 50 then
 								#raise 'Import failed , your export string is not compliant with specifications (Loot Log count > 50).'

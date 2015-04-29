@@ -31,11 +31,7 @@
   <h1> Items </h1>
   <%= grid(@items_grid) do |g|
 
-       g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
-
-      g.column name:  'id' , ordering: false do |item|
-        item.id
-      end
+      g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
 
       g.column name:  'Item name' do |item|
        link_to(item.ingame_id, "http://www.jabbithole.com/items/i-#{item.ingame_id}")
@@ -54,10 +50,6 @@
   <%= grid(@logs_grid) do |g|
 
     g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
-
-      g.column name:  'id' , ordering: false do |log|
-        log.id
-      end     
 
       g.column name:  'Comment' , attribute: 'strComment' do |log|
        log.strComment

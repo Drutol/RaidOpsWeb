@@ -21,7 +21,7 @@ class UserMailer < ApplicationMailer
 
   def reset_password_email(user)
     @user = User.find user.id
-    @url  = "http://raid-ops-web.herokuapp.com/#{@user.reset_password_token}/edit"
+    @url  = "http://raid-ops-web.herokuapp.com/password_resets/#{@user.reset_password_token}/edit"
     mail(:to => user.email,
          :subject => "Your RaidOpsWeb password has been reset")
   end
