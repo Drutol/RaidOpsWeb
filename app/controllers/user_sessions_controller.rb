@@ -1,7 +1,11 @@
 class UserSessionsController < ApplicationController
   skip_before_filter :require_login, except: [:destroy]
   def new
-    @user = User.new
+    if logged_in? then 
+      redirect_to guilds_path 
+    else
+      @user = User.new
+    end
   end
 
   def create
