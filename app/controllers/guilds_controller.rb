@@ -20,20 +20,23 @@ class GuildsController < ApplicationController
   		@guilds_grid = initialize_grid(Guild.all)
   	end
   	def download
-  		f = ""
-	  	ftp = Net::FTP.new
-		ftp.connect('31.220.16.113')
-		ftp.login('u292965448', ENV['FTP_PASS'])
-		ftp.passive = true
-		filename = "/public_html/guild_json_#{params[:id]}.txt"
-		raw = StringIO.new('')
-		ftp.retrbinary('RETR ' + filename, 4096) { |data|
-		raw << data
-		}
-		ftp.close
-		raw.rewind
-		send_data raw.read, :filename => filename
-	 	#redirect_to Guild.find(params[:id])
+  		begin
+	  		f = ""
+		  	ftp = Net::FTP.new
+			ftp.connect('31.220.16.113')
+			ftp.login('u292965448', ENV['FTP_PASSg'])
+			ftp.passive = true
+			filename = "/public_html/guild_json_#{params[:id]}.txt"
+			raw = StringIO.new('')
+			ftp.retrbinary('RETR ' + filename, 4096) { |data|
+			raw << data
+			}
+			ftp.close
+			raw.rewind
+			send_data raw.read, :filename => filename
+		rescue
+	 		redirect_to Guild.find(params[:id]) , notice: 'Download failed'
+	 	end
 	end
 
   	def items_all
@@ -104,12 +107,20 @@ class GuildsController < ApplicationController
 		@guild = Guild.find(params[:id])
 		strState , c_counter , u_counter , l_counter , i_counter = @guild.import(params)
 		if strState == "success" then
-			redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries , updated #{u_counter.to_s} entries. Processed #{i_counter} items and #{l_counter} logs."
-			ftp = Net::FTP.new('31.220.16.113')
-			ftp.passive = true
-			ftp.login('u292965448', 'Ik34UXQiiU')
-			ftp.puttextcontent(params[:json], "/public_html/guild_json_#{params[:id]}.txt")
-			ftp.close
+			Guild.find(params[:id]).update_attributes(:updated_at => DateTime.now)
+
+			begin
+				ftp = Net::FTP.new('31.220.16.113')
+				ftp.passive = true
+				ftp.login('u292965448', ENV['FTP_PASS'])
+				ftp.puttextcontent(params[:json], "/public_html/guild_json_#{params[:id]}.txt")
+				ftp.close
+			rescue
+				redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries , updated #{u_counter.to_s} entries. Processed #{i_counter} items and #{l_counter} logs. File upload failed."
+				return
+			end
+
+			redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries , updated #{u_counter.to_s} entries. Processed #{i_counter} items and #{l_counter} logs. File successfully uploaded."
 		elsif strState == "fail" then
 			redirect_to upload_guild_path(@guild) , notice: 'Invalid data'
 		else
