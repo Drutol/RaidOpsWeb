@@ -111,16 +111,16 @@ class GuildsController < ApplicationController
 
 			begin
 				ftp = Net::FTP.new('31.220.16.113')
-				ftp.passive = trueg
+				ftp.passive = true
 				ftp.login('u292965448', ENV['FTP_PASS'])
 				ftp.puttextcontent(params[:json], "/public_html/guild_json_#{params[:id]}.txt")
 				ftp.close
 			rescue
-				redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries , updated #{u_counter.to_s} entries. Processed #{i_counter} items and #{l_counter} logs. File upload failed."
+				redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries , updated #{u_counter.to_s} entries. Processed #{i_counter} items and #{l_counter} logs. Backup file upload failed."
 				return
 			end
 
-			redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries , updated #{u_counter.to_s} entries. Processed #{i_counter} items and #{l_counter} logs. File successfully uploaded."
+			redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries , updated #{u_counter.to_s} entries. Processed #{i_counter} items and #{l_counter} logs. Backup file successfully uploaded."
 		elsif strState == "fail" then
 			redirect_to upload_guild_path(@guild) , notice: 'Invalid data'
 		else
