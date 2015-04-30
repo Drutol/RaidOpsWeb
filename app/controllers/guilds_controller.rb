@@ -13,7 +13,7 @@ class GuildsController < ApplicationController
 
 	def show
    		@guild = Guild.find(params[:id])
-   		@members_grid = initialize_grid(@guild.guild_members,:order => 'guild_members.pr',:order_direction => 'desc')
+   		@members_grid = initialize_grid(@guild.guild_members.where("name != 'Guild Bank'"),:order => 'guild_members.pr',:order_direction => 'desc')
   	end
 
   	def index

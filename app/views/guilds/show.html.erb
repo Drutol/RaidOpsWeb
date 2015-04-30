@@ -1,7 +1,7 @@
 <!DOCTYPE html>
   <body>
 
-  <h1 align="center"><%=@guild.name %></h1><br>
+  <h1 align="center"><%= @guild.name %>   -  <%= pluralize(GuildMember.where("guild_id = #{params[:id]}").count,"member")%></h1><br>
 
   <div id="wrapper">
     <div class="container-fixed">
@@ -33,9 +33,12 @@
 
             g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
 
-            g.column name:  'Class' , attribute: 'str_class' , html: {style: 'max-width: 75px'}  do |task|
-              image_tag "Icon#{task.str_class}.png" , :height => "50px" , :width => "50px" , :align => "middle" if task.str_class
+            g.column name:  'Class' , attribute: 'str_class' , html: {style: 'max-width: 75px'} ,  custom_filter: [['Esper', 'Esper'], ['Warrior', 'Warrior'], ['Stalker', 'Stalker'], ['Engineer', 'Engineer'],['Medic', 'Medic'],['Spellslinger', 'Spellslinger']]  do |task|
+              content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "50px" , :width => "50px" , :align => "middle" ),:align => "center") if task.str_class
+            end            
 
+            g.column name:  'Role' , attribute: 'str_role' , html: {style: 'max-width: 50px'} , custom_filter: [['Dps', 'DPS'], ['Heal', 'Heal'], ['Tank', 'Tank']] do |task|
+              content_tag(:div ,image_tag("#{task.str_role}.png" , :height => "50px" , :width => "50px" , :align => "middle" ),:align => "center") if task.str_role
             end
 
             g.column name:  'Name', attribute: 'name'  do |task|
@@ -51,11 +54,11 @@
             end            
 
             g.column  name:  'PR' , attribute: 'pr' do |task|
-              [task.pr, {style: 'background-color: rgb(199, 196, 255);'}]  
+              [task.pr, {style: 'background-color: #F8FFD1;'}]  
             end
             
-            g.column  name:  'Details' do |task|
-              link_to 'More' , guild_guild_member_items_path(@guild.id,task.id)
+            g.column  name:  'Details' , html: {style: 'max-width: 40px'} do |task|
+              content_tag(:div,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-default'),:align => "center")
             end
           end -%>
     </div>

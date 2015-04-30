@@ -119,7 +119,7 @@ if defined?(Wice::Defaults)
   # * <tt>:calendar</tt> - JS calendar
   # * <tt>:html5</tt> - HTML5 date input field
   # * <tt>:standard</tt> - standard Rails date and datetime helpers
-  Wice::Defaults::HELPER_STYLE = :calendar
+  Wice::Defaults::HELPER_STYLE = :standard
 
   # Format of the datetime displayed.
   # If you change the format, make sure to check if +DATETIME_PARSER+ can still parse this string.
