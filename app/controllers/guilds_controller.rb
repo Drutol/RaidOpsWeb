@@ -24,7 +24,7 @@ class GuildsController < ApplicationController
 	  		f = ""
 		  	ftp = Net::FTP.new
 			ftp.connect('31.220.16.113')
-			ftp.login('u292965448', ENV['FTP_PASSg'])
+			ftp.login('u292965448', ENV['FTP_PASS'])
 			ftp.passive = true
 			filename = "/public_html/guild_json_#{params[:id]}.txt"
 			raw = StringIO.new('')
@@ -111,7 +111,7 @@ class GuildsController < ApplicationController
 
 			begin
 				ftp = Net::FTP.new('31.220.16.113')
-				ftp.passive = true
+				ftp.passive = trueg
 				ftp.login('u292965448', ENV['FTP_PASS'])
 				ftp.puttextcontent(params[:json], "/public_html/guild_json_#{params[:id]}.txt")
 				ftp.close
