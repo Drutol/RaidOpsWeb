@@ -33,8 +33,8 @@
 
             g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
 
-            g.column name:  'Class' , attribute: 'strClass' , html: {style: 'max-width: 75px'}  do |task|
-              image_tag "Icon#{task.strClass}.png" , :height => "50px" , :width => "50px" , :align => "middle" if task.strClass
+            g.column name:  'Class' , attribute: 'str_class' , html: {style: 'max-width: 75px'}  do |task|
+              image_tag "Icon#{task.str_class}.png" , :height => "50px" , :width => "50px" , :align => "middle" if task.str_class
 
             end
 

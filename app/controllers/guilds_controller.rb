@@ -58,11 +58,11 @@ class GuildsController < ApplicationController
 
 	def destroy
 		@guild = Guild.find(params[:id])
-		Item.where(:of_guild_id => params[:id].to_i).delete_all
+		Item.where(:of_guild_id => params[:id].to_i).destroy_all
 		for guild_member in @guild.guild_members do
-			Log.where(:guild_member_id => guild_member.id).delete_all
+			guild_member.logs.destroy_all
 		end
-		@guild.guild_members.destroy
+		@guild.guild_members.destroy_all
 		@guild.destroy
 		path = "#{Rails.root.to_s}/app/guild_data/json_import/guild_#{params[:id]}.txt"
 		File.delete(path) if File.exist?(path)
