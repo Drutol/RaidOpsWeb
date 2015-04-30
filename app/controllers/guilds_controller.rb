@@ -1,4 +1,7 @@
 class GuildsController < ApplicationController
+	require 'net/ftp'
+	require 'stringio'
+
 	skip_before_filter :require_login, only: [:index, :show,:items_all]
 	def new
 		if User.find_by_email(current_user.email).guild_id != nil then
@@ -17,8 +20,20 @@ class GuildsController < ApplicationController
   		@guilds_grid = initialize_grid(Guild.all)
   	end
   	def download
-	  send_file("#{Rails.root.to_s}/app/guild_data/json_import/guild_#{params[:id]}.txt") if File.exist?("#{Rails.root.to_s}/app/guild_data/json_import/guild_#{params[:id]}.txt")
-	  redirect_to Guild.find(params[:id])
+  		f = ""
+	  	ftp = Net::FTP.new
+		ftp.connect('31.220.16.113')
+		ftp.login('u292965448', ENV['FTP_PASS'])
+		ftp.passive = true
+		filename = "/public_html/guild_json_#{params[:id]}.txt"
+		raw = StringIO.new('')
+		ftp.retrbinary('RETR ' + filename, 4096) { |data|
+		raw << data
+		}
+		ftp.close
+		raw.rewind
+		send_data raw.read, :filename => filename
+	 	#redirect_to Guild.find(params[:id])
 	end
 
   	def items_all
@@ -64,21 +79,37 @@ class GuildsController < ApplicationController
 		end
 		@guild.guild_members.destroy_all
 		@guild.destroy
-		path = "#{Rails.root.to_s}/app/guild_data/json_import/guild_#{params[:id]}.txt"
-		File.delete(path) if File.exist?(path)
 		User.find_by_email(current_user.email).update_attribute(:guild_id , nil)
 		redirect_to guilds_path , notice: 'Guild deleted successfully.'
 	end
+
+	class Net::FTP
+	  def puttextcontent(content, remotefile, &block)
+	    f = StringIO.new(content)
+	    begin
+	      storlines("STOR " + remotefile, f, &block)
+	    ensure
+	      f.close
+	    end
+	  end
+	end
+
 
 	def upload
 		@guild = Guild.find(params[:id])
 	end
 
 	def import
+
 		@guild = Guild.find(params[:id])
 		strState , c_counter , u_counter , l_counter , i_counter = @guild.import(params)
 		if strState == "success" then
 			redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries , updated #{u_counter.to_s} entries. Processed #{i_counter} items and #{l_counter} logs."
+			ftp = Net::FTP.new('31.220.16.113')
+			ftp.passive = true
+			ftp.login('u292965448', 'Ik34UXQiiU')
+			ftp.puttextcontent(params[:json], "/public_html/guild_json_#{params[:id]}.txt")
+			ftp.close
 		elsif strState == "fail" then
 			redirect_to upload_guild_path(@guild) , notice: 'Invalid data'
 		else
