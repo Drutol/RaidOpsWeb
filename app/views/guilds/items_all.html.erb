@@ -13,7 +13,8 @@
                   Listing items for <%= @guild.name %>
                 
                 </a>
-                <a><%= link_to 'Back', guild_path(@guild) ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left
+")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>
           </div>         
       </ul>
   </div>

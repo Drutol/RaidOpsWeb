@@ -18,6 +18,5 @@
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
-table.my-grid tr.my-header {
-    background-color: '#ebebeb'
-    }
+
+
