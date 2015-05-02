@@ -1,1 +1,43 @@
-<h1>Greetings</h1>
+<div class="container">
+  <div class="jumbotron text-center">
+    <div class="alert alert-danger" role="alert">Website under construction</div>
+    <h1>Raid Ops in Web</h1>
+    <p class="lead">Store your EPGP data online!</p>
+    <p><a class="btn-primary btn-lg" href=<%= guilds_path %> >See all registered guilds.</a></p>
+    <p><a class="btn-success btn-lg" href=<%= new_guild_path %> >Register your guild.</a></p>
+    <p><a class="btn-info btn-lg" href="http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding" >Download in game addon.</a></p>
+  </div>
+  <div class="panel panel-primary">
+    <div class="row" align="center">
+      <div class="col-lg-6">
+        <h3>Upload data exported from addon.</h3>
+        <p style="font-size:13pt">You will be able to keep it safe.</p>
+        
+        <h3>Keep your raid members updated!</h3>
+        <p style="font-size:13pt">Anyone can check current EP and GP values , logs and items that dropped. </p>        
+
+        <h3>Filter the roster!</h3>
+        <p style="font-size:13pt">You can filter by class , role and minimum PR for example. Sort by all member's properties.  </p>
+      </div>
+
+    
+    <div class="col-lg-6">
+      <h2>Getting started:</h2>
+      <p style="font-size:15pt" align="left">
+          <li>Download game addon.</li>
+          <li>Populate addon with some data.</li>
+          <li>Go to addon settings and press 'Export/Import' button.</li>
+          <li>Select the radio button with 'Website Export' label.</li>
+          <li>Press 'Export/Import' button</li>
+          <li>Copy the result from the box or copy directly to clipboard.</li>
+          <li>Register <%= link_to 'new guild' , new_guild_path %>.</li>
+          <li>Go to your guild's page and press upload data button.</li>
+          <li>Paste the string and press Import button.</li>
+          <li>Wait a few seconds and you are golden!</li>
+      </p>
+      
+
+     </div>
+    </div>
+  </div> <!-- /container -->
+</div>

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'password_resets/edit'
 
   get 'password_resets/update'
+  get 'index/welcome'
 
   resources :password_resets
   resources :user_sessions
@@ -29,5 +30,5 @@ Rails.application.routes.draw do
       resources :items
     end
   end
-  root 'guilds#index'
+  root 'index#welcome'
 end
