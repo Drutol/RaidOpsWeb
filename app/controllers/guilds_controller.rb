@@ -2,7 +2,7 @@ class GuildsController < ApplicationController
 	require 'net/ftp'
 	require 'stringio'
 
-	skip_before_filter :require_login, only: [:index, :show,:items_all]
+	skip_before_filter :require_login, only: [:index, :show,:items_all,:download]
 	def new
 		if User.find_by_email(current_user.email).guild_id != nil then
 			redirect_to Guild.find(User.find_by_email(current_user.email).guild_id) , notice: 'You have already created guild , remove this one first'

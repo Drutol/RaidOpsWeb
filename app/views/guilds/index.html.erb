@@ -23,8 +23,8 @@
               guild.updated_at
             end            
             
-            g.column  name:  'Details' do |guild|
-              link_to 'More' , guild_path(guild.id)
+            g.column  name:  'Details' , html: {style: 'max-width: 40px'} do |guild|
+              content_tag(:div,(link_to "More" , guild_path(guild.id) , class: 'btn btn-info'),:align => "center")
             end
           end -%>
   </body>

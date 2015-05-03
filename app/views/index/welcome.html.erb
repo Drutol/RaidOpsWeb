@@ -1,47 +1,64 @@
+
+
 <div class="container">
   <div class="jumbotron text-center">
-    <div class="alert alert-danger" role="alert">Website under construction</div>
+    <div class="alert alert-warning" role="alert">Website under construction</div>
     <h1>Raid Ops in Web</h1>
     <p class="lead">Store your EPGP data online!</p>
-    <p><a class="btn-primary btn-lg" href=<%= guilds_path %> >See all registered guilds.</a></p>
-    <p><a class="btn-success btn-lg" href=<%= new_guild_path %> >Register your guild.</a></p>
-    <p><a class="btn-info btn-lg" href="http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding" >Download in game addon.</a></p>
+    <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-th-list")+" See all registered guilds.", guilds_path, class: 'btn-success btn-lg' %></a>    
+    <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-plus")+" Register your guild.", new_guild_path, class: 'btn-info btn-lg' %></a>    
+    <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-download
+")+" Download in-game addon.", 'http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding', class: 'btn-warning btn-lg' %></a>
+
   </div>
-  <div class="panel panel-primary">
-    <div class="row" align="center">
-      <div class="col-lg-6">
-        <h3>Upload data exported from addon.</h3>
-        <p style="font-size:13pt">You will be able to keep it safe.</p>
-        
-        <h3>Keep your raid members updated!</h3>
-        <p style="font-size:13pt">Anyone can check current EP and GP values , logs and items that dropped. </p>        
+  
+  <div class="row" align="center">
+    <div class="col-lg-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading"><h4>Features:</h4></div>
+        <div class="panel-body">
+          <h3>Upload data exported from addon.</h3>
+          <p style="font-size:13pt">You will be able to keep it safe.</p>
+          
+          <h3>Keep your raid members updated!</h3>
+          <p style="font-size:13pt">Anyone can check current EP and GP values , logs and items that dropped. </p>        
 
-        <h3>Filter the roster!</h3>
-        <p style="font-size:13pt">You can filter by class , role and minimum PR for example. Sort by all member's properties.  </p>
-      </div>
-
-    
-    <div class="col-lg-6">
-      <h2>Getting started:</h2>
-      <p style="font-size:15pt" align="left">
-          <li>Download game addon.</li>
-          <li>Populate addon with some data.</li>
-          <li>Go to addon settings and press 'Export/Import' button.</li>
-          <li>Select the radio button with 'Website Export' label.</li>
-          <li>Press 'Export/Import' button</li>
-          <li>Copy the result from the box or copy directly to clipboard.</li>
-          <li>Register <%= link_to 'new guild' , new_guild_path %>.</li>
-          <li>Go to your guild's page and press upload data button.</li>
-          <li>Paste the string and press Import button.</li>
-          <li>Wait a few seconds and you are golden!</li>
-      </p>
-    </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12" align="center">
-        <h3>Big thanks to Jabbithole.com for providing item tooltips!</h2>
-        <a href="http://www.jabbithole.com/"><img src="http://www.jabbithole.com/assets/jabbithole.large-7c730b697d7b005dc5761abc18850449.png" width="10%" height="10%"></a>
+          <h3>Filter the roster!</h3>
+          <p style="font-size:13pt">You can filter and sort by class , role , minimum PR etc.</p>
+        </div>
       </div>
     </div>
-  </div> <!-- /container -->
-</div>
+
+      <div class="col-lg-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading"><h4>Getting started:</h4></div>
+          <div class="panel-body">
+            <p align="left">
+                <li style="font-size:13pt">Download game addon.</li>
+                <li style="font-size:13pt">Populate addon with some data.</li>
+                <li style="font-size:13pt">Go to addon settings and press 'Export/Import' button.</li>
+                <li style="font-size:13pt">Select the radio button with 'Website Export' label.</li>
+                <li style="font-size:13pt">Press 'Export/Import' button</li>
+                <li style="font-size:13pt">Copy the result from the box or copy directly to clipboard.</li>
+                <li style="font-size:13pt">Register <%= link_to 'new guild' , new_guild_path %>.</li>
+                <li style="font-size:13pt">Go to your guild's page and press upload data button.</li>
+                <li style="font-size:13pt">Paste the string and press Import button.</li>
+                <li style="font-size:13pt">Wait a few seconds and you are golden!</li>
+            </p>
+          </div>
+        </div>
+     </div>
+
+    <div class="col-lg-4" align="center">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Thanks!</h4>
+        </div>
+        <div class="panel-body">
+          <h3>Big thanks to <%= link_to 'Jabbithole.com' , 'http://www.jabbithole.com' %> for providing item tooltips!</h3>
+        </div>
+        <a href="http://www.jabbithole.com/"><img src="http://www.jabbithole.com/assets/jabbithole.large-7c730b697d7b005dc5761abc18850449.png" width="100px" height="100px"></a>
+      </div>
+    </div>
+  </div> 
+</div><!-- /container -->

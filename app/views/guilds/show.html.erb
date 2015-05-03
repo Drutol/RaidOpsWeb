@@ -31,6 +31,8 @@
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove
 ")+" Delete", guild_path(@guild), class: 'list-group-item' ,method: :delete, data: { confirm: 'Are you sure?' } %></a>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Upload Data", upload_guild_path, class: 'list-group-item' %> </a>
+                <% end %>
+                <% if @guild.guild_members.count > 0 %>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-download")+" Download Data", download_guild_path, class: 'list-group-item' %></a>
                 <% end %>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-eye-open
@@ -44,12 +46,25 @@
                     Roster Statistics
                   </div>
                   <div class="panel-body">
-                    <div style="font-size: 20pt"><%=image_tag("IconEsper.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Esper'").count %>      |    <%=image_tag("DPS.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'DPS'").count %> </div>
-                    <div style="font-size: 20pt"><%=image_tag("IconWarrior.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Warrior'").count%>       |    <%=image_tag("Heal.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Heal'").count %></div>
-                    <div style="font-size: 20pt"><%=image_tag("IconStalker.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Stalker'").count %>      |    <%=image_tag("Tank.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Tank'").count %> </div>
-                    <div style="font-size: 20pt"><%=image_tag("IconEngineer.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Engineer'").count %></div>
-                    <div style="font-size: 20pt"><%=image_tag("IconMedic.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Medic'").count %></div>
-                    <div style="font-size: 20pt"><%=image_tag("IconSpellslinger.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Spellslinger'").count %></div>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div style="font-size: 20pt"><%=image_tag("IconEsper.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Esper'").count %></div>
+                        <div style="font-size: 20pt">
+                        <%=image_tag("IconWarrior.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Warrior'").count%></div>
+                        <div style="font-size: 20pt"><%=image_tag("IconStalker.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Stalker'").count %></div>
+                        <div style="font-size: 20pt"><%=image_tag("IconEngineer.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Engineer'").count %></div>
+                        <div style="font-size: 20pt"><%=image_tag("IconMedic.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Medic'").count %></div>
+                        <div style="font-size: 20pt"><%=image_tag("IconSpellslinger.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Spellslinger'").count %></div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div style="font-size: 20pt"><%=image_tag("DPS.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'DPS'").count %></div>
+                            <div style="font-size: 20pt">
+                           <%=image_tag("Heal.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Heal'").count %></div>
+                           <div style="font-size: 20pt">
+                           <%=image_tag("Tank.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Tank'").count %> </div>
+
+                        </div>
+                      </div>
                   </div>
           </div>       
           </ul>
@@ -68,11 +83,11 @@
             g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
 
             g.column name:  'Class' , attribute: 'str_class' , html: {style: 'max-width: 75px'} ,  custom_filter: [['Esper', 'Esper'], ['Warrior', 'Warrior'], ['Stalker', 'Stalker'], ['Engineer', 'Engineer'],['Medic', 'Medic'],['Spellslinger', 'Spellslinger']]  do |task|
-              content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "50px" , :width => "50px" , :align => "middle" ),:align => "center") if task.str_class
+              content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_class
             end            
 
             g.column name:  'Role' , attribute: 'str_role' , html: {style: 'max-width: 50px'} , custom_filter: [['Dps', 'DPS'], ['Heal', 'Heal'], ['Tank', 'Tank']] do |task|
-              content_tag(:div ,image_tag("#{task.str_role}.png" , :height => "50px" , :width => "50px" , :align => "middle" ),:align => "center") if task.str_role
+              content_tag(:div ,image_tag("#{task.str_role}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_role
             end
 
             g.column name:  'Name', attribute: 'name' , auto_reload: false  do |task|
