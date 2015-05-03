@@ -45,7 +45,7 @@ class GuildsController < ApplicationController
   	  Item.where(of_guild_id: params[:id]).each do |item|
   	  	@item_owners[item.timestamp] = item.of_member_id
   	  end
-      @items_grid = initialize_grid(Item.where(of_guild_id: params[:id]))
+      @items_grid = initialize_grid(Item.where(of_guild_id: params[:id]),:include => :guild_member)
     end
 
   	def edit
