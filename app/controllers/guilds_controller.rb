@@ -53,6 +53,7 @@ class GuildsController < ApplicationController
     	@timeline_data = Hash.new
     	@EP_gain_data = Hash.new
     	@GP_gain_data = Hash.new
+    	@log = Log.where("n_date = ?",params[:event])[0] if params[:event]
     	for member in @guild.guild_members do
     		for log in member.logs do
 	    		if log.n_date and not @timeline_data[log.n_date.to_i] then

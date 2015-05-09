@@ -11,8 +11,12 @@
               guild.name
             end
 
-            g.column name:  'Realm', attribute: 'realm'  do |guild|
+            g.column name:  'Realm', attribute: 'realm' , custom_filter: [['Jabbit', 'Jabbit'], ['Entity', 'Entity'], ['Luminai', 'Luminai'], ['Warhound', 'Warhound']]  do |guild|
               guild.realm
+            end            
+
+            g.column name:  'Mode', attribute: 'mode' , custom_filter: [['EPGP', 'EPGP'], ['DKP', 'DKP']]  do |guild|
+              guild.mode
             end
 
             g.column  name:  'Owner', attribute: 'owner' do |guild|

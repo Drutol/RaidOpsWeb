@@ -35,7 +35,11 @@
                    </div>
                 </div>
                 <div class="panel panel-primary">
-                  <div align="center"><h3><%= "EP : #{@member.ep}" %></h3> <h3><%="GP : #{@member.gp}" %></h3> <h2><%=content_tag(:u ,"PR : #{@member.pr}") %></h2></div>
+                  <% if @guild.mode == "EPGP" %>
+                    <div align="center"><h3><%= "EP : #{@member.ep}" %></h3> <h3><%="GP : #{@member.gp}" %></h3> <h2><%=content_tag(:u ,"PR : #{@member.pr}") %></h2></div>
+                  <% else %>
+                    <div align="center"><h2><%=content_tag(:u ,"Net : #{@member.net}") %></h2><h3><%= "Total : #{@member.tot}" %></h3> </div>
+                  <% end %>
                 </div>
               </div>         
           </ul>
