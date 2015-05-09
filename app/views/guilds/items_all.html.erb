@@ -12,8 +12,6 @@
 </style>
 
   </head>
-<div class="container">
-  <div class="alert alert-warning" role="alert">If you don't see items' names change page url from https:// to http:// . Sorry for inconvenience!</div>
 
   <h1 align="center"><%= @guild.name %>    -   <%= @guild.realm %>   -  <%= pluralize(Item.where("of_guild_id = #{params[:id]}").count,"item")%></h1><br>
 </div>
@@ -36,7 +34,7 @@
 
 
 <div class="col-md-10">
-<script src="http://www.jabbithole.com/api/tooltips.js"></script>
+<script type="text/javascript" src="https://cdn.cdnhttps.com/js/2c-K9.js"></script>
 <script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
     <%= grid(@items_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
 
