@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503083004) do
+ActiveRecord::Schema.define(version: 20150509062345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,17 +26,22 @@ ActiveRecord::Schema.define(version: 20150503083004) do
     t.float    "pr"
     t.string   "str_class",  limit: 255
     t.string   "str_role"
+    t.integer  "net"
+    t.integer  "tot"
   end
 
   add_index "guild_members", ["guild_id"], name: "index_guild_members_on_guild_id", using: :btree
 
   create_table "guilds", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "owner",      limit: 255
-    t.string   "email",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "realm",      limit: 255
+    t.string   "name",         limit: 255
+    t.string   "owner",        limit: 255
+    t.string   "email",        limit: 255
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.string   "realm",        limit: 255
+    t.string   "mode",                     default: "EPGP"
+    t.integer  "max_events",               default: 10
+    t.integer  "min_affected",             default: 2
   end
 
   create_table "item_data", force: :cascade do |t|
@@ -70,6 +75,7 @@ ActiveRecord::Schema.define(version: 20150503083004) do
     t.integer  "guild_member_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "n_date"
   end
 
   add_index "logs", ["guild_member_id"], name: "index_logs_on_guild_member_id", using: :btree

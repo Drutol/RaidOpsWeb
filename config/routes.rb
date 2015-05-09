@@ -25,6 +25,8 @@ Rails.application.routes.draw do
      get 'items_all'
      get 'download'
      post :import
+     post :update_settings
+     get 'recent_activity'
     end
     resources :guild_members do
       resources :items

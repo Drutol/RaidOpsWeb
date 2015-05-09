@@ -39,6 +39,7 @@ gem 'puma'
 gem 'simple_form'
 gem 'rails_12factor', group: :production
 gem 'bootstrap_form'
+gem 'lazy_high_charts'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

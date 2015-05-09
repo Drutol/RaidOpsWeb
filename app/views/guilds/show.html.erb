@@ -26,19 +26,16 @@
                   Controls
                 </a>
                 <% if current_user and User.find_by_email(current_user.email).guild_id and User.find_by_email(current_user.email).guild_id == @guild.id %>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-pencil
-")+" Edit", edit_guild_path(@guild), class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove
-")+" Delete", guild_path(@guild), class: 'list-group-item' ,method: :delete, data: { confirm: 'Are you sure?' } %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-pencil")+" Edit", edit_guild_path(@guild), class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Delete", guild_path(@guild), class: 'list-group-item' ,method: :delete, data: { confirm: 'Are you sure?' } %></a>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Upload Data", upload_guild_path, class: 'list-group-item' %> </a>
                 <% end %>
                 <% if @guild.guild_members.count > 0 %>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-download")+" Download Data", download_guild_path, class: 'list-group-item' %></a>
                 <% end %>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-eye-open
-")+" All items", items_all_guild_path(@guild) ,class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left
-")+" Back", guilds_path ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-eye-open")+" All items", items_all_guild_path(@guild) ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-road")+" Recent Activity", recent_activity_guild_path(@guild) ,class: 'list-group-item' %></a>                
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guilds_path ,class: 'list-group-item' %></a>
     
               </div>  
                         <div class="panel panel-primary">

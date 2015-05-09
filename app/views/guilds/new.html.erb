@@ -21,6 +21,8 @@
     <%= f.input :owner %>
     <%= f.label :realm %>
     <%= f.select(:realm,[['',''] , ['Jabbit', 'Jabbit'], ['Luminai', 'Luminai'], ['Entity', 'Entity'], ['Warhound', 'Warhound']], {}, { :class => 'form-control' }) %>
+    <%= f.label :mode %>
+    <%= f.select(:mode,[['EPGP','EPGP'] , ['Dkp', 'DKP']) %>
     <div align="center">
     <br><br>
 

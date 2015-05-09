@@ -16,6 +16,6 @@ class LogsController < ApplicationController
  
   private
     def log_params
-      params.require(:log).permit(:strComment, :strType ,:strModifier, :strTimestamp ,:guild_member_id)
+      params.require(:log).permit(:strComment, :strType ,:strModifier, :strTimestamp ,:guild_member_id,:n_date)
     end
 end

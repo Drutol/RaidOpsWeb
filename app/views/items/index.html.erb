@@ -79,8 +79,8 @@
         log.strModifier
       end      
 
-      g.column  name:  'Timestamp' , attribute: 'strTimestamp' do |log|
-        log.strTimestamp
+      g.column  name:  'Timestamp' , attribute: 'n_date' do |log|
+        if log.n_date then Time.at(log.n_date.to_i).strftime('%d/%m/%Y , %T') else log.strTimestamp end
       end
     end -%>
 </div>

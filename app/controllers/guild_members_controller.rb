@@ -7,6 +7,6 @@ class GuildMembersController < ApplicationController
  
   private
     def member_params
-      params.require(:guild_member).permit(:name, :ep ,:gp, :str_class,:str_role)
+      params.require(:guild_member).permit(:name, :ep ,:gp, :str_class,:str_role,:net,:tot)
     end
 end
