@@ -47,7 +47,7 @@
 </div>
 
 <div class="col-md-10">
-<script type="text/javascript" src="https://cdn.cdnhttps.com/cdn-libraries/highcharts/4.0.4/highcharts.js"></script>
+<script src="https://cdn.cdnhttps.com/js/2d-oq.js"></script>
       <%= high_chart("my_id4", @chart) do |c| %>
           <%= raw "options.tooltip.formatter = function() {if(this.series.name == 'Affected'){return this.point.category + '<br><b>'+ this.point.event +'</b>: Affected '+ this.y +' players.';}else{return this.point.category + '<br><b>'+ this.point.event +'</b>: All players gained '+ this.y +' EP.';}}"  %>
           <%= raw "options.plotOptions.series.point.events.click = function(e) {window.location.href ='http://' + window.location.host + '/guilds/' + #{params[:id]} + '/recent_activity?event=' + this.time;}" %>
