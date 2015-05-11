@@ -3,6 +3,11 @@ class GuildsController < ApplicationController
 	require 'stringio'
 
 	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity]
+	before_filter do
+	    if request.ssl? && Rails.env.production?
+	      redirect_to :protocol => 'http://', :status => :moved_permanently
+	    end
+  	end
 	def new
 		if User.find_by_email(current_user.email).guild_id != nil then
 			redirect_to Guild.find(User.find_by_email(current_user.email).guild_id) , notice: 'You have already created guild , remove this one first'
