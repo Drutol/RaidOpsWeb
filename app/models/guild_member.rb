@@ -3,5 +3,7 @@ class GuildMember < ActiveRecord::Base
   has_many :items
   has_many :logs
   
-  validates_uniqueness_of :name, scope: [:guild_id]
+	#validates_uniqueness_of :name, scope: [:guild_id]
+	validates :ep, presence: true
+	validates :gp, presence: true
 end

@@ -8,6 +8,7 @@ class GuildsController < ApplicationController
 	      redirect_to :protocol => 'http://', :status => :moved_permanently
 	    end
   	end
+
 	def new
 		if User.find_by_email(current_user.email).guild_id != nil then
 			redirect_to Guild.find(User.find_by_email(current_user.email).guild_id) , notice: 'You have already created guild , remove this one first'
@@ -18,7 +19,18 @@ class GuildsController < ApplicationController
 
 	def show
    		@guild = Guild.find(params[:id])
-   		@members_grid = initialize_grid(@guild.guild_members.where("name != 'Guild Bank'"),:order => 'guild_members.pr',:order_direction => 'desc')
+   		members = Array.new
+   		@edited = Array.new   		
+   		for member in @guild.guild_members do
+   			edit_member = GuildMember.find_by_edit_flag(member.id)
+   			if edit_member then
+   				members.push(edit_member.id)
+   				@edited.push(edit_member.id)
+   			elsif member.name != "Guild Bank" then
+   				members.push(member.id)
+   			end
+   		end
+   		@members_grid = initialize_grid(GuildMember.where(id: members),:order => 'guild_members.pr',:order_direction => 'desc')
   	end
 
   	def index

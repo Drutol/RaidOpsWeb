@@ -29,7 +29,11 @@ Rails.application.routes.draw do
      get 'recent_activity'
     end
     resources :guild_members do
+      member do
+        post 'change'
+      end
       resources :items
+
     end
   end
   root 'index#welcome'

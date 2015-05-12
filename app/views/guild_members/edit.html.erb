@@ -1,0 +1,18 @@
+<div class="container">
+  <div align="center"><h1>Update guild</h1></div>
+
+  <%= simple_form_for(@member,url: {controller: "guild_members", action: "change"}, method: "post", html: { class: 'form-horizontal' }) do |f| %>
+    <%= f.input :name %>
+    <%= f.input :ep , :as => "integer"%>
+    <%= f.input :gp , :as => "integer"%>
+    <%= f.label :str_class %>
+    <%= f.select(:str_class,[['Esper', 'Esper'], ['Warrior', 'Warrior'], ['Stalker', 'Stalker'], ['Engineer', 'Engineer'],['Medic', 'Medic'],['Spellslinger', 'Spellslinger']], {}, { :class => 'form-control' }) %>
+    <%= f.label :str_role %>
+    <%= f.select(:str_role,[['Dps', 'DPS'], ['Heal', 'Heal'], ['Tank', 'Tank']], {}, { :class => 'form-control' }) %>
+    <div align="center">
+    <br><br>
+
+    <%= f.button :submit , class: 'btn btn-info' %>
+    </div>
+  <% end %>
+</div>
