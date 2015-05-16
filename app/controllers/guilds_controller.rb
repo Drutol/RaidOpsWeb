@@ -211,7 +211,6 @@ class GuildsController < ApplicationController
 	end
 
 	def import
-
 		@guild = Guild.find(params[:id])
 		strState , c_counter , u_counter , l_counter , i_counter = @guild.import(params)
 		if strState == "success" then
@@ -233,6 +232,23 @@ class GuildsController < ApplicationController
 			redirect_to upload_guild_path(@guild) , notice: 'Invalid data'
 		else
 			redirect_to upload_guild_path(@guild) , notice: strState
+		end
+	end
+
+	def review_changes
+		@members_grid = initialize_grid(GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL"))
+		@guild = Guild.find(params[:id])
+	end
+
+	def commit_all
+		for member in GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL") do
+			member.commit
+		end
+	end
+
+	def undo_all
+		for member in GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL") do
+			member.destroy
 		end
 	end
 

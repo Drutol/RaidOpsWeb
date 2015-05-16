@@ -1,13 +1,20 @@
 class ItemsController < ApplicationController
   	skip_before_filter :require_login, only: [:index, :show]
-  	def index
-  		@guild = Guild.find(params[:guild_id])
+    def index
+      @guild = Guild.find(params[:guild_id])
   		for member in @guild.guild_members do
-  			if member.id.to_f == params[:guild_member_id].to_f then
-          @member = member
-  				@items_grid = initialize_grid(member.items,:name => 'items_grid')
-          @logs_grid = initialize_grid(member.logs,:name => 'logs_grid')
-  				break
+  			if member.id.to_i == params[:guild_member_id].to_i then
+          if not member.edit_flag then
+  				  @member = member
+            @items_grid = initialize_grid(member.items,:name => 'items_grid')         
+            @logs_grid = initialize_grid(member.logs,:name => 'logs_grid')
+  				  break
+          else
+            redirect_member = GuildMember.find(member.edit_flag)
+            @member = redirect_member
+            @items_grid = initialize_grid(redirect_member.items,:name => 'items_grid')         
+            @logs_grid = initialize_grid(redirect_member.logs,:name => 'logs_grid')
+          end
   			end 
   		end
   	end

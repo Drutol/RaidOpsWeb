@@ -12,14 +12,22 @@ class GuildMembersController < ApplicationController
 	def change
 
 		guild = Guild.find(params[:guild_id])
-		member = guild.guild_members.find(params[:id])
-		edit_member = GuildMember.find_by_edit_flag(params[:id])
+		member = GuildMember.find(params[:id])
+		if GuildMember.find(params[:id]).edit_flag then
+			edit_member = GuildMember.find(params[:id])
+		end
+		
 		if not edit_member then
 			guild.guild_members.create!(:name => member_params[:name],:ep => member_params[:ep],:gp => member_params[:gp],:pr => "%.2f"%(member_params[:ep].to_f/member_params[:gp].to_f),:str_class => member_params[:str_class],:str_role => member_params[:str_role],:tot => member.tot,:net => member.net,:edit_flag => params[:id]) #TODO DKP
 		else
-			edit_member.update!(:name => params[:name],:ep => params[:ep],:gp => params[:gp],:pr => "%.2f"%(params[:ep].to_f/params[:gp].to_f),:str_class => params[:str_class],:str_role => params[:str_role],:tot => member.tot,:net => member.net,:edit_flag => params[:id]) #TODO DKP
+			edit_member.update_attributes!(:name => member_params[:name],:ep => member_params[:ep],:gp => member_params[:gp],:pr => "%.2f"%(member_params[:ep].to_f/member_params[:gp].to_f),:str_class => member_params[:str_class],:str_role => member_params[:str_role],:tot => member.tot,:net => member.net) #TODO DKP
 		end
 		redirect_to guild_path(guild)
+	end
+
+	def undo
+		GuildMember.find(params[:id]).destroy
+		redirect_to guild_path(params[:guild_id])
 	end
  
   private

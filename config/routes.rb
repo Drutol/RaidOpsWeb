@@ -27,10 +27,13 @@ Rails.application.routes.draw do
      post :import
      post :update_settings
      get 'recent_activity'
+     get 'review_changes'
+     post 'commit_changes'
     end
     resources :guild_members do
       member do
         post 'change'
+        post 'undo'
       end
       resources :items
 

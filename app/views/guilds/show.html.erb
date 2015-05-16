@@ -35,7 +35,7 @@
                 <% end %>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-eye-open")+" All items", items_all_guild_path(@guild) ,class: 'list-group-item' %></a>
                 <% if @edited.count > 0 %>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-edit")+" Commit changes (#{@edited.count})", recent_activity_guild_path(@guild),class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-edit")+" Commit changes (#{@edited.count})", review_changes_guild_path(@guild),class: 'list-group-item' %></a>
                 <% end %>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-road")+" Recent Activity", recent_activity_guild_path(@guild) ,class: 'list-group-item' %></a>                
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guilds_path ,class: 'list-group-item' %></a>
@@ -48,20 +48,20 @@
                   <div class="panel-body">
                     <div class="row">
                       <div class="col-lg-6">
-                        <div style="font-size: 20pt"><%=image_tag("IconEsper.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Esper'").count %></div>
+                        <div style="font-size: 20pt"><%=image_tag("IconEsper.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Esper' and edit_flag IS NULL").count %></div>
                         <div style="font-size: 20pt">
-                        <%=image_tag("IconWarrior.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Warrior'").count%></div>
-                        <div style="font-size: 20pt"><%=image_tag("IconStalker.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Stalker'").count %></div>
-                        <div style="font-size: 20pt"><%=image_tag("IconEngineer.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Engineer'").count %></div>
-                        <div style="font-size: 20pt"><%=image_tag("IconMedic.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Medic'").count %></div>
-                        <div style="font-size: 20pt"><%=image_tag("IconSpellslinger.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Spellslinger'").count %></div>
+                        <%=image_tag("IconWarrior.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Warrior' and edit_flag IS NULL").count%></div>
+                        <div style="font-size: 20pt"><%=image_tag("IconStalker.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Stalker' and edit_flag IS NULL").count %></div>
+                        <div style="font-size: 20pt"><%=image_tag("IconEngineer.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Engineer' and edit_flag IS NULL").count %></div>
+                        <div style="font-size: 20pt"><%=image_tag("IconMedic.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Medic' and edit_flag IS NULL").count %></div>
+                        <div style="font-size: 20pt"><%=image_tag("IconSpellslinger.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Spellslinger' and edit_flag IS NULL").count %></div>
                         </div>
                         <div class="col-lg-6">
-                            <div style="font-size: 20pt"><%=image_tag("DPS.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'DPS'").count %></div>
+                            <div style="font-size: 20pt"><%=image_tag("DPS.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'DPS' and edit_flag IS NULL").count %></div>
                             <div style="font-size: 20pt">
-                           <%=image_tag("Heal.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Heal'").count %></div>
+                           <%=image_tag("Heal.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Heal' and edit_flag IS NULL").count %></div>
                            <div style="font-size: 20pt">
-                           <%=image_tag("Tank.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Tank'").count %> </div>
+                           <%=image_tag("Tank.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Tank' and edit_flag IS NULL").count %> </div>
 
                         </div>
                       </div>
@@ -83,11 +83,11 @@
             g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
 
             g.column name:  'Class' , attribute: 'str_class' , html: {style: 'max-width: 75px'} ,  custom_filter: [['Esper', 'Esper'], ['Warrior', 'Warrior'], ['Stalker', 'Stalker'], ['Engineer', 'Engineer'],['Medic', 'Medic'],['Spellslinger', 'Spellslinger']]  do |task|
-              if task.edit_flag then
-              [content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center"),{style: 'background-color: #EDBD2B;'}] if task.str_class
-              else
+              #if task.edit_flag then
+              #[content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center"),{style: 'background-color: #EDBD2B;'}] if task.str_class
+              #else
               content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_class
-              end
+              #end
             end            
 
             g.column name:  'Role' , attribute: 'str_role' , html: {style: 'max-width: 50px'} , custom_filter: [['Dps', 'DPS'], ['Heal', 'Heal'], ['Tank', 'Tank']] do |task|
@@ -112,6 +112,14 @@
             
             g.column  name:  'Details' , html: {style: 'max-width: 80px'} do |task|
               content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline") + "  " + (link_to "Edit" , edit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-warning',:style => "display:inline"),:align => "center")       
+            end
+
+            if @edited.count > 0 then
+              g.column  name:  'Modified' , attribute: 'edit_flag', filter: false , html: {style: 'max-width: 40px'} do |task|
+                if task.edit_flag then 
+                  content_tag(:p,(link_to "Undo" , undo_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-danger',:style => "display:inline",method: :undo))
+                end
+              end
             end
           end -%>
         <% else %>

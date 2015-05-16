@@ -13,12 +13,6 @@ class Guild < ActiveRecord::Base
 		rescue
 			return "fail"
 		end
-		
-		path = "#{Rails.root.to_s}/app/guild_data/json_import/guild_#{params[:id]}.txt"
-
-		File.open(path, "w+") do |f|
-		  f.write(params[:json])
-		end
 		begin  
 			hash.each do |arr|
 	 		 	bFound = false

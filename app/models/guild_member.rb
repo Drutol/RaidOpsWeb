@@ -6,4 +6,9 @@ class GuildMember < ActiveRecord::Base
 	#validates_uniqueness_of :name, scope: [:guild_id]
 	validates :ep, presence: true
 	validates :gp, presence: true
+
+	def commit
+
+
+	end
 end
