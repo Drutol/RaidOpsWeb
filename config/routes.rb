@@ -24,16 +24,19 @@ Rails.application.routes.draw do
      get 'upload'
      get 'items_all'
      get 'download'
-     post :import
-     post :update_settings
      get 'recent_activity'
      get 'review_changes'
+     post :import
+     post :update_settings
      post 'commit_changes'
+     post 'undo_all'
+     post 'commit_all'
     end
     resources :guild_members do
       member do
         post 'change'
         post 'undo'
+        post 'commit'
       end
       resources :items
 

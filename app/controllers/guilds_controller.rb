@@ -243,12 +243,14 @@ class GuildsController < ApplicationController
 	def commit_all
 		for member in GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL") do
 			member.commit
+			redirect_to guild_path(params[:id])
 		end
 	end
 
 	def undo_all
 		for member in GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL") do
 			member.destroy
+			redirect_to guild_path(params[:id])
 		end
 	end
 

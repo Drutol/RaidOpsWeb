@@ -7,8 +7,8 @@
                   Controls
                 </a>
                 <% if current_user and User.find_by_email(current_user.email).guild_id and User.find_by_email(current_user.email).guild_id == @guild.id %>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-ok")+" Commit", guild_path(@guild), class: 'list-group-item', method: :commit_all %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Discard all changes", guild_path(@guild), class: 'list-group-item' ,method: :undo_all, data: { confirm: 'Are you sure?' } %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-ok")+" Commit", commit_all_guild_path(@guild), class: 'list-group-item', method: :commit_all %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Discard all changes", undo_all_guild_path(@guild), class: 'list-group-item' ,method: :undo_all, data: { confirm: 'Are you sure?' } %></a>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>
                 <% end %>
               </div>      
@@ -54,7 +54,7 @@
 
             g.column  name:  'Modified' , attribute: 'edit_flag', filter: false , html: {style: 'max-width: 80px'} do |task|
               if task.edit_flag then 
-                content_tag(:p,(link_to "Undo" , undo_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-danger',:style => "display:inline") + "  " + (link_to "Commit" , edit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-info',:style => "display:inline"),:align => "center") 
+                content_tag(:p,(link_to "Undo" , undo_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-danger',:style => "display:inline",method: :undo) + "  " + (link_to "Commit" , commit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-info',:style => "display:inline",method: :commit),:align => "center") 
               end
             end
           end -%>

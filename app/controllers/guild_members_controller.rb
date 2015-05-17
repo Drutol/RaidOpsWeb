@@ -29,6 +29,11 @@ class GuildMembersController < ApplicationController
 		GuildMember.find(params[:id]).destroy
 		redirect_to guild_path(params[:guild_id])
 	end
+
+	def commit
+		GuildMember.find(params[:id]).commit
+		redirect_to guild_path(params[:guild_id])
+	end
  
   private
     def member_params
