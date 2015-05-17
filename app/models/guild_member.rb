@@ -7,7 +7,7 @@ class GuildMember < ActiveRecord::Base
 	validates :ep, presence: true
 	validates :gp, presence: true
 
-	def commit
+	def commit(commit_string = true)
 		source = GuildMember.find(id)
 		target = GuildMember.find(source.edit_flag)
 
@@ -51,9 +51,23 @@ class GuildMember < ActiveRecord::Base
 			target.update_attributes(:ep => source.ep,:gp => source.gp,:net => source.net,:tot => source.tot,:str_class => source.str_class,:str_role => source.str_role)
 			source.destroy
 			target.logs.create(:strComment => comment,:strType => "{Website}",:strModifier => strModifier,:guild_member_id => target.id,:n_date => Time.now.to_i)
+			if commit_string then Guild.find(target.guild_id).update_json end
 			return 1
 		else
 			return 0
+		end
+
+		def differ?(sample) #hash
+			if ep != sample[:ep] or gp != sample[:gp] or net != sample[:net] or tot != sample[:tot] or str_role != sample[:strRole] or str_class != sample[:strClass] then return true else return false end
+		end
+
+		def infuse(target)
+			target[:ep] => ep
+			target[:gp] => gp
+			target[:net] => net
+			target[:tot] => tot
+			target[:strClass] => str_class 
+			target[:strRole] => str_role
 		end
 
 	end

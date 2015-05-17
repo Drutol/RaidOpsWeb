@@ -50,7 +50,7 @@ class GuildsController < ApplicationController
 			}
 			ftp.close
 			raw.rewind
-			send_data raw.read, :filename => filename
+			send_data raw.read, :filename => "guild_json_#{params[:id]}.txt"
 		rescue
 	 		redirect_to Guild.find(params[:id]) , notice: 'Download failed'
 	 	end
@@ -242,9 +242,10 @@ class GuildsController < ApplicationController
 
 	def commit_all
 		for member in GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL") do
-			member.commit
+			member.commit(false)
 			redirect_to guild_path(params[:id])
 		end
+		Guild.find(params[:id]).update_json
 	end
 
 	def undo_all

@@ -70,6 +70,34 @@ class Guild < ActiveRecord::Base
  		return "success" , create_counter , update_counter , log_counter , item_counter
 	end
 
+	def update_json
+		#begin
+		  	ftp = Net::FTP.new
+			ftp.connect('31.220.16.113')
+			ftp.login('u292965448', ENV['FTP_PASS'])
+			ftp.passive = true
+			filename = "/public_html/guild_json_#{id}.txt"
+			raw = StringIO.new('')
+			ftp.retrbinary('RETR ' + filename, 4096) { |data|
+			raw << data
+			}
+			ftp.close
+			raw.rewind
+
+			json_target = JSON.parse(raw.read)
+			json_target.each do |arr|
+				guild_members.each do |member|
+					if member.strName == arr[:strName] and member.differ?(arr) then
+						member.infuse(arr)
+						break
+					end
+				end
+			end
+
+
+
+	end
+
 	validates :name, presence: true
 	validates :owner, presence: true
 	validates :realm, length: {minimum: 2}

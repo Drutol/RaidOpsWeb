@@ -25,10 +25,7 @@ pre {
 a {
   color: #000;
 }
-/* line 23, /home/drutol/heroku/app/assets/stylesheets/scaffolds.scss */
-a:visited {
-  color: white;
-}
+
 /* line 26, /home/drutol/heroku/app/assets/stylesheets/scaffolds.scss */
 a:hover {
   color: #fff;
