@@ -243,9 +243,9 @@ class GuildsController < ApplicationController
 	def commit_all
 		for member in GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL") do
 			member.commit(false)
-			redirect_to guild_path(params[:id])
 		end
-		Guild.find(params[:id]).update_json
+		strState = Guild.find(params[:id]).update_json
+		redirect_to guild_path(params[:id]), notice: strState
 	end
 
 	def undo_all

@@ -71,31 +71,43 @@ class Guild < ActiveRecord::Base
 	end
 
 	def update_json
+		
 		#begin
 		  	ftp = Net::FTP.new
 			ftp.connect('31.220.16.113')
-			ftp.login('u292965448', ENV['FTP_PASS'])
+			ftp.login('u292965448', 'Ik34UXQiiU')
 			ftp.passive = true
 			filename = "/public_html/guild_json_#{id}.txt"
 			raw = StringIO.new('')
 			ftp.retrbinary('RETR ' + filename, 4096) { |data|
 			raw << data
 			}
-			ftp.close
 			raw.rewind
 
-			json_target = JSON.parse(raw.read)
-			json_target.each do |arr|
-				guild_members.each do |member|
-					if member.strName == arr[:strName] and member.differ?(arr) then
-						member.infuse(arr)
+			json_data = JSON.parse(raw.read)
+			for arr in json_data do
+				for member in guild_members do
+					if member.name.to_s == arr['strName'].to_s then# and member.differ?(arr) then
+						arr['EP'] = member.ep
+						arr['GP'] = member.gp
+						arr['net'] = member.net
+						arr['tot'] = member.tot
+						arr['strClass'] =  member.str_class 
+						arr['strRole'] = member.str_role
 						break
 					end
 				end
 			end
 
+			#ftp = Net::FTP.new('31.220.16.113')
+			#ftp.passive = true
+			#ftp.login('u292965448', ENV['FTP_PASS'])
+			ftp.puttextcontent(JSON.generate(json_data), "/public_html/guild_json_#{id}.txt")
+			ftp.close
+		#rescue
 
-
+		#end
+		return "Success"
 	end
 
 	validates :name, presence: true

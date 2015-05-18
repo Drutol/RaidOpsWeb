@@ -62,12 +62,12 @@ class GuildMember < ActiveRecord::Base
 		end
 
 		def infuse(target)
-			target[:ep] => ep
-			target[:gp] => gp
-			target[:net] => net
-			target[:tot] => tot
-			target[:strClass] => str_class 
-			target[:strRole] => str_role
+			target[:ep] = ep
+			target[:gp] = gp
+			target[:net] = net
+			target[:tot] = tot
+			target[:strClass] =  str_class 
+			target[:strRole] = str_role
 		end
 
 	end
