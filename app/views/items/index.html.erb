@@ -1,6 +1,6 @@
 
 <head>
-<script type="text/javascript" src="https://cdn.cdnhttps.com/js/2c-K9.js"></script>
+<script type="text/javascript" src="http://www.jabbithole.com/api/tooltips.js"></script>
 <script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
 <style type="text/css">
   table.my-grid {
@@ -81,6 +81,10 @@
 
       g.column  name:  'Modifier' , attribute: 'strModifier' do |log|
         log.strModifier
+      end        
+
+      g.column  name:  'After' , attribute: 'n_after' do |log|
+        log.n_after
       end      
 
       g.column  name:  'Timestamp' , attribute: 'n_date' do |log|

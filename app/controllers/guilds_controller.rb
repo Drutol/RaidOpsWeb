@@ -10,6 +10,7 @@ class GuildsController < ApplicationController
   	end
 
 	def new
+		#redirect_to guilds_path , notice: "Sorry but the website is currently on free hosting and there's no more space , if you want to help read this https://github.com/Mordonus/RaidOps/issues/185"
 		if User.find_by_email(current_user.email).guild_id != nil then
 			redirect_to Guild.find(User.find_by_email(current_user.email).guild_id) , notice: 'You have already created guild , remove this one first'
 		else
@@ -30,7 +31,7 @@ class GuildsController < ApplicationController
    				members.push(member.id)
    			end
    		end
-   		@members_grid = initialize_grid(GuildMember.where(id: members),:order => 'guild_members.pr',:order_direction => 'desc')
+   		@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc')
   	end
 
   	def index
@@ -64,6 +65,7 @@ class GuildsController < ApplicationController
   	  end
       @items_grid = initialize_grid(Item.where(of_guild_id: params[:id]),:include => :guild_member)
     end
+
 
     def recent_activity
     	@guild = Guild.find(params[:id])
@@ -236,6 +238,7 @@ class GuildsController < ApplicationController
 	end
 
 	def review_changes
+		if not authorized?(params[:id]) then redirect_to guild_path(params[:id]) end
 		@members_grid = initialize_grid(GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL"))
 		@guild = Guild.find(params[:id])
 	end

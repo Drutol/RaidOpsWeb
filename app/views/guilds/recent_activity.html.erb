@@ -32,15 +32,18 @@
                 </div> 
               <% end %>
               <div class="panel panel-primary" align="center">  
+              <div class="panel-heading">Settings</div>
+              <div class="panel-body">
               <%= form_tag({controller: "guilds", action: "update_settings"}, method: "post") do %>
-                <h3>Settings</h3>
                 <%= label_tag(:max_ev, 'Maximum events')%>
                 <%= text_field_tag(:max_ev, @guild.max_events ,class: "form-control")%>
                 <%= label_tag(:max_aff, 'Minimum affected')%>
                 <%= text_field_tag(:min_aff, @guild.min_affected ,class: "form-control")%>
                 <br>
                 <%= submit_tag("Submit" , class: "btn btn-primary") %></br>
+
               <% end %>
+              </div>
               </div>         
           </ul>
       </div>

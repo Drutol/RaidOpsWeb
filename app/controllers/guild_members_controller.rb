@@ -1,4 +1,6 @@
 class GuildMembersController < ApplicationController
+
+
 	def create
 	    @guild = Guild.find(params[:guild_id])
 	    @guild_member = @guild.guild_members.create(member_params)
@@ -6,7 +8,9 @@ class GuildMembersController < ApplicationController
 	end
 
 	def edit
+		if not authorized?(params[:guild_id]) then redirect_to guild_path(params[:guild_id]) end
 		@member = GuildMember.find(params[:id])
+		@guild = Guild.find(params[:guild_id])
 	end
 
 	def change
@@ -16,11 +20,28 @@ class GuildMembersController < ApplicationController
 		if GuildMember.find(params[:id]).edit_flag then
 			edit_member = GuildMember.find(params[:id])
 		end
-		
+		if not member_params[:ep] then 
+			nEP = member.ep
+			nGP = member.gp
+
+			nNet = member_params[:net]
+			nTot = member.tot
+			if (member_params[:net].to_i - member.net) > 0 then
+				nTot = member.tot +	(member_params[:net].to_i - member.net)
+			end 
+		end
+
+		if not member_params[:net] then
+			nNet = member.net
+			nTot = member.tot
+
+			nEP = member_params[:ep]
+			nGP = member_params[:gp]
+		end
 		if not edit_member then
-			guild.guild_members.create!(:name => member_params[:name],:ep => member_params[:ep],:gp => member_params[:gp],:pr => "%.2f"%(member_params[:ep].to_f/member_params[:gp].to_f),:str_class => member_params[:str_class],:str_role => member_params[:str_role],:tot => member.tot,:net => member.net,:edit_flag => params[:id]) #TODO DKP
+			guild.guild_members.create!(:name => member.name,:ep => nEP,:gp => nGP,:pr => "%.2f"%(nEP.to_f/nGP.to_f),:str_class => member_params[:str_class],:str_role => member_params[:str_role],:tot => nTot,:net => nNet,:edit_flag => params[:id]) #TODO DKP
 		else
-			edit_member.update_attributes!(:name => member_params[:name],:ep => member_params[:ep],:gp => member_params[:gp],:pr => "%.2f"%(member_params[:ep].to_f/member_params[:gp].to_f),:str_class => member_params[:str_class],:str_role => member_params[:str_role],:tot => member.tot,:net => member.net) #TODO DKP
+			edit_member.update_attributes!(:name => member.name,:ep => nEP,:gp => nGP,:pr => "%.2f"%(nEP.to_f/nGP.to_f),:str_class => member_params[:str_class],:str_role => member_params[:str_role],:tot => nTot,:net => nNet) #TODO DKP
 		end
 		redirect_to guild_path(guild)
 	end

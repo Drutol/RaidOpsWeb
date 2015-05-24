@@ -14,6 +14,7 @@ class GuildMember < ActiveRecord::Base
 		if source and target then
 			ep_gain = source.ep - target.ep
 			gp_gain = source.gp - target.gp
+			net_gain = source.net - target.net
 			comment = ""
 			strModifier = ""
 			if ep_gain == 0 and gp_gain != 0 then
@@ -31,7 +32,14 @@ class GuildMember < ActiveRecord::Base
 				end
 				strModifier = ep_gain.to_s
 			elsif ep_gain == 0 and gp_gain == 0 then
-				strModifier = "Other"
+				#DKP maybe?
+				if net_gain > 0 then
+					comment = "Add DKP"
+				elsif net_gain < 0 then
+					comment = "Subtract DKP"
+				else #finish
+					comment = "Other"
+				end	
 			else #both different
 				if gp_gain > 0 then
 					comment = "Add GP "
@@ -48,7 +56,7 @@ class GuildMember < ActiveRecord::Base
 				strModifier = gp_gain.to_s + " " + ep_gain.to_s
 			end
 
-			target.update_attributes(:ep => source.ep,:gp => source.gp,:net => source.net,:tot => source.tot,:str_class => source.str_class,:str_role => source.str_role)
+			target.update_attributes(:ep => source.ep,:gp => source.gp,:net => source.net,:pr => source.pr,:tot => source.tot,:str_class => source.str_class,:str_role => source.str_role)
 			source.destroy
 			target.logs.create(:strComment => comment,:strType => "{Website}",:strModifier => strModifier,:guild_member_id => target.id,:n_date => Time.now.to_i)
 			if commit_string then Guild.find(target.guild_id).update_json end

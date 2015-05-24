@@ -37,15 +37,15 @@
             end
 
             g.column  name:  'EP', attribute: 'ep', auto_reload: false do |task|
-              task.ep
+              content_tag(:p,"Now: " + task.ep.to_s) + " " + content_tag(:p,"Prev: " + GuildMember.find(task.edit_flag).ep.to_s)
             end
 
             g.column  name:  'GP', attribute: 'gp', auto_reload: false do |task|
-              task.gp
+              content_tag(:p,"Now: " + task.gp.to_s) + " " + content_tag(:p,"Prev: " + GuildMember.find(task.edit_flag).gp.to_s)
             end            
 
             g.column  name:  'PR' , attribute: 'pr', auto_reload: false do |task|
-              [task.pr, {style: 'background-color: #F8FFD1;'}]  
+              [content_tag(:p,"Now: " + task.pr.to_s) + " " + content_tag(:p,"Prev: " + GuildMember.find(task.edit_flag).pr.to_s), {style: 'background-color: #F8FFD1;'}]  
             end
             
             g.column  name:  'Details' , html: {style: 'max-width: 80px'} do |task|
@@ -76,15 +76,21 @@
             end
 
             g.column  name:  'Net', attribute: 'net', auto_reload: false do |task|
-              [task.net, {style: 'background-color: #F8FFD1;'}]  
+              [content_tag(:p,"Now: " + task.net.to_s) + " " + content_tag(:p,"Prev: " + GuildMember.find(task.edit_flag).net.to_s)  ,{style: 'background-color: #F8FFD1;'}]
             end
 
             g.column  name:  'Total', attribute: 'tot', auto_reload: false do |task|
               task.tot
             end            
 
-            g.column  name:  'Details' , html: {style: 'max-width: 40px'} do |task|
-              content_tag(:div,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-default'),:align => "center")
+            g.column  name:  'Details' , html: {style: 'max-width: 80px'} do |task|
+              content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline") + "  " + (link_to "Edit" , edit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-warning',:style => "display:inline"),:align => "center")       
+            end
+
+            g.column  name:  'Modified' , attribute: 'edit_flag', filter: false , html: {style: 'max-width: 80px'} do |task|
+              if task.edit_flag then 
+                content_tag(:p,(link_to "Undo" , undo_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-danger',:style => "display:inline",method: :undo) + "  " + (link_to "Commit" , commit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-info',:style => "display:inline",method: :commit),:align => "center") 
+              end
             end
           end -%>
 

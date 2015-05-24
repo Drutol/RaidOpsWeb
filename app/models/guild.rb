@@ -50,10 +50,12 @@ class Guild < ActiveRecord::Base
 	 				if arr['logs'] and member.name == arr['strName'] then
 	 					member.logs.delete_all
 	 					arr['logs'].each do |log|
+	 						if not log['nAfter'] then after = 0 else after = log['nAfter'] end
+
 	 						if not log['nDate'] and log['strTimestamp'] then
-	 							member.logs.create(:strComment => log['strComment'],:strTimestamp => log['strTimestamp'],:strType => log['strType'],:strModifier => log['strModifier'])
+	 							member.logs.create(:strComment => log['strComment'],:strTimestamp => log['strTimestamp'],:strType => log['strType'],:strModifier => log['strModifier'],:n_after => after)
 	 						else
-	 							member.logs.create(:strComment => log['strComment'],:n_date => log['nDate'],:strType => log['strType'],:strModifier => log['strModifier'])
+	 							member.logs.create(:strComment => log['strComment'],:n_date => log['nDate'],:strType => log['strType'],:strModifier => log['strModifier'],:n_after => after)
 	 						end
 	 						log_counter += 1
 	 						if log_counter > 20 then
@@ -72,10 +74,10 @@ class Guild < ActiveRecord::Base
 
 	def update_json
 		
-		#begin
+		begin
 		  	ftp = Net::FTP.new
 			ftp.connect('31.220.16.113')
-			ftp.login('u292965448', 'Ik34UXQiiU')
+			ftp.login('u292965448', ENV['FTP_PASS'])
 			ftp.passive = true
 			filename = "/public_html/guild_json_#{id}.txt"
 			raw = StringIO.new('')
@@ -104,10 +106,10 @@ class Guild < ActiveRecord::Base
 			#ftp.login('u292965448', ENV['FTP_PASS'])
 			ftp.puttextcontent(JSON.generate(json_data), "/public_html/guild_json_#{id}.txt")
 			ftp.close
-		#rescue
-
-		#end
-		return "Success"
+		rescue
+			return "Data not updated , if problem persists notify me via issue tracker."
+		end
+		return "Data updated , download new data and sync with in-game addon."
 	end
 
 	validates :name, presence: true

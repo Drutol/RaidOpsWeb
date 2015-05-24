@@ -25,7 +25,7 @@
                 <a href="#" class="list-group-item active fixed">
                   Controls
                 </a>
-                <% if current_user and User.find_by_email(current_user.email).guild_id and User.find_by_email(current_user.email).guild_id == @guild.id %>
+                <% if authorized?(@guild.id) %>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-pencil")+" Edit", edit_guild_path(@guild), class: 'list-group-item' %></a>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Delete", guild_path(@guild), class: 'list-group-item' ,method: :delete, data: { confirm: 'Are you sure?' } %></a>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Upload Data", upload_guild_path, class: 'list-group-item' %> </a>
@@ -109,12 +109,18 @@
             g.column  name:  'PR' , attribute: 'pr', auto_reload: false do |task|
               [task.pr, {style: 'background-color: #F8FFD1;'}]  
             end
+            size = ''
             
-            g.column  name:  'Details' , html: {style: 'max-width: 80px'} do |task|
-              content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline") + "  " + (link_to "Edit" , edit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-warning',:style => "display:inline"),:align => "center")       
+            if authorized?(@guild.id) then size = '80px' else size = '40px' end
+            g.column  name:  'Details' , html: {style: "max-width:#{size}"} do |task|
+              if authorized?(@guild.id) then
+              content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline") + "  " + (link_to "Edit" , edit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-warning',:style => "display:inline"),:align => "center")
+              else
+              content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline"))
+              end        
             end
 
-            if @edited.count > 0 then
+            if @edited.count > 0 and current_user and User.find_by_email(current_user.email).guild_id and User.find_by_email(current_user.email).guild_id == @guild.id then
               g.column  name:  'Modified' , attribute: 'edit_flag', filter: false , html: {style: 'max-width: 40px'} do |task|
                 if task.edit_flag then 
                   content_tag(:p,(link_to "Undo" , undo_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-danger',:style => "display:inline",method: :undo))
@@ -147,8 +153,21 @@
               task.tot
             end            
 
-            g.column  name:  'Details' , html: {style: 'max-width: 40px'} do |task|
-              content_tag(:div,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-default'),:align => "center")
+            if authorized?(@guild.id) then size = '80px' else size = '40px' end
+            g.column  name:  'Details' , html: {style: "max-width:#{size}"} do |task|
+              if authorized?(@guild.id) then
+              content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline") + "  " + (link_to "Edit" , edit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-warning',:style => "display:inline"),:align => "center")
+              else
+              content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline"))
+              end        
+            end
+
+            if @edited.count > 0 and current_user and User.find_by_email(current_user.email).guild_id and User.find_by_email(current_user.email).guild_id == @guild.id then
+              g.column  name:  'Modified' , attribute: 'edit_flag', filter: false , html: {style: 'max-width: 40px'} do |task|
+                if task.edit_flag then 
+                  content_tag(:p,(link_to "Undo" , undo_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-danger',:style => "display:inline",method: :undo))
+                end
+              end
             end
           end -%>
 
