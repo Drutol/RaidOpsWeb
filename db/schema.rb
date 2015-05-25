@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20150525104438) do
     t.integer  "min_affected",             default: 2
   end
 
+  create_table "item_data", force: :cascade do |t|
+    t.integer  "item_id"
+    t.string   "name"
+    t.string   "category"
+    t.string   "type"
+    t.string   "slot"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "items", force: :cascade do |t|
     t.integer  "ingame_id"
     t.integer  "timestamp"

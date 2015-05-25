@@ -16,4 +16,3 @@
 !/log/.keep
 /tmp
 /config/environment_variables.yml
-/config/database.yml

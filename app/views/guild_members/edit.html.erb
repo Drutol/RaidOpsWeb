@@ -1,3 +1,9 @@
+<% if not authorized?(@guild.id) %>
+<script type="text/javascript">
+    window.location.href= "<%= "/guilds/#{params[:guild_id]}" %>" 
+</script>
+<% end %>
+
 <div class="container">
   <div align="center"><h1>Update <%= @member.name %></h1></div>
   <% if @guild.mode == "EPGP" %>

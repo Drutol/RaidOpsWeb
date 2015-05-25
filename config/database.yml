@@ -1,26 +1,23 @@
 development:
   adapter: postgresql
   encoding: utf8
-  database: rais_ops_web_db
-  host: localhost
+  database: rais_ops_web_db_dev
   pool: 5
-  username: raidops
-  password: DAgildevii15
+  username: 
+  password:
 
 test: &TEST
   adapter: postgresql
   encoding: utf8
-  database: rais_ops_web_db
-  host: localhost
+  database: rais_ops_web_db_test
   pool: 5
-  username: raidops
-  password: DAgildevii15
+  username: 
+  password:
 
 production:
   adapter: postgresql
   encoding: utf8
   database: rais_ops_web_db
-  host: localhost
   pool: 5
-  username: raidops
-  password: DAgildevii15
+  username: 
+  password:

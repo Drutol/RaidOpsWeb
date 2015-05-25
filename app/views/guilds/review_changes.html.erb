@@ -1,3 +1,10 @@
+<% if not authorized?(@guild.id) %>
+<script type="text/javascript">
+    window.location.href= "<%= "/guilds/#{params[:id]}" %>" 
+</script>
+<% end %>
+
+
   <div id="wrapper">
     <div class="container-fixed">
      <div id="sidebar-wrapper">
