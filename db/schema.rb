@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524063554) do
+ActiveRecord::Schema.define(version: 20150525104438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,16 +43,6 @@ ActiveRecord::Schema.define(version: 20150524063554) do
     t.string   "mode",                     default: "EPGP"
     t.integer  "max_events",               default: 10
     t.integer  "min_affected",             default: 2
-  end
-
-  create_table "item_data", force: :cascade do |t|
-    t.integer  "item_id"
-    t.string   "name"
-    t.string   "category"
-    t.string   "type"
-    t.string   "slot"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "items", force: :cascade do |t|

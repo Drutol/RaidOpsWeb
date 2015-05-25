@@ -1,0 +1,5 @@
+=> Booting Puma
+=> Rails 4.2.0 application starting in development on http://localhost:3000
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+Exiting

@@ -23,13 +23,17 @@ class GuildsController < ApplicationController
    		members = Array.new
    		@edited = Array.new   		
    		for member in @guild.guild_members do
-   			edit_member = GuildMember.find_by_edit_flag(member.id)
+   			begin
+                        edit_member = GuildMember.find_by(edit_flag: member.id)
    			if edit_member then
    				members.push(edit_member.id)
    				@edited.push(edit_member.id)
    			elsif member.name != "Guild Bank" then
    				members.push(member.id)
    			end
+			rescue
+				members.push(member.id)
+			end
    		end
    		@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc')
   	end
@@ -238,7 +242,7 @@ class GuildsController < ApplicationController
 	end
 
 	def review_changes
-		if not authorized?(params[:id]) then redirect_to guild_path(params[:id]) end
+		#if not authorized?(params[:id]) then redirect_to guild_path(params[:id]) end
 		@members_grid = initialize_grid(GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL"))
 		@guild = Guild.find(params[:id])
 	end

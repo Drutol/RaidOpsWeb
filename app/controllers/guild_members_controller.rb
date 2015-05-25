@@ -8,9 +8,12 @@ class GuildMembersController < ApplicationController
 	end
 
 	def edit
-		if not authorized?(params[:guild_id]) then redirect_to guild_path(params[:guild_id]) end
+		#if current_user and User.find_by_email(current_user.email).guild_id and User.find_by_email(current_user.email).guild_id == params[:guild_id] then
 		@member = GuildMember.find(params[:id])
 		@guild = Guild.find(params[:guild_id])
+		#else
+		#redirect_to guild_path(params[:guild_id])
+		#end
 	end
 
 	def change
