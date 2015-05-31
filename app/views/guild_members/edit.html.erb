@@ -18,7 +18,13 @@
     <div align="center">
     <br><br>
 
-    <%= f.button :submit , class: 'btn btn-info' %>
+    <div>
+      <%= f.button :button ,'Up', class: 'btn lg btn-info' , :style => "display:inline" do %>
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Update <%= @member.name %>
+      <% end %>
+      <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Delete", remove_guild_guild_member_path(@guild,@member), class: ' btn lg btn-danger' ,method: :remove, data: { confirm: 'Are you sure?' },:style => "display:inline" %>
+      <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" %>
+    </div>
     </div>
   <% end %>
   <% else %>
@@ -31,11 +37,18 @@
     <%= f.select(:str_role,[['Dps', 'DPS'], ['Heal', 'Heal'], ['Tank', 'Tank']], {}, { :class => 'form-control' }) %>
     <div align="center">
     <br><br>
-
-    <%= f.button :submit , class: 'btn btn-info' %>
+    <div>
+      <%= f.button :button ,'Up', class: 'btn lg btn-info' , :style => "display:inline" do %>
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Update <%= @member.name %>
+      <% end %>
+      <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Delete", remove_guild_guild_member_path(@guild,@member), class: ' btn lg btn-danger' ,method: :remove, data: { confirm: 'Are you sure?' },:style => "display:inline" %>
+      <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" %>
     </div>
+    </div>
+
   <% end %>
 
 
   <% end %>
+
 </div>

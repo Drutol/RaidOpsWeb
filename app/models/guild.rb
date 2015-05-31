@@ -13,26 +13,15 @@ class Guild < ActiveRecord::Base
 		rescue
 			return "fail"
 		end
-		begin  
+		begin
+			guild_members.delete_all  
 			hash.each do |arr|
 	 		 	bFound = false
-	 		 	guild_members.each do |member|
-	 		 		if member.name == arr['strName']
-						member.update(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP']),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
-						update_counter += 1
-						bFound = true
-						if update_counter > 100 then
-							raise 'Import failed , maximum value of 100 guild members has been reached.'
-						end
-	 		 		end
-	 		 	end
-	 		 	if not bFound
-	 		 		guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP']),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
-	 		 		create_counter += 1
-	 		 		if create_counter > 100 then
-						raise 'Import failed , maximum value of 100 guild members has been reached.'
-					end
-	 		 	end
+ 		 		guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP']),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
+ 		 		create_counter += 1
+ 		 		if create_counter > 100 then
+					raise 'Import failed , maximum value of 100 guild members has been reached.'
+				end
 	 		end
 
 	 		hash.each do |arr|
@@ -69,7 +58,7 @@ class Guild < ActiveRecord::Base
 	 		return e.message
 	 	end
 
- 		return "success" , create_counter , update_counter , log_counter , item_counter
+ 		return "success" , create_counter , log_counter , item_counter
 	end
 
 	def update_json

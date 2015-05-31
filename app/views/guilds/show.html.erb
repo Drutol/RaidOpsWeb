@@ -57,11 +57,11 @@
                         <div style="font-size: 20pt"><%=image_tag("IconSpellslinger.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>    -    <%= GuildMember.where("guild_id = #{params[:id]} and str_class = 'Spellslinger' and edit_flag IS NULL").count %></div>
                         </div>
                         <div class="col-lg-6">
-                            <div style="font-size: 20pt"><%=image_tag("DPS.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'DPS' and edit_flag IS NULL").count %></div>
+                            <div style="font-size: 20pt"><%=image_tag("DPS.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -   <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'DPS' and edit_flag IS NULL").count %></div>
                             <div style="font-size: 20pt">
-                           <%=image_tag("Heal.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Heal' and edit_flag IS NULL").count %></div>
+                           <%=image_tag("Heal.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -   <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Heal' and edit_flag IS NULL").count %></div>
                            <div style="font-size: 20pt">
-                           <%=image_tag("Tank.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -    <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Tank' and edit_flag IS NULL").count %> </div>
+                           <%=image_tag("Tank.png" , :height => "50px" , :width => "50px" , :align => "middle" ) %>     -   <%= GuildMember.where("guild_id = #{params[:id]} and str_role = 'Tank' and edit_flag IS NULL").count %> </div>
 
                         </div>
                       </div>

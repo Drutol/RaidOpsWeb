@@ -58,6 +58,17 @@ class GuildMembersController < ApplicationController
 		GuildMember.find(params[:id]).commit
 		redirect_to guild_path(params[:guild_id])
 	end
+
+	def remove
+		member = GuildMember.find(params[:id])
+		if member.edit_flag then
+			GuildMember.find(member.edit_flag).destroy
+		end
+		member.logs.delete_all
+		member.items.delete_all
+		member.destroy
+		redirect_to guild_path(params[:guild_id])
+	end
  
   private
     def member_params

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
         post 'change'
         post 'undo'
         post 'commit'
+        post 'remove'
       end
       resources :items
 

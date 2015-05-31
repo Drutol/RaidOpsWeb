@@ -4,7 +4,7 @@ class GuildsController < ApplicationController
 
 	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity]
  	before_filter do
-	    if request.host != "raidops.net" then redirect_to "http://raidops.net" end
+	    if request.host != "raidops.net" && Rails.env.production? then redirect_to "http://raidops.net" end
             if request.ssl? && Rails.env.production?
 	      redirect_to :protocol => 'http://', :status => :moved_permanently
 	    end
@@ -25,7 +25,7 @@ class GuildsController < ApplicationController
    		@edited = Array.new   		
    		for member in @guild.guild_members do
    			begin
-                        edit_member = GuildMember.find_by(edit_flag: member.id)
+            	edit_member = GuildMember.find_by(edit_flag: member.id)
    			if edit_member then
    				members.push(edit_member.id)
    				@edited.push(edit_member.id)
@@ -65,12 +65,17 @@ class GuildsController < ApplicationController
   	def items_all
   	  @guild = Guild.find(params[:id])
   	  @item_owners = {}
+  	  @itemIDs = Array.new
+  	  usedTimestamps = Array.new
   	  Item.where(of_guild_id: params[:id]).each do |item|
   	  	@item_owners[item.timestamp] = item.of_member_id
+  	  	if not usedTimestamps.index(item.timestamp) then 
+  	  		@itemIDs.push(item.id)
+  	  		usedTimestamps.push(item.timestamp)
+  	  	end
   	  end
-      @items_grid = initialize_grid(Item.where(of_guild_id: params[:id]),:include => :guild_member)
+      @items_grid = initialize_grid(Item.where(id: @itemIDs),:include => :guild_member,:order => 'items.timestamp' ,:order_direction => 'desc')
     end
-
 
     def recent_activity
     	@guild = Guild.find(params[:id])
@@ -219,7 +224,7 @@ class GuildsController < ApplicationController
 
 	def import
 		@guild = Guild.find(params[:id])
-		strState , c_counter , u_counter , l_counter , i_counter = @guild.import(params)
+		strState , c_counter , l_counter , i_counter = @guild.import(params)
 		if strState == "success" then
 			Guild.find(params[:id]).update_attributes(:updated_at => DateTime.now)
 
@@ -230,11 +235,11 @@ class GuildsController < ApplicationController
 				ftp.puttextcontent(params[:json], "/public_html/guild_json_#{params[:id]}.txt")
 				ftp.close
 			rescue
-				redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries , updated #{u_counter.to_s} entries. Processed #{i_counter} items and #{l_counter} logs. Backup file upload failed."
+				redirect_to @guild , notice: "Import successfull: Processed #{c_counter.to_s} entries . Processed #{i_counter} items and #{l_counter} logs. Backup file upload failed."
 				return
 			end
 
-			redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries , updated #{u_counter.to_s} entries. Processed #{i_counter} items and #{l_counter} logs. Backup file successfully uploaded."
+			redirect_to @guild , notice: "Import successfull: Created #{c_counter.to_s} entries . Processed #{i_counter} items and #{l_counter} logs. Backup file successfully uploaded."
 		elsif strState == "fail" then
 			redirect_to upload_guild_path(@guild) , notice: 'Invalid data'
 		else
