@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  nTime: 1
+  nFinish: 1
+  nRaidType: 1
+  guild_id: 
+
+two:
+  name: MyString
+  nTime: 1
+  nFinish: 1
+  nRaidType: 1
+  guild_id: 

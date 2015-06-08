@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525104438) do
+ActiveRecord::Schema.define(version: 20150608102240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer  "nSecs"
+    t.integer  "raid_type"
+    t.integer  "guild_member_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "attendances", ["guild_member_id"], name: "index_attendances_on_guild_member_id", using: :btree
 
   create_table "guild_members", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -29,6 +39,10 @@ ActiveRecord::Schema.define(version: 20150525104438) do
     t.integer  "net"
     t.integer  "tot"
     t.integer  "edit_flag"
+    t.integer  "p_ga"
+    t.integer  "p_ds"
+    t.integer  "p_y"
+    t.integer  "p_tot"
   end
 
   add_index "guild_members", ["guild_id"], name: "index_guild_members_on_guild_id", using: :btree
@@ -82,6 +96,18 @@ ActiveRecord::Schema.define(version: 20150525104438) do
 
   add_index "logs", ["guild_member_id"], name: "index_logs_on_guild_member_id", using: :btree
 
+  create_table "raids", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "nTime"
+    t.integer  "nFinish"
+    t.integer  "raid_type"
+    t.integer  "guild_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "raids", ["guild_id"], name: "index_raids_on_guild_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                           limit: 255, null: false
     t.string   "crypted_password",                limit: 255
@@ -102,4 +128,6 @@ ActiveRecord::Schema.define(version: 20150525104438) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
+  add_foreign_key "attendances", "guild_members"
+  add_foreign_key "raids", "guilds"
 end

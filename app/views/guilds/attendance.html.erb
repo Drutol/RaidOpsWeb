@@ -1,0 +1,88 @@
+    <style type="text/css">
+  table.my-grid {
+  }
+  table.my-grid th.my-header {
+    background-color: #ebebeb;
+  }
+  table.my-grid tr.even{
+    background-color: #ebebeb;
+  }
+</style>
+
+<div id="wrapper">
+  <div class="container-fixed">
+     <div id="sidebar-wrapper">
+          <ul class="col-md-2">
+              <div class="list-group">
+                <a href="#" class="list-group-item active fixed">
+                  Controls
+                </a>      
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guilds_path ,class: 'list-group-item' %></a>
+    
+              </div>  
+<div class="panel panel-primary">
+                  <div class="panel-heading">
+                    Advertisement
+                  </div>
+                  <div class="panel-body" align="center">
+                    <!-- Begin BidVertiser code -->
+<SCRIPT LANGUAGE="JavaScript1.1" SRC="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=672009&bid=1678581" type="text/javascript"></SCRIPT>
+<noscript><a href="http://www.bidvertiser.com/bdv/BidVertiser/bdv_xml_feed.dbm">xml api</a></noscript>
+<!-- End BidVertiser code -->
+                  <br>
+                  FunFact: Did you know that users who block ads have their <%= if @guild.mode == "EPGP" then "PR" else "DKP" end %> reduced?
+                  </div>
+              </div> 
+          </ul>
+    </div>
+
+
+  <div class="col-md-10">
+     <%= grid(@members_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
+
+            g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
+
+            g.column name:  'Class' , attribute: 'str_class' , html: {style: 'max-width: 50px'} ,  custom_filter: [['Esper', 'Esper'], ['Warrior', 'Warrior'], ['Stalker', 'Stalker'], ['Engineer', 'Engineer'],['Medic', 'Medic'],['Spellslinger', 'Spellslinger']]  do |task|
+              content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_class
+            end            
+
+            g.column name:  'Role' , attribute: 'str_role' , html: {style: 'max-width: 50px'} , custom_filter: [['Dps', 'DPS'], ['Heal', 'Heal'], ['Tank', 'Tank']] do |task|
+              content_tag(:div ,image_tag("#{task.str_role}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_role
+            end
+
+            g.column name:  'Name', attribute: 'name' , auto_reload: false , html: {style: 'max-width: 50px'} do |member|
+              member.name
+            end       
+            g.column attribute:  'p_ga', name: '% GA' , auto_reload: false , html: {style: 'max-width: 50px'} do |member|
+              member.p_ga.to_s + "%" if member.p_ga 
+            end           
+            g.column attribute:  'p_ds', name: '% DS' , auto_reload: false , html: {style: 'max-width: 50px'} do |member|
+              member.p_ds.to_s + "%" if member.p_ds 
+            end           
+            g.column attribute:  'p_y', name: '% Y-83' , auto_reload: false , html: {style: 'max-width: 50px'} do |member|
+              member.p_y.to_s + "%" if member.p_y
+            end            
+            g.column attribute:  'p_tot', name: '% Total' , auto_reload: false , html: {style: 'max-width: 50px'} do |member|
+              member.p_tot.to_s + "%" if member.p_tot
+            end           
+            g.column name: 'GA' , auto_reload: false , ordering: false , html: {style: 'max-width: 50px'} do |member|
+              member.attendances.where("raid_type = 0").count.to_s + " / " + @ga_total.to_s
+            end            
+            g.column name: 'DS' , auto_reload: false , ordering: false , html: {style: 'max-width: 50px'} do |member|
+              member.attendances.where("raid_type = 1").count.to_s + " / " + @ds_total.to_s
+            end            
+            g.column name: 'Y-83' , auto_reload: false , ordering: false , html: {style: 'max-width: 50px'} do |member|
+              member.attendances.where("raid_type = 2").count.to_s + " / " + @y_total.to_s
+            end            
+            g.column name: 'Total' , auto_reload: false , ordering: false , html: {style: 'max-width: 50px'} do |member|
+              member.attendances.count.to_s + " / " + @totalRaids.to_s
+            end
+
+
+
+      end -%>
+
+  </div>
+
+
+</div>

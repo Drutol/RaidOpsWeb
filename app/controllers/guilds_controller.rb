@@ -268,6 +268,16 @@ class GuildsController < ApplicationController
 		end
 	end
 
+	def attendance
+		@guild = Guild.find(params[:id])
+		@ga_total = @guild.raids.where("raid_type = 0").count
+		@ds_total = @guild.raids.where("raid_type = 1").count
+		@y_total = @guild.raids.where("raid_type = 2").count
+		@totalRaids = @guild.raids.count
+
+		@members_grid = initialize_grid(@guild.guild_members)
+	end
+
 	private
 		def guild_params
 	  		params.require(:guild).permit(:name, :owner, :realm,:mode)

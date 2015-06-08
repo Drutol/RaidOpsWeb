@@ -2,6 +2,7 @@ class GuildMember < ActiveRecord::Base
   belongs_to :guild
   has_many :items
   has_many :logs
+  has_many :attendances
   
 	#validates_uniqueness_of :name, scope: [:guild_id]
 	validates :ep, presence: true
@@ -76,6 +77,25 @@ class GuildMember < ActiveRecord::Base
 			target[:tot] = tot
 			target[:strClass] =  str_class 
 			target[:strRole] = str_role
+		end
+
+		def calculate_att(guild)
+
+			ga_total = guild.raids.where("raid_type = 0").count
+			ds_total = guild.raids.where("raid_type = 1").count
+			y_total = guild.raids.where("raid_type = 2").count
+			totalRaids = guild.raids.count
+
+
+			ga_count = attendances.where("raid_type = 0").count
+			ds_count = attendances.where("raid_type = 1").count
+			y_count = attendances.where("raid_type = 2").count
+			all = ga_count+ds_count+y_count
+			
+			p_ga = (ga_count*100)/ga_total
+			p_ds = (ds_count*100)/ds_total
+			p_y = (y_count*100)/y_total
+			p_tot = (all*100)/totalRaids
 		end
 
 	end

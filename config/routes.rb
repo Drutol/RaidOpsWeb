@@ -26,6 +26,8 @@ Rails.application.routes.draw do
      get 'download'
      get 'recent_activity'
      get 'review_changes'
+     get 'attendance'
+     get 'raids'
      post :import
      post :update_settings
      post 'commit_changes'

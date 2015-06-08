@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nSecs: 1
+  nRaidType: 1
+  guild_member_id: 
+
+two:
+  nSecs: 1
+  nRaidType: 1
+  guild_member_id: 

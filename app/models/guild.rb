@@ -24,6 +24,14 @@ class Guild < ActiveRecord::Base
 				end
 	 		end
 
+	 		if hash['tRaids'] then
+	 			raids.delete_all
+	 			hash['tRaids'].each do |raid|
+	 				raids.create(:name => "Raid",:nTime => raid['nTime'],:nFinish => raid['nFinish'],:raid_type => raid['nRaidType'])
+	 			end
+	 			hash = hash['tMembers']
+	 		end
+
 	 		hash.each do |arr|
 	 			guild_members.each do |member|
 	 				if arr['tLLogs'] and member.name == arr['strName'] then
@@ -52,6 +60,13 @@ class Guild < ActiveRecord::Base
 							end
 	 					end
 	 				end
+	 				if arr['tAtt'] and member.name == arr['strName'] then
+	 					member.attendances.delete_all
+	 					arr['tAtt'].each do |att|
+	 						member.attendances.create(:raid_type => att['raidType'],:nSecs => att['nSecs'])
+	 					end
+	 				end
+	 				member.calculate_attendance(self)
 	 			end
 	 		end
 	 	rescue Exception => e 
@@ -106,7 +121,8 @@ class Guild < ActiveRecord::Base
 	validates :realm, length: {minimum: 2}
 
 	
-	has_many  :guild_members
+	has_many :guild_members
+	has_many :raids
  	validates_uniqueness_of :name
  	
 

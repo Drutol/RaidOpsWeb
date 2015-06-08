@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require wice_grid
-//= require turbolinks
 //= require highcharts/highcharts
 //= require highcharts/highcharts-more
 //= require highcharts/highstock
