@@ -64,17 +64,17 @@ class GuildsController < ApplicationController
 
   	def items_all
   	  @guild = Guild.find(params[:id])
-  	  @item_owners = {}
-  	  @itemIDs = Array.new
-  	  usedTimestamps = Array.new
-  	  Item.where(of_guild_id: params[:id]).each do |item|
-  	  	@item_owners[item.timestamp] = item.of_member_id
-  	  	if not usedTimestamps.index(item.timestamp) then 
-  	  		@itemIDs.push(item.id)
-  	  		usedTimestamps.push(item.timestamp)
+  	  @itemHash = Hash.new
+  	  ids = Array.new
+  	  for member in @guild.guild_members do
+  	  	for item in member.items do
+  	  		@itemHash[item.timestamp] = member.id
+  	  		ids.push(item.id)
   	  	end
   	  end
-      @items_grid = initialize_grid(Item.where(id: @itemIDs),:include => :guild_member,:order => 'items.timestamp' ,:order_direction => 'desc')
+
+
+      @items_grid = initialize_grid(Item.where(id: ids),:include => :guild_member,:order => 'items.timestamp' ,:order_direction => 'desc')
     end
 
     def recent_activity

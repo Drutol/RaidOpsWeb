@@ -64,8 +64,8 @@ class GuildMembersController < ApplicationController
 		if member.edit_flag then
 			GuildMember.find(member.edit_flag).destroy
 		end
+		Item.where(:of_guild_id => params[:id].to_i).destroy_all
 		member.logs.delete_all
-		member.items.delete_all
 		member.destroy
 		redirect_to guild_path(params[:guild_id])
 	end

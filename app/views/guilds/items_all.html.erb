@@ -75,8 +75,10 @@ var wildstar_datminer_config =
       end            
 
       g.column name: 'Looter' , attribute: 'name' , model: 'GuildMember' , auto_reload: false  do |item|
-        
-        link_to(@guild.guild_members.find(@item_owners[item.timestamp]).name, guild_guild_member_items_path(@guild.id , @guild.guild_members.find(@item_owners[item.timestamp]).id))
+        if @itemHash[item.timestamp] then
+        link_to(@guild.guild_members.find(@itemHash[item.timestamp]).name, guild_guild_member_items_path(@guild.id , @guild.guild_members.find(@itemHash[item.timestamp]).id))
+        end 
+
       end
 
       g.column  name:  'Looted on' , attribute: 'timestamp' , filter: false do |item|
