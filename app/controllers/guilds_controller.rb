@@ -2,7 +2,7 @@ class GuildsController < ApplicationController
 	require 'net/ftp'
 	require 'stringio'
 
-	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity]
+	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity,:attendance]
  	before_filter do
 	    if request.host != "raidops.net" && Rails.env.production? then redirect_to "http://raidops.net" end
             if request.ssl? && Rails.env.production?
@@ -275,7 +275,13 @@ class GuildsController < ApplicationController
 		@y_total = @guild.raids.where("raid_type = 2").count
 		@totalRaids = @guild.raids.count
 
-		@members_grid = initialize_grid(@guild.guild_members)
+		ids = Array.new
+		for member in @guild.guild_members do
+			ids.push(member.id) if member.attendances.count > 0
+		end
+
+
+		@members_grid = initialize_grid(GuildMember.where(id: ids),:order => 'guild_members.p_tot',:order_direction => 'desc')
 	end
 
 	private

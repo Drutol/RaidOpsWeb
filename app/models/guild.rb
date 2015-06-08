@@ -15,22 +15,33 @@ class Guild < ActiveRecord::Base
 		end
 		begin
 			guild_members.delete_all  
+		
+
+		 	begin		
+		 		if hash['tRaids'] then
+		 			raids.delete_all
+		 			hash['tRaids'].each do |raid|
+		 				raids.create(:name => "Raid",:nTime => raid['length'],:nFinish => raid['nFinish'],:raid_type => raid['raidType'])
+		 			end
+		 			hash = hash['tMembers']
+		 		end
+		 	rescue
+
+		 	end
+
+
 			hash.each do |arr|
-	 		 	bFound = false
- 		 		guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP']),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
+ 		 		guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
  		 		create_counter += 1
  		 		if create_counter > 100 then
 					raise 'Import failed , maximum value of 100 guild members has been reached.'
 				end
 	 		end
 
-	 		if hash['tRaids'] then
-	 			raids.delete_all
-	 			hash['tRaids'].each do |raid|
-	 				raids.create(:name => "Raid",:nTime => raid['nTime'],:nFinish => raid['nFinish'],:raid_type => raid['nRaidType'])
-	 			end
-	 			hash = hash['tMembers']
-	 		end
+			ga_total = raids.where("raid_type = 0").count
+			ds_total = raids.where("raid_type = 1").count
+			y_total = raids.where("raid_type = 2").count
+			totalRaids = raids.count
 
 	 		hash.each do |arr|
 	 			guild_members.each do |member|
@@ -65,8 +76,18 @@ class Guild < ActiveRecord::Base
 	 					arr['tAtt'].each do |att|
 	 						member.attendances.create(:raid_type => att['raidType'],:nSecs => att['nSecs'])
 	 					end
+	 					ga_count = member.attendances.where("raid_type = 0").count
+						ds_count = member.attendances.where("raid_type = 1").count
+						y_count = member.attendances.where("raid_type = 2").count
+						all = ga_count+ds_count+y_count
+						
+						p_ga = (ga_count*100)/ga_total if ga_total > 0
+						p_ds = (ds_count*100)/ds_total if ds_total > 0 
+						p_y = (y_count*100)/y_total if y_total > 0
+						p_tot = (all*100)/totalRaids if totalRaids > 0
+
+						member.update_attributes(:p_ga => p_ga,:p_ds => p_ds,:p_y => p_y,:p_tot => p_tot)
 	 				end
-	 				member.calculate_attendance(self)
 	 			end
 	 		end
 	 	rescue Exception => e 

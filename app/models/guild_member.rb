@@ -79,7 +79,7 @@ class GuildMember < ActiveRecord::Base
 			target[:strRole] = str_role
 		end
 
-		def calculate_att(guild)
+		def calculate_attendance(guild)
 
 			ga_total = guild.raids.where("raid_type = 0").count
 			ds_total = guild.raids.where("raid_type = 1").count
