@@ -199,7 +199,7 @@ class GuildsController < ApplicationController
 		Item.where(:of_guild_id => params[:id].to_i).destroy_all
 		for guild_member in @guild.guild_members do
 			guild_member.logs.destroy_all
-			guild_member.attendances.destoy_all
+			guild_member.attendances.destroy_all
 		end
 		@guild.raids.destroy_all
 		@guild.guild_members.destroy_all
