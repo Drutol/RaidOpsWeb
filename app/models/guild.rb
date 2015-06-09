@@ -17,17 +17,17 @@ class Guild < ActiveRecord::Base
 			guild_members.delete_all  
 		
 
-		 	begin		
-		 		if hash['tRaids'] then
+	
+		 		if hash.has_key?("tRaids") then
 		 			raids.delete_all
 		 			hash['tRaids'].each do |raid|
 		 				raids.create(:name => "Raid",:nTime => raid['length'],:nFinish => raid['nFinish'],:raid_type => raid['raidType'])
 		 			end
-		 			hash = hash['tMembers']
+		 			
 		 		end
-		 	rescue
 
-		 	end
+				hash = hash['tMembers']
+
 
 
 			hash.each do |arr|
