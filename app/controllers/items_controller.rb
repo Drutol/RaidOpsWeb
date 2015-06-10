@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
       @guild = Guild.find(params[:guild_id])
   		for member in @guild.guild_members do
   			if member.id.to_i == params[:guild_member_id].to_i then
+          @member = member
           if not member.edit_flag then
   				  @member = member
             @items_grid = initialize_grid(member.items,:name => 'items_grid',:order => 'items.timestamp' ,:order_direction => 'desc')         

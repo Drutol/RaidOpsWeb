@@ -86,14 +86,14 @@ class GuildsController < ApplicationController
     	for member in @guild.guild_members do
     		for log in member.logs do
 	    		if log.n_date and not @timeline_data[log.n_date.to_i] then
-	    			@timeline_data[log.n_date.to_i] = {:event => log.strComment , :y => 1 ,:time => log.n_date.to_i}
+	    			@timeline_data[log.n_date.to_i] = {:event => log.str_comment , :y => 1 ,:time => log.n_date.to_i}
 	    		elsif log.n_date then
-					@timeline_data[log.n_date.to_i][:y] += 1 if @timeline_data[log.n_date.to_i][:event] == log.strComment
+					@timeline_data[log.n_date.to_i][:y] += 1 if @timeline_data[log.n_date.to_i][:event] == log.str_comment
 	    		end
 
 	    		if log.strType == '{EP}' then
 		    		if log.n_date and not @EP_gain_data[log.n_date.to_i] then
-						@EP_gain_data[log.n_date.to_i] = {:event => log.strComment , :y => log.strModifier.to_i ,:time => log.n_date.to_i}
+						@EP_gain_data[log.n_date.to_i] = {:event => log.str_comment , :y => log.strModifier.to_i ,:time => log.n_date.to_i}
 		    		elsif log.n_date then
 						@EP_gain_data[log.n_date.to_i][:y] += log.strModifier.to_i
 		    		end

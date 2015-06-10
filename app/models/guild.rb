@@ -7,16 +7,20 @@ class Guild < ActiveRecord::Base
 		update_counter = 0
 		item_counter = 0
 		log_counter = 0
-
+		player_logs = Hash.new
 		begin
 			hash = JSON.parse(params[:json])
 		rescue
 			return "fail"
 		end
 		begin
-			guild_members.delete_all  
 		
-
+			Item.where(:of_guild_id => params[:id].to_i).destroy_all
+			for guild_member in guild_members do
+				player_logs[guild_member.name] = guild_member.logs
+				guild_member.attendances.destroy_all
+			end
+			guild_members.destroy_all
 	
 	 		if hash.has_key?("tRaids") then
 	 			raids.delete_all
@@ -31,8 +35,11 @@ class Guild < ActiveRecord::Base
 
 
 			hash.each do |arr|
- 		 		guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
+ 		 		member = guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
  		 		create_counter += 1
+ 		 		if player_logs[arr['strName']] then
+ 		 			for log in player_logs[arr['strName']] do log.update_attribute(:guild_member_id , member.id) end
+ 		 		end
  		 		if create_counter > 100 then
 					raise 'Import failed , maximum value of 100 guild members has been reached.'
 				end
@@ -56,18 +63,16 @@ class Guild < ActiveRecord::Base
 	 					end
 	 				end 				
 	 				if arr['logs'] and member.name == arr['strName'] then
-	 					member.logs.delete_all
 	 					arr['logs'].each do |log|
-	 						if not log['nAfter'] then after = 0 else after = log['nAfter'] end
+	 						if log['nDate'] and not member.logs.where("n_date = ? and str_comment = ?",log['nDate'],log['strComment']).first then
+		 						if not log['nAfter'] then after = 0 else after = log['nAfter'] end
 
-	 						if not log['nDate'] and log['strTimestamp'] then
-	 							member.logs.create(:strComment => log['strComment'],:strTimestamp => log['strTimestamp'],:strType => log['strType'],:strModifier => log['strModifier'],:n_after => after)
-	 						else
-	 							member.logs.create(:strComment => log['strComment'],:n_date => log['nDate'],:strType => log['strType'],:strModifier => log['strModifier'],:n_after => after)
-	 						end
-	 						log_counter += 1
-	 						if log_counter > 20 then
-								#raise 'Import failed , your export string is not compliant with specifications (Logs count > 20).'
+		 						member.logs.create(:str_comment => log['strComment'],:n_date => log['nDate'],:strType => log['strType'],:strModifier => log['strModifier'],:n_after => after)
+
+		 						log_counter += 1
+		 						if log_counter > 20 then
+									#raise 'Import failed , your export string is not compliant with specifications (Logs count > 20).'
+								end
 							end
 	 					end
 	 				end
@@ -90,6 +95,13 @@ class Guild < ActiveRecord::Base
 	 				end
 	 			end
 	 		end
+
+			for member in guild_members do
+				for log in member.logs do
+	 				if Time.now.to_i - log.n_date.to_i  > 2592000 then log.destroy end
+	 			end
+	 		end
+
 	 	rescue Exception => e 
 	 		return e.message
 	 	end
@@ -112,7 +124,7 @@ class Guild < ActiveRecord::Base
 			raw.rewind
 
 			json_data = JSON.parse(raw.read)
-			for arr in json_data do
+			for arr in json_data['tMembers'] do
 				for member in guild_members do
 					if member.name.to_s == arr['strName'].to_s then# and member.differ?(arr) then
 						arr['EP'] = member.ep

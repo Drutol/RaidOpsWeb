@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610073740) do
+ActiveRecord::Schema.define(version: 20150610185247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20150610073740) do
 
   create_table "logs", force: :cascade do |t|
     t.string   "strModifier",     limit: 255
-    t.string   "strComment",      limit: 255
+    t.string   "str_comment",     limit: 255
     t.string   "strType",         limit: 255
     t.string   "strTimestamp",    limit: 255
     t.integer  "guild_member_id"

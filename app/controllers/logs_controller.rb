@@ -1,5 +1,6 @@
 class LogsController < ApplicationController
- 	def show
+ 	 validates :n_date , uniqueness: { scope: :guild_member_id }
+  def show
 
   	end
 
