@@ -138,9 +138,6 @@ class Guild < ActiveRecord::Base
 				end
 			end
 
-			#ftp = Net::FTP.new('31.220.16.113')
-			#ftp.passive = true
-			#ftp.login('u292965448', ENV['FTP_PASS'])
 			ftp.puttextcontent(JSON.generate(json_data), "/public_html/guild_json_#{id}.txt")
 			ftp.close
 		rescue
