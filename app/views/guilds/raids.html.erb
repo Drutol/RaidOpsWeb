@@ -1,0 +1,159 @@
+
+
+<div id="wrapper">
+  <div class="container-fixed">
+     <div id="sidebar-wrapper">
+          <ul class="col-md-2">
+            <br><br>
+              <div class="list-group">
+                <a href="#" class="list-group-item active fixed">
+                  Controls
+                </a>
+                <% counter = 1 %>
+                <% for raid in @guild.raids do %>
+                  <a><%= link_to content_tag(:p , counter.to_s + "." + if " " + raid.name and raid.name != "Raid" then raid.name else " Raid Session ##{counter}" end , :class => "p"), raids_guild_path(@guild)+"?raid=#{raid.id}" ,class: 'list-group-item' %></a>
+                  <% counter += 1 %>
+                <% end %>      
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>
+    
+              </div>  
+<div class="panel panel-primary">
+                  <div class="panel-heading">
+                    Advertisement
+                  </div>
+                  <div class="panel-body" align="center">
+                    <!-- Begin BidVertiser code -->
+<SCRIPT LANGUAGE="JavaScript1.1" SRC="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=672009&bid=1678581" type="text/javascript"></SCRIPT>
+<noscript><a href="http://www.bidvertiser.com/bdv/BidVertiser/bdv_xml_feed.dbm">xml api</a></noscript>
+<!-- End BidVertiser code -->
+                  <br>
+                  FunFact: Did you know that users who block ads have their <%= if @guild.mode == "EPGP" then "PR" else "DKP" end %> reduced?
+                  </div>
+              </div> 
+          </ul>
+    </div>
+  </div>
+
+  <div class="col-md-10">
+    <% if @raid then %>  
+      <script> 
+      var wildstar_datminer_config = 
+      {
+      //language: 1: English, 2: Deutsch, 3: Francais
+      "language": 1, 
+
+      //Do you want to replace the name of the link?
+      "name_replace": false, 
+
+      //Do you want to show quality colors?
+      "color_show": false,
+
+      //Do you want to have an icon added?
+      "icon_replace": true
+
+      } </script>
+      <%= javascript_include_tag 'dataminer_tooltips.js' %>
+      <%= javascript_include_tag 'jabbithole_tooltips.js' %>
+      <script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
+        <h1> Items </h1>
+      <%= grid(@items_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
+
+          g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
+
+          g.column name:  'Item name' do |item|
+           link_to("", "http://wildstar.datminer.com/item/#{item.ingame_id}") + " " +  link_to(item.ingame_id, "http://www.jabbithole.com/items/i-#{item.ingame_id}")
+          end
+
+          g.column  name:  'GP', attribute: 'gp_cost' do |item|
+            item.gp_cost
+          end
+
+          g.column name: 'Looter' , attribute: 'name' , model: 'GuildMember' , auto_reload: false  do |item|
+            if @item_owners[item.timestamp] then
+            link_to(@guild.guild_members.find(@item_owners[item.timestamp]).name, guild_guild_member_items_path(@guild.id , @guild.guild_members.find(@item_owners[item.timestamp]).id))
+            end 
+          end            
+
+          g.column  name:  'Looted on' , attribute: 'timestamp' do |item|
+            Time.at(item.timestamp.to_i).strftime('%d/%m/%Y , %T')        
+          end
+      end -%>
+
+      <h1> Attendees </h1>
+        <% if @guild.mode == "EPGP" %>
+
+          <%= grid(@members_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
+
+            g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
+
+            g.column name:  'Class' , attribute: 'str_class' , html: {style: 'max-width: 75px'} ,  custom_filter: [['Esper', 'Esper'], ['Warrior', 'Warrior'], ['Stalker', 'Stalker'], ['Engineer', 'Engineer'],['Medic', 'Medic'],['Spellslinger', 'Spellslinger']]  do |task|
+              #if task.edit_flag then
+              #[content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center"),{style: 'background-color: #EDBD2B;'}] if task.str_class
+              #else
+              content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_class
+              #end
+            end            
+
+            g.column name:  'Role' , attribute: 'str_role' , html: {style: 'max-width: 50px'} , custom_filter: [['Dps', 'DPS'], ['Heal', 'Heal'], ['Tank', 'Tank']] do |task|
+              content_tag(:div ,image_tag("#{task.str_role}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_role
+            end
+
+            g.column name:  'Name', attribute: 'name' , auto_reload: false  do |task|
+              task.name
+            end
+
+            g.column  name:  'EP', attribute: 'ep', auto_reload: false do |task|
+              task.ep
+            end
+
+            g.column  name:  'GP', attribute: 'gp', auto_reload: false do |task|
+              task.gp
+            end            
+
+            g.column  name:  'PR' , attribute: 'pr', auto_reload: false do |task|
+              [task.pr, {style: 'background-color: #F8FFD1;'}]  
+            end
+
+            g.column name: 'Time', attribute: 'nSecs' , model: 'Attendance' do |task|
+                Time.at(task.attendances.where("n_time = ? and guild_member_id = ?",@raid.nFinish,task.id).first.nSecs).utc.strftime("%H:%M:%S")
+            end 
+      
+          end -%>
+        <% else %>
+          <%= grid(@members_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
+
+            g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
+
+            g.column name:  'Class' , attribute: 'str_class' , html: {style: 'max-width: 75px'} ,  custom_filter: [['Esper', 'Esper'], ['Warrior', 'Warrior'], ['Stalker', 'Stalker'], ['Engineer', 'Engineer'],['Medic', 'Medic'],['Spellslinger', 'Spellslinger']]  do |task|
+              content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_class
+            end            
+
+            g.column name:  'Role' , attribute: 'str_role' , html: {style: 'max-width: 50px'} , custom_filter: [['Dps', 'DPS'], ['Heal', 'Heal'], ['Tank', 'Tank']] do |task|
+              content_tag(:div ,image_tag("#{task.str_role}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_role
+            end
+
+            g.column name:  'Name', attribute: 'name' , auto_reload: false  do |task|
+              task.name
+            end
+
+            g.column  name:  'Net', attribute: 'net', auto_reload: false do |task|
+              [task.net, {style: 'background-color: #F8FFD1;'}]  
+            end
+
+            g.column  name:  'Total', attribute: 'tot', auto_reload: false do |task|
+              task.tot
+            end
+
+            g.column name: 'Time', attribute: 'nSecs' , model: 'Attendance' do |task|
+                task.attendances.where("n_time = ? and guild_member_id = ?",@raid.nFinish,task.id).nSecs
+            end            
+          end -%>
+
+
+
+
+        <% end %>
+
+    <% end %>
+    </div>
+</div>

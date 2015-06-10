@@ -2,7 +2,7 @@ class GuildsController < ApplicationController
 	require 'net/ftp'
 	require 'stringio'
 
-	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity,:attendance]
+	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity,:attendance,:raids]
  	before_filter do
 	    if request.host != "www.raidops.net" && Rails.env.production? then redirect_to "http://raidops.net" end
             if request.ssl? && Rails.env.production?
@@ -284,6 +284,31 @@ class GuildsController < ApplicationController
 
 
 		@members_grid = initialize_grid(GuildMember.where(id: ids),:order => 'guild_members.p_tot',:order_direction => 'desc')
+	end
+
+	def raids
+		@guild = Guild.find(params[:id])
+		if params[:raid] then
+			@raid = Raid.find(params[:raid].to_i)
+			member_ids = Array.new
+			item_ids = Array.new
+			@item_owners = Hash.new
+			for member in @guild.guild_members do
+				for att in member.attendances do
+					if @raid.nFinish == att.n_time then member_ids.push(member.id) end
+				end
+			end
+			for member in @guild.guild_members do
+				for item in member.items do
+					if item.timestamp > (@raid.nFinish - @raid.nTime) and item.timestamp < @raid.nFinish then 
+						item_ids.push(item.id) 
+						@item_owners[item.timestamp] = member.id 
+					end
+				end
+			end
+			@members_grid = initialize_grid(GuildMember.where(id: member_ids),:include => :attendances,:name => 'members_grid',:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc') 
+			@items_grid = initialize_grid(Item.where(id: item_ids),:name => 'items_grid',:order => 'items.timestamp',:order_direction => 'desc') 
+		end
 	end
 
 	private

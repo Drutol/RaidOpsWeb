@@ -1,4 +1,0 @@
-class AddOfMemberId2To < ActiveRecord::Migration
-  def change
-  end
-end

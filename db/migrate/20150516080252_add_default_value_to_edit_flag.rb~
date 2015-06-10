@@ -1,4 +1,0 @@
-class AddDefaultValueToEditFlag < ActiveRecord::Migration
-  def change
-  end
-end

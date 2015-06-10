@@ -1,4 +1,0 @@
-class RenameRaidTypeInAtt < ActiveRecord::Migration
-  def change
-  end
-end

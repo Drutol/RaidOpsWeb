@@ -1,8 +1,0 @@
-class EditAttendance < ActiveRecord::Migration
-  def change
-	add_column :guild_member, :p_ga, :integer
-	add_column :guild_member, :p_ds, :integer
-	add_column :guild_member, :p_y, :integer
-	add_column :guild_member, :p_tot, :integer
-  end
-end

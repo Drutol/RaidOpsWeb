@@ -18,15 +18,15 @@ class Guild < ActiveRecord::Base
 		
 
 	
-		 		if hash.has_key?("tRaids") then
-		 			raids.delete_all
-		 			hash['tRaids'].each do |raid|
-		 				raids.create(:name => "Raid",:nTime => raid['length'],:nFinish => raid['nFinish'],:raid_type => raid['raidType'])
-		 			end
-		 			
-		 		end
+	 		if hash.has_key?("tRaids") then
+	 			raids.delete_all
+	 			hash['tRaids'].each do |raid|
+	 				raids.create(:name => "Raid",:nTime => raid['length'],:nFinish => raid['finishTime'],:raid_type => raid['raidType'])
+	 			end
+	 			
+	 		end
 
-				hash = hash['tMembers']
+			hash = hash['tMembers']
 
 
 
@@ -74,7 +74,7 @@ class Guild < ActiveRecord::Base
 	 				if arr['tAtt'] and member.name == arr['strName'] then
 	 					member.attendances.delete_all
 	 					arr['tAtt'].each do |att|
-	 						member.attendances.create(:raid_type => att['raidType'],:nSecs => att['nSecs'])
+	 						member.attendances.create(:raid_type => att['raidType'],:nSecs => att['nSecs'],:n_time => att['nTime'])
 	 					end
 	 					ga_count = member.attendances.where("raid_type = 0").count
 						ds_count = member.attendances.where("raid_type = 1").count

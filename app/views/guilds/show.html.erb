@@ -35,6 +35,7 @@
                 <% end %>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-eye-open")+" All items", items_all_guild_path(@guild) ,class: 'list-group-item' %></a>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-briefcase")+" Attendance", attendance_guild_path(@guild) ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-stats")+" Raids", raids_guild_path(@guild) ,class: 'list-group-item' %></a>
                 <% if @edited.count > 0 %>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-edit")+" Commit changes (#{@edited.count})", review_changes_guild_path(@guild),class: 'list-group-item' %></a>
                 <% end %>
