@@ -33,6 +33,11 @@ Rails.application.routes.draw do
      post 'commit_changes'
      post 'undo_all'
      post 'commit_all'
+     post 'assistant_apply'
+     get 'ass_applications'
+     post 'add_ass'
+     post 'reject_ass'
+     post 'rem_ass'
     end
     resources :guild_members do
       member do

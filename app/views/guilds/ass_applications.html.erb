@@ -1,0 +1,42 @@
+<% if not authorized_full?(@guild.id) %>
+<script type="text/javascript">
+    window.location.href= "<%= "/guilds/#{params[:guild_id]}" %>" 
+</script>
+<% end %>
+<div class="container-fixed">
+  <% if @guild.ass_app.length > 0 %>
+    <h2 align="center"> New applications:</h2>
+     <div id="sidebar-wrapper">
+          <ul class="col-md-12">
+              <% @guild.ass_app.split(';').each do |app| %>
+                <% if app and app.length > 0 %>
+                  <div class="list-group">
+                    <a href="#" class="list-group-item active fixed">
+                      <%= app %>
+                    </a>      
+                    
+                      <a>
+                      <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-thumbs-up")+" Aye!", add_ass_guild_path(@guild,:email => app) ,class: 'list-group-item',:method => :post %>
+                      <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-thumbs-down")+" Nay!", reject_ass_guild_path(@guild,:email => app) ,class: 'list-group-item' %></a>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if not @assIds.empty? %>
+              <h2 align="center">Current assistants</h2>
+              <% for ass in @assIds do %>
+                <div class="list-group">
+                    <a href="#" class="list-group-item active fixed">
+                      <%= User.find(ass).email %>
+                    </a>      
+                      <a>
+                      <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-hand-down")+" Remove!", rem_ass_guild_path(@guild,:ass_id => ass) ,class: 'list-group-item',:method => :post %></a>
+                  </div>
+              <% end %>
+            <% else %>
+              <h2 align="center">No approved assistants</h2><br><br>
+            <% end %> 
+               <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'btn btn-info' %></a> 
+          </ul>
+    </div>
+</div>

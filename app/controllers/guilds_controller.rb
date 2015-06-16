@@ -311,6 +311,72 @@ class GuildsController < ApplicationController
 		end
 	end
 
+	def assistant_apply
+		guild = Guild.find(params[:id])
+
+		app_mails = guild.ass_app
+		if not app_mails then app_mails = "" end
+		new_apps = ""
+		if not app_mails.include?(current_user.email) then
+			new_apps += app_mails + ";" + current_user.email
+		else
+			app_mails.split(';').each do |app|
+				if app != current_user.email then
+					new_apps += ";" + app
+				end
+			end
+		end
+
+		guild.update_attribute(:ass_app,new_apps)
+
+		redirect_to guild_path(params[:id])
+	end
+
+	def ass_applications
+		@guild = Guild.find(params[:id])
+
+		@assIds = Array.new
+
+		for user in User.all do
+			if user.assistant == params[:id].to_i then @assIds.push(user.id) end
+		end
+	end
+
+	def reject_ass 
+		guild = Guild.find(params[:id])
+		
+		app_mails = guild.ass_app
+		new_apps = ""
+		app_mails.split(';').each do |app|
+			if app != params[:email].to_s then
+				new_apps += ";" + app
+			end
+		end
+		guild.update_attribute(:ass_app,new_apps)
+		redirect_to ass_applications_guild_path(guild)
+	end
+
+	def add_ass
+		guild = Guild.find(params[:id])
+		
+		app_mails = guild.ass_app
+		new_apps = ""
+		app_mails.split(';').each do |app|
+			if app != params[:email].to_s then
+				new_apps += ";" + app
+			end
+		end
+		guild.update_attribute(:ass_app,new_apps)
+		User.where("email = ?",params[:email]).first.update_attribute(:assistant,guild.id)
+
+		redirect_to ass_applications_guild_path(guild)
+	end
+
+	def rem_ass 
+		User.find(params[:ass_id]).update_attribute(:assistant,nil)
+		redirect_to ass_applications_guild_path(params[:id])
+	end
+
 	private
 		def guild_params
 	  		params.require(:guild).permit(:name, :owner, :realm,:mode)

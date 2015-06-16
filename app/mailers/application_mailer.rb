@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "dogier140@poczta.fm"
+  default from: "notifications@raidops.net"
   layout 'mailer'
 end

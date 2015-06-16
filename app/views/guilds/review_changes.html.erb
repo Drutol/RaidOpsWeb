@@ -18,20 +18,7 @@
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Discard all changes", undo_all_guild_path(@guild), class: 'list-group-item' ,method: :undo_all, data: { confirm: 'Are you sure?' } %></a>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>
                 <% end %>
-              </div>
-              <div class="panel panel-primary">
-                  <div class="panel-heading">
-                    Advertisement
-                  </div>
-                  <div class="panel-body" align="center">
-                    <!-- Begin BidVertiser code -->
-<SCRIPT LANGUAGE="JavaScript1.1" SRC="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=672009&bid=1678581" type="text/javascript"></SCRIPT>
-<noscript><a href="http://www.bidvertiser.com/bdv/BidVertiser/bdv_xml_feed.dbm">xml api</a></noscript>
-<!-- End BidVertiser code -->
-                  <br>
-                  FunFact: Did you know that users who block ads have their <%= if @guild.mode == "EPGP" then "PR" else "DKP" end %> reduced?
-                  </div>
-              </div>      
+              </div>   
           </ul>
     <div class="col-md-10">
         <% if @guild.mode == "EPGP" %>

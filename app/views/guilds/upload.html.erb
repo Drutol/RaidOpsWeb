@@ -24,6 +24,9 @@
             <br>
             <%= submit_tag("Import" , class: "btn btn-primary") %></br>
           <% end %> 
-    </div>   
+          <br>
+          <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'btn btn-info' %>
+    </div>
+
   </body>
 </html>
