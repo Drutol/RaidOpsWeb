@@ -25,7 +25,7 @@ class Guild < ActiveRecord::Base
 	 		if hash.has_key?("tRaids") then
 	 			raids.delete_all
 	 			hash['tRaids'].each do |raid|
-	 				raids.create(:name => "Raid",:nTime => raid['length'],:nFinish => raid['finishTime'],:raid_type => raid['raidType'])
+	 				raids.create(:name => "Raid",:n_time => raid['length'],:n_finish => raid['finishTime'],:raid_type => raid['raidType'])
 	 			end
 	 			
 	 		end
@@ -35,7 +35,7 @@ class Guild < ActiveRecord::Base
 
 
 			hash.each do |arr|
- 		 		member = guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.2f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
+ 		 		member = guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.#{pr_precision}f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
  		 		create_counter += 1
  		 		if player_logs[arr['strName']] then
  		 			for log in player_logs[arr['strName']] do log.update_attribute(:guild_member_id , member.id) end

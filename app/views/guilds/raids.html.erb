@@ -10,8 +10,9 @@
                   Controls
                 </a>
                 <% counter = 1 %>
-                <% for raid in @guild.raids do %>
-                  <a><%= link_to content_tag(:p , counter.to_s + "." + if " " + raid.name and raid.name != "Raid" then raid.name else " Raid Session ##{counter}" end , :class => "p"), raids_guild_path(@guild)+"?raid=#{raid.id}" ,class: 'list-group-item' %></a>
+                <% for raid in @guild.raids.order('n_finish DESC') do %>
+                  <a><%= link_to content_tag(:p , counter.to_s + "." +"#{if raid.name and raid.name != "Raid" then raid.name end}  #{if raid.raid_type == 0 then "Genetic Archives" elsif raid.raid_type == 2 then "Datascape" else "Y-83" end
+                    }    #{ Time.at(raid.n_finish-raid.n_time).strftime('%d/%m/%Y')}"  , :class => "p"), raids_guild_path(@guild)+"?raid=#{raid.id}" ,class: 'list-group-item' %></a>
                   <% counter += 1 %>
                 <% end %>      
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>
@@ -37,8 +38,6 @@
 
       //Do you want to have an icon added?
       "icon_replace": true
-
-
       } </script>
       <%= javascript_include_tag 'dataminer_tooltips.js' %>
       <%= javascript_include_tag 'jabbithole_tooltips.js' %>
@@ -103,7 +102,7 @@
             end
 
             g.column name: 'Time', attribute: 'nSecs' , model: 'Attendance' do |task|
-                Time.at(task.attendances.where("n_time = ? and guild_member_id = ?",@raid.nFinish,task.id).first.nSecs).utc.strftime("%H:%M:%S")
+                Time.at(task.attendances.where("n_time = ? and guild_member_id = ?",@raid.n_finish,task.id).first.nSecs).utc.strftime("%H:%M:%S")
             end 
       
           end -%>
@@ -133,7 +132,7 @@
             end
 
                         g.column name: 'Time', attribute: 'nSecs' , model: 'Attendance' do |task|
-                Time.at(task.attendances.where("n_time = ? and guild_member_id = ?",@raid.nFinish,task.id).first.nSecs).utc.strftime("%H:%M:%S")
+                Time.at(task.attendances.where("n_time = ? and guild_member_id = ?",@raid.n_finish,task.id).first.nSecs).utc.strftime("%H:%M:%S")
             end             
           end -%>
 

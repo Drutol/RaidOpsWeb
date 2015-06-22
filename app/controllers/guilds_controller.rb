@@ -36,7 +36,7 @@ class GuildsController < ApplicationController
 				members.push(member.id)
 			end
    		end
-   		@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc')
+   		@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc',:per_page => @guild.members_per_page)
   	end
 
   	def index
@@ -74,7 +74,7 @@ class GuildsController < ApplicationController
   	  end
 
 
-      @items_grid = initialize_grid(Item.where(id: ids),:include => :guild_member,:order => 'items.timestamp' ,:order_direction => 'desc')
+      @items_grid = initialize_grid(Item.where(id: ids),:include => :guild_member,:order => 'items.timestamp' ,:order_direction => 'desc',:per_page => @guild.items_per_page)
     end
 
     def recent_activity
@@ -159,7 +159,7 @@ class GuildsController < ApplicationController
 			for log in Log.where("n_date = #{params[:event]}") do
 				@affected.push(log.guild_member_id) if not @affected.index(log.guild_member_id)
 			end
-			@members_grid = initialize_grid(@guild.guild_members.where(id: @affected))
+			@members_grid = initialize_grid(@guild.guild_members.where(id: @affected),:per_page => @guild.members_per_page)
 		end
     end
 
@@ -251,7 +251,7 @@ class GuildsController < ApplicationController
 
 	def review_changes
 		#if not authorized?(params[:id]) then redirect_to guild_path(params[:id]) end
-		@members_grid = initialize_grid(GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL"))
+		@members_grid = initialize_grid(GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL"),:per_page => @guild.members_per_page)
 		@guild = Guild.find(params[:id])
 	end
 
@@ -295,19 +295,19 @@ class GuildsController < ApplicationController
 			@item_owners = Hash.new
 			for member in @guild.guild_members do
 				for att in member.attendances do
-					if @raid.nFinish == att.n_time then member_ids.push(member.id) end
+					if @raid.n_finish == att.n_time then member_ids.push(member.id) end
 				end
 			end
 			for member in @guild.guild_members do
 				for item in member.items do
-					if item.timestamp > (@raid.nFinish - @raid.nTime) and item.timestamp < @raid.nFinish then 
+					if item.timestamp > (@raid.n_finish - @raid.n_time) and item.timestamp < @raid.n_finish then 
 						item_ids.push(item.id) 
 						@item_owners[item.timestamp] = member.id 
 					end
 				end
 			end
-			@members_grid = initialize_grid(GuildMember.where(id: member_ids),:include => :attendances,:name => 'members_grid',:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc') 
-			@items_grid = initialize_grid(Item.where(id: item_ids),:name => 'items_grid',:order => 'items.timestamp',:order_direction => 'desc') 
+			@members_grid = initialize_grid(GuildMember.where(id: member_ids),:include => :attendances,:name => 'members_grid',:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc',:per_page => @guild.members_per_page) 
+			@items_grid = initialize_grid(Item.where(id: item_ids),:name => 'items_grid',:order => 'items.timestamp',:order_direction => 'desc',:per_page => @guild.items_per_page)
 		end
 	end
 
@@ -375,6 +375,17 @@ class GuildsController < ApplicationController
 	def rem_ass 
 		User.find(params[:ass_id]).update_attribute(:assistant,nil)
 		redirect_to ass_applications_guild_path(params[:id])
+	end
+
+	def settings
+		@guild = Guild.find(params[:id])
+	end
+
+	def set_main_settings
+		guild = Guild.find(params[:id])
+		guild.update_attributes(:pr_precision => params[:pr_precision],:members_per_page => params[:members_per_page],:items_per_page => params[:items_per_page])
+
+		redirect_to guild_path(params[:id])
 	end
 
 	private

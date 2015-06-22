@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616164822) do
+ActiveRecord::Schema.define(version: 20150622154219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,16 +49,19 @@ ActiveRecord::Schema.define(version: 20150616164822) do
   add_index "guild_members", ["guild_id"], name: "index_guild_members_on_guild_id", using: :btree
 
   create_table "guilds", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.string   "owner",        limit: 255
-    t.string   "email",        limit: 255
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.string   "realm",        limit: 255
-    t.string   "mode",                     default: "EPGP"
-    t.integer  "max_events",               default: 10
-    t.integer  "min_affected",             default: 2
+    t.string   "name",             limit: 255
+    t.string   "owner",            limit: 255
+    t.string   "email",            limit: 255
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "realm",            limit: 255
+    t.string   "mode",                         default: "EPGP"
+    t.integer  "max_events",                   default: 10
+    t.integer  "min_affected",                 default: 2
     t.string   "ass_app"
+    t.integer  "members_per_page",             default: 20
+    t.integer  "items_per_page",               default: 20
+    t.integer  "pr_precision",                 default: 2
   end
 
   create_table "item_data", force: :cascade do |t|
@@ -100,8 +103,8 @@ ActiveRecord::Schema.define(version: 20150616164822) do
 
   create_table "raids", force: :cascade do |t|
     t.string   "name"
-    t.integer  "nTime"
-    t.integer  "nFinish"
+    t.integer  "n_time"
+    t.integer  "n_finish"
     t.integer  "raid_type"
     t.integer  "guild_id"
     t.datetime "created_at", null: false

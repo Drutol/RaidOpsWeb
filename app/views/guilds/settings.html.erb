@@ -1,0 +1,18 @@
+<div class="col-md-12" align="center">
+<div class="panel panel-primary" align="center">  
+  <div class="panel-heading">Settings</div>
+  <div class="panel-body">
+    <%= form_tag({controller: "guilds", action: "set_main_settings"}, method: "post") do %>
+      <%= label_tag(:members_per_page, 'Maximum members per grid page:')%>
+      <%= text_field_tag(:members_per_page, @guild.members_per_page  ,class: "form-control")%>
+      <%= label_tag(:items_per_page, 'Maximum items per grid page:')%>
+      <%= text_field_tag(:items_per_page, @guild.items_per_page  ,class: "form-control")%>      
+      <%= label_tag(:pr_precision, 'PR precision:')%>
+      <%= text_field_tag(:pr_precision, @guild.pr_precision  ,class: "form-control")%>
+      <br>
+      <%= submit_tag("Submit" , class: "btn btn-primary") %></br>
+
+    <% end %>
+  </div>
+</div> 
+</div>

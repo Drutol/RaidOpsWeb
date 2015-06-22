@@ -35,9 +35,11 @@ Rails.application.routes.draw do
      post 'commit_all'
      post 'assistant_apply'
      get 'ass_applications'
+     get 'settings'
      post 'add_ass'
      post 'reject_ass'
      post 'rem_ass'
+     post 'set_main_settings'
     end
     resources :guild_members do
       member do

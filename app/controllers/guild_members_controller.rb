@@ -42,9 +42,9 @@ class GuildMembersController < ApplicationController
 			nGP = member_params[:gp]
 		end
 		if not edit_member then
-			guild.guild_members.create!(:name => member.name,:ep => nEP,:gp => nGP,:pr => "%.2f"%(nEP.to_f/nGP.to_f),:str_class => member_params[:str_class],:str_role => member_params[:str_role],:tot => nTot,:net => nNet,:edit_flag => params[:id]) #TODO DKP
+			guild.guild_members.create!(:name => member.name,:ep => nEP,:gp => nGP,:pr => "%.#{guild.pr_precision}f"%(nEP.to_f/nGP.to_f),:str_class => member_params[:str_class],:str_role => member_params[:str_role],:tot => nTot,:net => nNet,:edit_flag => params[:id]) #TODO DKP
 		else
-			edit_member.update_attributes!(:name => member.name,:ep => nEP,:gp => nGP,:pr => "%.2f"%(nEP.to_f/nGP.to_f),:str_class => member_params[:str_class],:str_role => member_params[:str_role],:tot => nTot,:net => nNet) #TODO DKP
+			edit_member.update_attributes!(:name => member.name,:ep => nEP,:gp => nGP,:pr => "%.#{guild.pr_precision}f"%(nEP.to_f/nGP.to_f),:str_class => member_params[:str_class],:str_role => member_params[:str_role],:tot => nTot,:net => nNet) #TODO DKP
 		end
 		redirect_to guild_path(guild)
 	end
