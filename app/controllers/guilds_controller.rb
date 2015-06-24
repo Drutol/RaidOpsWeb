@@ -36,6 +36,7 @@ class GuildsController < ApplicationController
 				members.push(member.id)
 			end
    		end
+   		if not @guild.ass_app then @guild.update_attribute(:ass_app,"") end
    		@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc',:per_page => @guild.members_per_page)
   	end
 
@@ -383,7 +384,13 @@ class GuildsController < ApplicationController
 
 	def set_main_settings
 		guild = Guild.find(params[:id])
-		guild.update_attributes(:pr_precision => params[:pr_precision],:members_per_page => params[:members_per_page],:items_per_page => params[:items_per_page])
+		pr_precision =1
+		begin
+			pr_precision = Float(params[:pr_precision])
+		rescue
+			pr_precision = 1
+		end
+		guild.update_attributes(:pr_precision => pr_precision.to_i ,:members_per_page => params[:members_per_page],:items_per_page => params[:items_per_page])
 
 		redirect_to guild_path(params[:id])
 	end

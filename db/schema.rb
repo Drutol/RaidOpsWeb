@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622154219) do
+ActiveRecord::Schema.define(version: 20150624123749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150622154219) do
     t.string   "mode",                         default: "EPGP"
     t.integer  "max_events",                   default: 10
     t.integer  "min_affected",                 default: 2
-    t.string   "ass_app"
+    t.string   "ass_app",                      default: ""
     t.integer  "members_per_page",             default: 20
     t.integer  "items_per_page",               default: 20
     t.integer  "pr_precision",                 default: 2
