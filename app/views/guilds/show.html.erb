@@ -37,7 +37,7 @@
                 <% if logged_in? and not authorized?(@guild.id) %>
                   <a><%= link_to content_tag(:p , '  ' , :class => "glyphicon glyphicon-adjust")+"#{if @guild.ass_app and @guild.ass_app.include?(current_user.email) then "  Awaiting response - click to remove application." else "Apply for assistant" end}", assistant_apply_guild_path(@guild) ,class: 'list-group-item',:method=> :post %></a>
                 <% end %>
-                <% if authorized_full?(@guild.id) and @guild.ass_app and @guild.ass_app.length > 0 %>
+                <% if authorized_full?(@guild.id) and @guild.ass_app %>
                   <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Delete", guild_path(@guild), class: 'list-group-item' ,method: :delete, data: { confirm: 'Are you sure?' } %></a>
                   <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-user")+" Review assistants"  , ass_applications_guild_path(@guild) ,class: 'list-group-item'%></a>
                 <% end %>
