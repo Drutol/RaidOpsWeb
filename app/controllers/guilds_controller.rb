@@ -251,9 +251,9 @@ class GuildsController < ApplicationController
 	end
 
 	def review_changes
-		#if not authorized?(params[:id]) then redirect_to guild_path(params[:id]) end
-		@members_grid = initialize_grid(GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL"),:per_page => @guild.members_per_page)
 		@guild = Guild.find(params[:id])
+		@members_grid = initialize_grid(GuildMember.where("guild_id = #{params[:id]} and edit_flag IS NOT NULL"),:per_page => @guild.members_per_page)
+		
 	end
 
 	def commit_all
