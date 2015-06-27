@@ -25,7 +25,7 @@ class Guild < ActiveRecord::Base
 	 		if hash.has_key?("tRaids") then
 	 			raids.delete_all
 	 			hash['tRaids'].each do |raid|
-	 				raids.create(:name => "Raid",:n_time => raid['length'],:n_finish => raid['finishTime'],:raid_type => raid['raidType'])
+	 				raids.create(:name => (raid['name'] or "Raid"),:n_time => raid['length'],:n_finish => raid['finishTime'],:raid_type => raid['raidType']) if raid['raidType']
 	 			end
 	 			
 	 		end
@@ -79,19 +79,31 @@ class Guild < ActiveRecord::Base
 	 				if arr['tAtt'] and member.name == arr['strName'] then
 	 					member.attendances.delete_all
 	 					arr['tAtt'].each do |att|
-	 						member.attendances.create(:raid_type => att['raidType'],:nSecs => att['nSecs'],:n_time => att['nTime'])
+	 						member.attendances.create(:raid_type => att['raidType'],:nSecs => att['nSecs'],:n_time => att['nTime']) if att['raidType']
 	 					end
 	 					ga_count = member.attendances.where("raid_type = 0").count
 						ds_count = member.attendances.where("raid_type = 1").count
 						y_count = member.attendances.where("raid_type = 2").count
 						all = ga_count+ds_count+y_count
 						
+	 					p_ga = 0
+						p_ds = 0
+						p_y = 0
+						p_tot = 0
+
 						p_ga = (ga_count*100)/ga_total if ga_total > 0
 						p_ds = (ds_count*100)/ds_total if ds_total > 0 
 						p_y = (y_count*100)/y_total if y_total > 0
 						p_tot = (all*100)/totalRaids if totalRaids > 0
-
-						member.update_attributes(:p_ga => p_ga,:p_ds => p_ds,:p_y => p_y,:p_tot => p_tot)
+						#if member.name == "Sing Child" then raise "Summary #{ga_count} , #{ds_count} , #{y_count} , #{p_ga} ,#{p_ds} , #{p_y} , #{p_tot}" end
+						begin
+							member.update_attributes!(:p_ga => p_ga,:p_ds => p_ds,:p_y => p_y,:p_tot => p_tot)
+						rescue 
+	 						member.update_attribute(:p_ga,p_ga)
+	 						member.update_attribute(:p_ds,p_ds)
+	 						member.update_attribute(:p_y,p_y)
+	 						member.update_attribute(:p_tot,p_tot)
+	 					end
 	 				end
 	 			end
 	 		end

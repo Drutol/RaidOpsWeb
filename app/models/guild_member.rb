@@ -3,10 +3,7 @@ class GuildMember < ActiveRecord::Base
   has_many :items
   has_many :logs
   has_many :attendances
-  
-	#validates_uniqueness_of :name, scope: [:guild_id]
-	validates :ep, presence: true
-	validates :gp, presence: true
+
 
 	def commit(commit_string = true)
 		source = GuildMember.find(id)

@@ -7,7 +7,7 @@
       <%= text_field_tag(:members_per_page, @guild.members_per_page  ,class: "form-control")%>
       <%= label_tag(:items_per_page, 'Maximum items per grid page:')%>
       <%= text_field_tag(:items_per_page, @guild.items_per_page  ,class: "form-control")%>      
-      <%= label_tag(:pr_precision, 'PR precision:')%>
+      <%= label_tag(:pr_precision, 'PR precision (takes effect after next import):')%>
       <%= text_field_tag(:pr_precision, @guild.pr_precision  ,class: "form-control")%>
       <br>
       <%= submit_tag("Submit" , class: "btn btn-primary") %></br>
