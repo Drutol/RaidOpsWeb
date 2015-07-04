@@ -1,28 +1,55 @@
 
+<% if @guild.raids.count < 12 then %>
+<% javascript_include_tag 'floating_menu.js' %>
+<script type="text/javascript">  
+    floatingMenu.add('floatdiv',  
+        {  
+            // Represents distance from left or right browser window  
+            // border depending upon property used. Only one should be  
+            // specified.  
+            // targetLeft: 0,  
+            targetLeft: 10,  
+  
+            // Represents distance from top or bottom browser window  
+            // border depending upon property used. Only one should be  
+            // specified.  
+            targetTop: 10,  
+            // targetBottom: 0,  
+  
+            // Uncomment one of those if you need centering on  
+            // X- or Y- axis.  
+            // centerX: true,  
+             //centerY: true,  
+  
+            // Remove this one if you don't want snap effect  
+           // snap: true  
+        });  
+</script> 
+<% end %> 
+<div>
+  <ul class="col-md-2" id="floatdiv">
+    <br><br>
+      <div class="list-group">
+        <a href="#" class="list-group-item active fixed">
+          Controls
+        </a>
+        <% counter = 1 %>
+        <% for raid in @guild.raids.order('n_finish DESC') do %>
+          <a><%= link_to content_tag(:p , counter.to_s + ". " +"#{if raid.name != "Raid" then raid.name end}  #{if raid.name == "Raid" then if raid.raid_type == 0 then "Genetic Archives" elsif raid.raid_type == 1 then "Datascape" else "Y-83" end end } #{Time.at(raid.n_finish-raid.n_time).strftime('%d/%m/%Y') if raid.name == "Raid" }"  , :class => "p"), raids_guild_path(@guild)+"?raid=#{raid.id}" ,class: 'list-group-item' %></a>
+          <% counter += 1 %>
+        <% end %>      
+        <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>
 
-<div id="wrapper">
-  <div class="container-fixed">
-     <div id="sidebar-wrapper">
-          <ul class="col-md-2">
-            <br><br>
-              <div class="list-group">
-                <a href="#" class="list-group-item active fixed">
-                  Controls
-                </a>
-                <% counter = 1 %>
-                <% for raid in @guild.raids.order('n_finish DESC') do %>
-                  <a><%= link_to content_tag(:p , counter.to_s + ". " +"#{if raid.name != "Raid" then raid.name end}  #{if raid.name == "Raid" then if raid.raid_type == 0 then "Genetic Archives" elsif raid.raid_type == 1 then "Datascape" else "Y-83" end end } #{Time.at(raid.n_finish-raid.n_time).strftime('%d/%m/%Y') if raid.name == "Raid" }"  , :class => "p"), raids_guild_path(@guild)+"?raid=#{raid.id}" ,class: 'list-group-item' %></a>
-                  <% counter += 1 %>
-                <% end %>      
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>
-    
-              </div>  
-          </ul>
-    </div>
-  </div>
+
+
+      </div> 
+  </ul>
+</div>
 
   <div class="col-md-10">
+
     <% if @raid then %>  
+        <h2 style="display:inline"><%= "#{if @raid.name != "Raid" then @raid.name end}  #{if @raid.name == "Raid" then if @raid.raid_type == 0 then "Genetic Archives" elsif @raid.raid_type == 1 then "Datascape" else "Y-83" end end } #{Time.at(@raid.n_finish-raid.n_time).strftime('%d/%m/%Y') if @raid.name == "Raid" }"%>   &nbsp;&nbsp;&nbsp;           <div align="right" style="display:inline"><%="#{Time.at(@raid.n_finish - @raid.n_time).utc.strftime("%H:%M:%S")}  -  #{Time.at(@raid.n_finish).utc.strftime("%H:%M:%S")}"%></div></h2>
       <script> 
       var wildstar_datminer_config = 
       {
@@ -129,9 +156,8 @@
             g.column  name:  'Total', attribute: 'tot', auto_reload: false do |task|
               task.tot
             end
-
-                        g.column name: 'Time', attribute: 'nSecs' , model: 'Attendance' do |task|
-                Time.at(task.attendances.where("n_time = ? and guild_member_id = ?",@raid.n_finish,task.id).first.nSecs).utc.strftime("%H:%M:%S")
+            g.column name: 'Time', attribute: 'nSecs' , model: 'Attendance' do |task|
+              Time.at(task.attendances.where("n_time = ? and guild_member_id = ?",@raid.n_finish,task.id).first.nSecs).utc.strftime("%H:%M:%S")
             end             
           end -%>
 

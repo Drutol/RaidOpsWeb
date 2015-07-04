@@ -12,10 +12,35 @@
   }
 </style>
 </head>
+<% javascript_include_tag 'floating_menu.js' %>
+<script type="text/javascript">  
+    floatingMenu.add('floatdiv',  
+        {  
+            // Represents distance from left or right browser window  
+            // border depending upon property used. Only one should be  
+            // specified.  
+            // targetLeft: 0,  
+            targetLeft: 10,  
+  
+            // Represents distance from top or bottom browser window  
+            // border depending upon property used. Only one should be  
+            // specified.  
+            targetTop: 10,  
+            // targetBottom: 0,  
+  
+            // Uncomment one of those if you need centering on  
+            // X- or Y- axis.  
+            // centerX: true,  
+             //centerY: true,  
+  
+            // Remove this one if you don't want snap effect  
+           // snap: true  
+        });  
+</script> 
 
 <div class="container-fixed">
      <div id="sidebar-wrapper">
-          <ul class="col-md-2">
+          <ul class="col-md-2" id="floatdiv">
               <br><br>
               <br><br>
               <div class="list-group">

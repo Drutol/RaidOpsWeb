@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
       @guild = Guild.find(params[:guild_id])
   		for member in @guild.guild_members do
   			if member.id.to_i == params[:guild_member_id].to_i then
-          @member = member
           if not member.edit_flag then
   				  @member = member
             @items_grid = initialize_grid(member.items,:name => 'items_grid',:order => 'items.timestamp' ,:order_direction => 'desc')         
@@ -12,7 +11,7 @@ class ItemsController < ApplicationController
   				  break
           else
             redirect_member = GuildMember.find(member.edit_flag)
-            @member = redirect_member
+            @member = member
             @items_grid = initialize_grid(redirect_member.items,:name => 'items_grid')         
             @logs_grid = initialize_grid(redirect_member.logs,:name => 'logs_grid')
           end
