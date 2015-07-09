@@ -35,7 +35,7 @@
         </a>
         <% counter = 1 %>
         <% for raid in @guild.raids.order('n_finish DESC') do %>
-          <a><%= link_to content_tag(:p , counter.to_s + ". " +"#{if raid.name != "Raid" then raid.name end}  #{if raid.name == "Raid" then if raid.raid_type == 0 then "Genetic Archives" elsif raid.raid_type == 1 then "Datascape" else "Y-83" end end } #{Time.at(raid.n_finish-raid.n_time).strftime('%d/%m/%Y') if raid.name == "Raid" }"  , :class => "p"), raids_guild_path(@guild)+"?raid=#{raid.id}" ,class: 'list-group-item' %></a>
+          <a><%= link_to content_tag(:p , counter.to_s + ". " +"#{if @guild.auto_raid_name == "Manual" then raid.name end}  #{if @guild.auto_raid_name == "Auto" then if raid.raid_type == 0 then "Genetic Archives" elsif raid.raid_type == 1 then "Datascape" else "Y-83" end end } #{Time.at(raid.n_finish-raid.n_time).strftime('%d/%m/%Y') if @guild.auto_raid_name == "Auto" }"  , :class => "p"), raids_guild_path(@guild)+"?raid=#{raid.id}" ,class: 'list-group-item' %></a>
           <% counter += 1 %>
         <% end %>      
         <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>

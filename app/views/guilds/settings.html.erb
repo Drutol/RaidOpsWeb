@@ -8,7 +8,9 @@
       <%= label_tag(:items_per_page, 'Maximum items per grid page:')%>
       <%= text_field_tag(:items_per_page, @guild.items_per_page  ,class: "form-control")%>      
       <%= label_tag(:pr_precision, 'PR precision (takes effect after next import):')%>
-      <%= text_field_tag(:pr_precision, @guild.pr_precision  ,class: "form-control")%>
+      <%= text_field_tag(:pr_precision, @guild.pr_precision  ,class: "form-control")%>      
+      <%= label_tag(:auto_raid_name, 'Raid session name generation:')%>
+      <%= select_tag(:auto_raid_name, options_for_select([['Automatic', 'Auto'], ['Manual', 'Manual']],@guild.auto_raid_name)  ,class: "form-control")%>
       <br>
       <%= submit_tag("Submit" , class: "btn btn-primary") %></br>
 

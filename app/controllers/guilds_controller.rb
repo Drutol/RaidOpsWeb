@@ -390,7 +390,7 @@ class GuildsController < ApplicationController
 		rescue
 			pr_precision = 1
 		end
-		guild.update_attributes(:pr_precision => pr_precision.to_i ,:members_per_page => params[:members_per_page],:items_per_page => params[:items_per_page])
+		guild.update_attributes(:pr_precision => pr_precision.to_i ,:members_per_page => params[:members_per_page],:items_per_page => params[:items_per_page],:auto_raid_name => params[:auto_raid_name])
 
 		redirect_to guild_path(params[:id])
 	end
