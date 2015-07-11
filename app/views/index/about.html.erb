@@ -1,0 +1,71 @@
+
+<div class="container">
+    <div class="row" align="center">
+        <div class="col-lg-12 text-center">
+            <div class="panel panel-success">
+                <div class="panel-heading"><h1>What EPGP is?</h1></div>
+                <div class="panel-body">
+                    <p class="well well-lg">
+                    If you are unfamiliar with EPGP / DKP , they are simply loot distribution methods in MMOs. They are quite popular in World of Warcaft for instance and I decided to implement those methods in Wildstar. 
+                    </p>
+                    <p class="well well-lg">
+                    The concept is rather simple , each guild member has two values : <br>
+                       
+                    <b>Effort Points</b> (EP)<br>
+                    <b>Gear Points</b> (EP)<br>
+                    <br>
+                    The value from diving Effort Points by Gear Point is called <b>Priority</b> (PR) <br>
+
+                    <br>
+                    This <b>Priority</b> value determines who will get certain item.       
+                    </p>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading"><h1>How does it work?</h1></div>
+                <div class="panel-body">
+                    <h2>Effort Points</h2>
+                    <p class="well well-lg">
+                        Effort points are awarded when player contributes to the guild or raid in some way , it varies on guild to guild basis.The bigger the value the bigger player's PR is.It can be awarded for: <br>
+
+                        <u>Punctuality<br>
+                        Boss kills<br>
+                        Preparing items necessary for raid<br>
+                        Helping newbies gear up<br>
+                        Participating in raid from start to finish<br></u>
+                        etc...<br>
+                    </p>
+                    <h2>Gear Points</h2>
+                    <p class="well well-lg">
+                        Gear Points are the price that player is paying for an item. Each item has its own GP value that can be adjusted based on item slot , power and quality. When GP is awarded this player's PR goes down.<br>
+
+                        <--- Insert Pic ---> 
+                    </p>
+                    <h2>Decay</h2>
+                    <p class="well well-lg">
+                        In order to keep things fresh there's Decay system implemented. Let's say that each week you are decreasing both EP and GP by 20% , in result you are preventing EP hoarding and keep PR values as thay are.
+                    </p>
+                    <h2>BaseGP , MinEP and RealGP</h2>
+                    <p class="well well-lg">
+                        Both <b>BaseGP</b> and <b>MinEP</b> are default values for new.<br>
+                        <b>Minimum EP</b> is the lowest possible EP value.<br>
+                        <b>Base GP</b> is the value that makes new player start with low PR so thay cannot instantly grab loot.<br>
+                        <b>RealGP</b> is the <b>GP</b> value reduced by <b>BaseGP</b> and it can be used for Decay so that only what they have earned vanishes.<br>
+                    </p>
+                    <h2>Example</h2>
+                    <p class="well well-lg">
+                        Let's say that there's an item to be awarded and two different people want to get their hands on it.We will call them <b>Player A</b> and <b>Player B</b><br>
+                        <br>
+                        <--- Insert Pic ---> 
+                        <br>
+                        As you can see Player B has lower PR value than Player A and therefore Player A is the winner.<br>
+                        <br>
+                        <--- Insert Pic ---> 
+                        <br>
+                        When next item piece dropped the same situation occurs and now Player B wins because Player A has lower PR now.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

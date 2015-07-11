@@ -2,13 +2,14 @@
 
 <div class="container">
   <div class="jumbotron text-center">
-    <div class="alert alert-warning" role="alert">Website under construction</div>
-    <h1>Raid Ops in Web</h1>
-    <p class="lead">Store your EPGP data online!</p>
-    <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-th-list")+" See all registered guilds.", guilds_path, class: 'btn-success btn-lg' %></a>    
-    <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-plus")+" Register your guild.", new_guild_path, class: 'btn-info btn-lg' %></a>    
-    <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-download
-")+" Download in-game addon.", 'http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding', class: 'btn-warning btn-lg' %></a>
+    <h1>RaidOps Web</h1>
+    <div class="row">
+      <p class="lead">Store your Wildstar EPGP and raid data online!</p>
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-th-list")+" See all registered guilds.", guilds_path, class: 'btn-success btn-lg' %></a>    
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-plus")+" Register your guild.", new_guild_path, class: 'btn-info btn-lg' %></a>    
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-download")+" Download in-game addon.", 'http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding', class: 'btn-warning btn-lg' %></a>    
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-question-sign")+" What is it all about?", index_about_path, class: 'btn-primary btn-lg' %></a>
+    </div>
 
   </div>
   
