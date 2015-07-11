@@ -24,7 +24,7 @@
             end
 
             g.column  name:  'Last update:', attribute: 'updated_at',filter: false do |guild|
-              guild.updated_at
+              time_ago_in_words(guild.updated_at) + " ago    at: " + guild.updated_at.to_s
             end            
             
             g.column  name:  'Details' , html: {style: 'max-width: 40px'} do |guild|

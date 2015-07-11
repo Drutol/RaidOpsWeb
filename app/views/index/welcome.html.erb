@@ -4,17 +4,19 @@
   <div class="jumbotron text-center">
     <h1>RaidOps Web</h1>
     <div class="row">
+      <div class="col-lg-12">
       <p class="lead">Store your Wildstar EPGP and raid data online!</p>
-      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-th-list")+" See all registered guilds.", guilds_path, class: 'btn-success btn-lg' %></a>    
-      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-plus")+" Register your guild.", new_guild_path, class: 'btn-info btn-lg' %></a>    
-      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-download")+" Download in-game addon.", 'http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding', class: 'btn-warning btn-lg' %></a>    
-      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-question-sign")+" What is it all about?", index_about_path, class: 'btn-primary btn-lg' %></a>
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-th-list")+" See all registered guilds.", guilds_path, class: 'btn-success btn-lg',:style => "display:inline" %></a>    
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-plus")+" Register your guild.", new_guild_path, class: 'btn-info btn-lg',:style => "display:inline" %></a>    
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-download")+" Download in-game addon.", 'http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding', class: 'btn-warning btn-lg' ,:style => "display:inline"%></a>    
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-question-sign")+" What is it all about?", index_about_path, class: 'btn-primary btn-lg',:style => "display:inline" %></a>
+      </div>
     </div>
 
   </div>
   
   <div class="row" align="center">
-    <div class="col-lg-4">
+    <div class="col-lg-8">
       <div class="panel panel-primary">
         <div class="panel-heading"><h4>Features:</h4></div>
         <div class="panel-body">
@@ -30,31 +32,11 @@
           <h3>Edit on the fly!</h3>
           <p style="font-size:13pt">Make any changes to the guild members , save them and import in-game.</p>
 
-          <h3>Review raid attendance</h3>
+          <h3>Review raid attendance and raid sessions!</h3>
           <p style="font-size:13pt">Check who and how offen attends which raids!</p>
         </div>
       </div>
     </div>
-
-      <div class="col-lg-4">
-        <div class="panel panel-primary">
-          <div class="panel-heading"><h4>Getting started:</h4></div>
-          <div class="panel-body">
-            <p align="left">
-                <li style="font-size:13pt">Download game addon.</li>
-                <li style="font-size:13pt">Populate addon with some data.</li>
-                <li style="font-size:13pt">Go to addon settings and press 'Export/Import' button.</li>
-                <li style="font-size:13pt">Select the radio button with 'Website Export' label.</li>
-                <li style="font-size:13pt">Press 'Export/Import' button</li>
-                <li style="font-size:13pt">Copy the result from the box or copy directly to clipboard.</li>
-                <li style="font-size:13pt">Register <%= link_to 'new guild' , new_guild_path %>.</li>
-                <li style="font-size:13pt">Go to your guild's page and press upload data button.</li>
-                <li style="font-size:13pt">Paste the string and press Import button.</li>
-                <li style="font-size:13pt">Wait a few seconds and you are golden!</li>
-            </p>
-          </div>
-        </div>
-     </div>
 
     <div class="col-lg-4" align="center">
       <div class="panel panel-primary">

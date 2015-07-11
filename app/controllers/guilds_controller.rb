@@ -41,7 +41,7 @@ class GuildsController < ApplicationController
   	end
 
   	def index
-  		@guilds_grid = initialize_grid(Guild.all)
+  		@guilds_grid = initialize_grid(Guild.all,:order => 'guilds.name')
   	end
   	def download
   		begin
