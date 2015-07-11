@@ -1,0 +1,75 @@
+<script type="text/javascript">  
+    floatingMenu.add('floatdiv',  
+        {    
+            targetLeft: 10,  
+            targetTop: 10,  
+        });  
+</script> 
+<style type="text/css">/* Base styles (regardless of theme) */
+.bs-callout {
+  margin: 20px 0;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #eee;
+}
+.bs-callout h4 {
+  margin-top: 0;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code,
+.bs-callout .highlight {
+  background-color: #fff;
+}
+ 
+/* Themes for different contexts */
+.bs-callout-danger {
+  background-color: #fcf2f2;
+  border-color: #dFb5b4;
+}
+.bs-callout-warning {
+  background-color: #FFE8A3;
+  border-color: #FFBB00;
+}
+.bs-callout-info {
+  background-color: #f0f7fd;
+  border-color: #4770BF;
+}
+/* Panels colors */
+.panel-warning {
+  background-color: #FFF9ED;
+  border-color: #FFBD42;
+}
+.panel-warning .panel-heading {
+  background-color: #FFBD42;
+  border-color: #FFBD42;
+}
+</style>
+<div id="wrapper">
+  <div class="container-fixed">
+     <div id="sidebar-wrapper">
+          <ul class="col-md-2" id ="floatdiv">
+              <div class="list-group">
+                <a href="#" class="list-group-item active fixed">
+                  About
+                </a>      
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-info-sign")+" General info", index_about_path ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Upload Data", index_uploading_path ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-asterisk")+" Credits", index_credits_path ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-tasks")+" Changelog", index_changelog_path ,class: 'list-group-item' %></a>
+    
+              </div>  
+          </ul>
+    </div>
+<div class="container">
+    <div class="row" align="center">
+        <div class="col-lg-12 text-center">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h1>How to import data?</h1></div>
+                <div class="panel-body">
+                    dsafd
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

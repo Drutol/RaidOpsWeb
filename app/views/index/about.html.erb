@@ -1,4 +1,26 @@
-
+<script type="text/javascript">  
+    floatingMenu.add('floatdiv',  
+        {    
+            targetLeft: 10,  
+            targetTop: 10,  
+        });  
+</script> 
+<div id="wrapper">
+  <div class="container-fixed">
+     <div id="sidebar-wrapper">
+          <ul class="col-md-2" id ="floatdiv">
+              <div class="list-group">
+                <a href="#" class="list-group-item active fixed">
+                  About
+                </a>      
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-info-sign")+" General info", index_about_path ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Uploading data", index_uploading_path ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-asterisk")+" Credits", index_credits_path ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Changelog", index_changelog_path ,class: 'list-group-item' %></a>
+    
+              </div>  
+          </ul>
+    </div>
 <div class="container">
     <div class="row" align="center">
         <div class="col-lg-12 text-center">
@@ -12,7 +34,7 @@
                     The concept is rather simple , each guild member has two values : <br>
                        
                     <b>Effort Points</b> (EP)<br>
-                    <b>Gear Points</b> (EP)<br>
+                    <b>Gear Points</b> (GP)<br>
                     <br>
                     The value from diving Effort Points by Gear Point is called <b>Priority</b> (PR) <br>
 
@@ -26,7 +48,7 @@
                 <div class="panel-body">
                     <h2>Effort Points</h2>
                     <p class="well well-lg">
-                        Effort points are awarded when player contributes to the guild or raid in some way , it varies on guild to guild basis.The bigger the value the bigger player's PR is.It can be awarded for: <br>
+                        Effort points are awarded when player contributes to the guild or raid in some way , it varies on guild to guild basis.The bigger the value the bigger player's PR is.<br><b>For instance it can be awarded for: </b><br>
 
                         <u>Punctuality<br>
                         Boss kills<br>
@@ -39,11 +61,33 @@
                     <p class="well well-lg">
                         Gear Points are the price that player is paying for an item. Each item has its own GP value that can be adjusted based on item slot , power and quality. When GP is awarded this player's PR goes down.<br>
 
-                        <--- Insert Pic ---> 
+                        <div class="row" align="center">
+                            <div class="col-lg-6">
+                                <div class="media">
+                                  <div class="media-left">
+                                        <br><br>
+                                      <img class="media-object" src="http://i.imgur.com/0c8WQwM.png" alt="...">
+                                  </div>
+                                  <div class="media-body">
+                                    <h4 class="media-heading"><br><br>GP value on item tooltip.</h4>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">                           
+                                <div class="media">
+                                  <div class="media-left">
+                                      <img class="media-object" src="http://i.imgur.com/kGNvvf9.png" alt="...">
+                                  </div>
+                                  <div class="media-body">
+                                    <h4 class="media-heading">GP value settings.</h4>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
                     </p>
                     <h2>Decay</h2>
                     <p class="well well-lg">
-                        In order to keep things fresh there's Decay system implemented. Let's say that each week you are decreasing both EP and GP by 20% , in result you are preventing EP hoarding and keep PR values as thay are.
+                        In order to keep things fresh there's Decay system implemented. Let's say that each week you are <b>decreasing both EP and GP by 20%</b> , in result you are preventing EP hoarding and keep PR values as thay are.
                     </p>
                     <h2>BaseGP , MinEP and RealGP</h2>
                     <p class="well well-lg">
@@ -56,13 +100,13 @@
                     <p class="well well-lg">
                         Let's say that there's an item to be awarded and two different people want to get their hands on it.We will call them <b>Player A</b> and <b>Player B</b><br>
                         <br>
-                        <--- Insert Pic ---> 
+                        <img class="media-object center-block" src="http://i.imgur.com/6fpYH8i.png" alt="..." style="align:center">
                         <br>
-                        As you can see Player B has lower PR value than Player A and therefore Player A is the winner.<br>
+                        As you can see <b>Player B</b> has lower PR value than <b>Player A</b> and therefore <b>Player A</b> is the winner.<br>
                         <br>
-                        <--- Insert Pic ---> 
+                        <img class="media-object center-block" src="http://i.imgur.com/WsOedIQ.png" alt="..." style="align:center">
                         <br>
-                        When next item piece dropped the same situation occurs and now Player B wins because Player A has lower PR now.
+                        When next item piece dropped the same situation occured and now <b>Player B</b> wins because <b>Player A</b> has lower PR.
                     </p>
                 </div>
             </div>

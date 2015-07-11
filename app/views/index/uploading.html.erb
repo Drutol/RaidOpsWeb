@@ -1,0 +1,104 @@
+<script type="text/javascript">  
+    floatingMenu.add('floatdiv',  
+        {    
+            targetLeft: 10,  
+            targetTop: 10,  
+        });  
+</script> 
+<style type="text/css">/* Base styles (regardless of theme) */
+.bs-callout {
+  margin: 20px 0;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #eee;
+}
+.bs-callout h4 {
+  margin-top: 0;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code,
+.bs-callout .highlight {
+  background-color: #fff;
+}
+ 
+/* Themes for different contexts */
+.bs-callout-danger {
+  background-color: #fcf2f2;
+  border-color: #dFb5b4;
+}
+.bs-callout-warning {
+  background-color: #FFE8A3;
+  border-color: #FFBB00;
+}
+.bs-callout-info {
+  background-color: #f0f7fd;
+  border-color: #4770BF;
+}
+/* Panels colors */
+.panel-warning {
+  background-color: #FFF9ED;
+  border-color: #FFBD42;
+}
+.panel-warning .panel-heading {
+  background-color: #FFBD42;
+  border-color: #FFBD42;
+}
+</style>
+<div id="wrapper">
+  <div class="container-fixed">
+     <div id="sidebar-wrapper">
+          <ul class="col-md-2" id ="floatdiv">
+              <div class="list-group">
+                <a href="#" class="list-group-item active fixed">
+                  About
+                </a>      
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-info-sign")+" General info", index_about_path ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Upload Data", index_uploading_path ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-asterisk")+" Credits", index_credits_path ,class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-tasks")+" Changelog", index_changelog_path ,class: 'list-group-item' %></a>
+    
+              </div>  
+          </ul>
+    </div>
+<div class="container">
+    <div class="row" align="center">
+        <div class="col-lg-12 text-center">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h1>How to import data?</h1></div>
+                <div class="panel-body">
+                    <div class="bs-callout bs-callout-info">First of all you will want to have an account created.&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-check")+" Register", new_user_path, class: ' btn lg btn-primary' ,:style => "display:inline" %>
+                    </div>                
+                    <div class="bs-callout bs-callout-info">Now you have to create your guild profile.&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-check")+" Create Guild", new_guild_path, class: ' btn lg btn-primary' ,:style => "display:inline" %>
+                    </div>                    
+                    <div class="bs-callout bs-callout-info">Press this button on your guild's page.It's one the left in the controls box.&nbsp&nbsp&nbsp&nbsp&nbsp<a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Uploading data", '' ,class: 'list-group-item',:style => "display:inline" %></a>
+                    </div>
+                    <div class="bs-callout bs-callout-info">Once you are there paste the text from RaidOps addon in Wildstar and click &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-ok")+" Import", '', class: ' btn lg btn-info' ,:style => "display:inline" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 text-center">
+            <div class="panel panel-warning">
+                <div class="panel-heading"><h1>How to export data?</h1></div>
+                <div class="panel-body">
+                    <div class="bs-callout bs-callout-warning">
+                        Open main settings window.<br>
+
+                        <--- Pic --->
+                    </div>                     
+                    <div class="bs-callout bs-callout-warning">
+                        Open Export window by pressing this button , from the bottom of the settings window.<br>
+
+                        <--- Pic --->
+                    </div>                       
+                    <div class="bs-callout bs-callout-warning">
+                        Once you are there select "Website Export" and press the export button.<br>
+
+                        <--- Pic --->
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

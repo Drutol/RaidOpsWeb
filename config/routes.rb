@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get 'password_resets/update'
   get 'index/welcome'
   get 'index/about'
+  get 'index/uploading'
+  get 'index/credits'
+  get 'index/changelog'
 
   resources :password_resets
   resources :user_sessions
