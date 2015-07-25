@@ -86,6 +86,28 @@
 
 
     <div class="col-md-10">
+        <% if @sets.count > 0 then %>
+        <% active = params[:set] %>
+        <ul class="pagination">
+          <li <%= if active == @sets[0] then 'class=disabled' end %>>
+            <% if active != @sets[0] then %>
+            <a href="<%= "?set=#{@sets[@sets.index(active)-1]}" if active%>" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+            <% end %>
+          </li>
+          <% for set in @sets do %>
+            <li <%= if active == set then 'class=active' end %>><a href="<%= if set == active then guild_path(params[:id]) else "?set=#{set}" end%>"><%= set %></a></li>
+          <% end %>
+           <li <%= if active == @sets[@sets.count-1] then 'class=disabled' end %>>
+            <% if active != @sets[@sets.count-1] then %>
+            <a href="<%= "?set=#{@sets[@sets.index(active)+1]}" if active%>" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+            <% end %>
+          </li>
+        </ul>
+        <% end %>
         <% if @guild.mode == "EPGP" %>
 
           <%= grid(@members_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
@@ -108,19 +130,55 @@
               task.name
             end
 
-            g.column  name:  'EP', attribute: 'ep', auto_reload: false do |task|
-              task.ep
-            end
+            if not params[:set] then
+              g.column  name:  'EP', attribute: 'ep', auto_reload: false do |task|
+                task.ep
+              end
 
-            g.column  name:  'GP', attribute: 'gp', auto_reload: false do |task|
-              task.gp
-            end            
+              g.column  name:  'GP', attribute: 'gp', auto_reload: false do |task|
+                task.gp
+              end            
 
-            g.column  name:  'PR' , attribute: 'pr', auto_reload: false do |task|
-              [task.pr, {style: 'background-color: #F8FFD1;'}]  
+              g.column  name:  'PR' , attribute: 'pr', auto_reload: false do |task|
+                [task.pr, {style: 'background-color: #F8FFD1;'}]  
+              end
+            else
+
+              g.column  name:  'EP', attribute: 'ep', auto_reload: false , model: 'DataSet'  do |task|
+                set_ep = 0
+                for set in task.data_sets do
+                  if set.str_group == params[:set] then 
+                    set_ep = set.ep 
+                    break
+                  end
+                end
+                set_ep
+              end
+
+              g.column  name:  'GP', attribute: 'gp', auto_reload: false , model: 'DataSet' do |task|
+                set_gp = 0
+                for set in task.data_sets do
+                  if set.str_group == params[:set] then 
+                    set_gp = set.gp 
+                    break
+                  end
+                end
+                set_gp
+              end            
+
+              g.column  name:  'PR' , attribute: 'pr', auto_reload: false , model: 'DataSet' do |task|
+                set_pr = 0
+                for set in task.data_sets do
+                  if set.str_group == params[:set] then 
+                    set_pr = set.pr 
+                    break
+                  end
+                end
+                [set_pr, {style: 'background-color: #F8FFD1;'}]  
+              end
+
             end
-            size = ''
-            
+            size = ''   
             if authorized?(@guild.id) then size = '80px' else size = '40px' end
             g.column  name:  'Details' , html: {style: "max-width:#{size}"} do |task|
               if authorized?(@guild.id) then

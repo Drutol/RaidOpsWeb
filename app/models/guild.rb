@@ -21,15 +21,13 @@ class Guild < ActiveRecord::Base
 				guild_member.attendances.destroy_all
 			end
 			guild_members.destroy_all
-	
+		 	
+		 	raids.delete_all
 	 		if hash.has_key?("tRaids") then
-	 			raids.delete_all
 	 			hash['tRaids'].each do |raid|
 	 				raids.create(:name => (raid['name'] or "Raid"),:n_time => raid['length'],:n_finish => raid['finishTime'],:raid_type => raid['raidType']) if raid['raidType']
 	 			end
-	 			
 	 		end
-
 			hash = hash['tMembers']
 
 
@@ -74,6 +72,12 @@ class Guild < ActiveRecord::Base
 									#raise 'Import failed , your export string is not compliant with specifications (Logs count > 20).'
 								end
 							end
+	 					end
+	 				end
+	 				if arr['tDataSets'] and member.name == arr['strName'] then
+	 					member.data_sets.delete_all
+	 					arr['tDataSets'].each do |set|
+	 						member.data_sets.create(:str_group => set['strGroup'],:ep => set['tData']['EP'],:gp => set['tData']['GP'],:net => set['tData']['net'],:tot => set['tData']['tot'],:pr => "%.#{pr_precision}f"%(set['tData']['EP'].to_f/set['tData']['GP'].to_f))
 	 					end
 	 				end
 	 				if arr['tAtt'] and member.name == arr['strName'] then

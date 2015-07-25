@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709125520) do
+ActiveRecord::Schema.define(version: 20150725083626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,18 @@ ActiveRecord::Schema.define(version: 20150709125520) do
   end
 
   add_index "attendances", ["guild_member_id"], name: "index_attendances_on_guild_member_id", using: :btree
+
+  create_table "data_sets", force: :cascade do |t|
+    t.string   "str_group"
+    t.float    "ep"
+    t.float    "gp"
+    t.float    "pr"
+    t.float    "net"
+    t.float    "tot"
+    t.integer  "guild_member_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "guild_members", force: :cascade do |t|
     t.string   "name",       limit: 255

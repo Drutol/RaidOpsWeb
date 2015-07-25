@@ -22,22 +22,37 @@ class GuildsController < ApplicationController
 	def show
    		@guild = Guild.find(params[:id])
    		members = Array.new
-   		@edited = Array.new   		
+   		@edited = Array.new
+   		@sets = Array.new   		
    		for member in @guild.guild_members do
-   			begin
-            	edit_member = GuildMember.find_by(edit_flag: member.id)
-   			if edit_member then
-   				members.push(edit_member.id)
-   				@edited.push(edit_member.id)
-   			elsif member.name != "Guild Bank" then
-   				members.push(member.id)
+   			if member.data_sets then
+   				for set in member.data_sets do
+   					if not @sets.index(set.str_group) then @sets.push(set.str_group) end
+   				end
    			end
-			rescue
-				members.push(member.id)
+   			if not params[:set] then
+	   			begin
+	            	edit_member = GuildMember.find_by(edit_flag: member.id)
+	   			if edit_member then
+	   				members.push(edit_member.id)
+	   				@edited.push(edit_member.id)
+	   			elsif member.name != "Guild Bank" then
+	   				members.push(member.id)
+	   			end
+				rescue
+					members.push(member.id)
+				end
+			else
+				for set in member.data_sets do
+   					if set.str_group == params[:set] then 
+   						members.push(member.id) 
+   						break 
+   					end
+   				end
 			end
    		end
    		if not @guild.ass_app then @guild.update_attribute(:ass_app,"") end
-   		@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc',:per_page => @guild.members_per_page)
+   		@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc',:per_page => @guild.members_per_page,:include => 'data_sets')
   	end
 
   	def index

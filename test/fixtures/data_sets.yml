@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  str_group: MyString
+  ep: 1.5
+  gp: 1.5
+  pr: 1.5
+  net: 1.5
+  tot: 1.5
+  GuildMember: 
+
+two:
+  str_group: MyString
+  ep: 1.5
+  gp: 1.5
+  pr: 1.5
+  net: 1.5
+  tot: 1.5
+  GuildMember: 

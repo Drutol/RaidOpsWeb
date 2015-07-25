@@ -3,6 +3,7 @@ class GuildMember < ActiveRecord::Base
   has_many :items
   has_many :logs
   has_many :attendances
+  has_many :data_sets
 
 
 	def commit(commit_string = true)
