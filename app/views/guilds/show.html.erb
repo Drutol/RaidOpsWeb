@@ -179,9 +179,9 @@
 
             end
             size = ''   
-            if authorized?(@guild.id) then size = '80px' else size = '40px' end
+            if authorized?(@guild.id) and not params[:set] then size = '80px' else size = '40px' end
             g.column  name:  'Details' , html: {style: "max-width:#{size}"} do |task|
-              if authorized?(@guild.id) then
+              if authorized?(@guild.id) and not params[:set] then
               content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline") + "  " + (link_to "Edit" , edit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-warning',:style => "display:inline"),:align => "center")
               else
               content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline"))
@@ -212,18 +212,41 @@
             g.column name:  'Name', attribute: 'name' , auto_reload: false  do |task|
               task.name
             end
+            if not params[:set] then
+              g.column  name:  'Net', attribute: 'net', auto_reload: false do |task|
+                [task.net, {style: 'background-color: #F8FFD1;'}]  
+              end
 
-            g.column  name:  'Net', attribute: 'net', auto_reload: false do |task|
-              [task.net, {style: 'background-color: #F8FFD1;'}]  
+              g.column  name:  'Total', attribute: 'tot', auto_reload: false do |task|
+                task.tot
+              end            
+            else
+              g.column  name:  'Net', attribute: 'net', auto_reload: false , model: 'DataSet' do |task|
+                set_net = 0
+                for set in task.data_sets do
+                  if set.str_group == params[:set] then 
+                    set_net = set.net 
+                    break
+                  end
+                end
+                [set_net, {style: 'background-color: #F8FFD1;'}]  
+              end
+
+              g.column  name:  'Total', attribute: 'tot', auto_reload: false , model: 'DataSet' do |task|
+              set_tot = 0
+                for set in task.data_sets do
+                  if set.str_group == params[:set] then 
+                    set_tot = set.tot 
+                    break
+                  end
+                end
+                set_tot
+              end  
             end
 
-            g.column  name:  'Total', attribute: 'tot', auto_reload: false do |task|
-              task.tot
-            end            
-
-            if authorized?(@guild.id) then size = '80px' else size = '40px' end
+            if authorized?(@guild.id) and not params[:set] then size = '80px' else size = '40px' end
             g.column  name:  'Details' , html: {style: "max-width:#{size}"} do |task|
-              if authorized?(@guild.id) then
+              if authorized?(@guild.id) and not params[:set] then
               content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline") + "  " + (link_to "Edit" , edit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-warning',:style => "display:inline"),:align => "center")
               else
               content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline"))
@@ -248,7 +271,5 @@
         
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
