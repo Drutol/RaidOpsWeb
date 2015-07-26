@@ -180,13 +180,13 @@
   border-color: #FF9933;
 }
 .bs-callout-feature {
-  background-color: #ADEBEB;
-  border-color: #33CCCC;
+  background-color: #FFFBD0;
+  border-color: #CC6600;
 }
 
 .bs-callout-success {
-  background-color: #99EB99;
-  border-color: #00CC00;
+  background-color: #CDD5D5;
+  border-color: #2F4F4F;
 }
 /* Panels colors */
 .panel-warning {
@@ -196,6 +196,15 @@
 .panel-warning .panel-heading {
   background-color: #FFBD42;
   border-color: #FFBD42;
+}
+
+.panel-rops {
+  background-color: #FFFDE8;
+  border-color: #D68330;
+}
+.panel-rops .panel-heading {
+  background-color: #D68330;
+  border-color: #D68330;
 }
 
 </style>
@@ -216,17 +225,28 @@
         <div class="col-lg-9 text-center">
             <%= render "wiki_partials/#{if params[:page] then params[:page] else 'welcome' end}.html.erb"%>
         </div>
-        <ul class="col-lg-3" id ="floatdiv">
+        <ul class="col-lg-3">
           <h2>Contents</h2>
               <form role="form">
                 <div class="form-group">
-
                     <input id="searchinput" class="form-control" type="search" placeholder="Search..." />
                 </div>
                 <div id="searchlist" class="list-group">
                     <a class="list-group-item" href="<%= index_wiki_path %>/?page=welcome"><span>Welcome</span></a>
-                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=raidops"><span><b>RaidOps addon</b></span></a>
-                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=cyan"><span>cyan</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=raidops"><b><span>RaidOps addon</span></b></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsmain">&nbsp&nbsp&nbsp<span>Main window overview</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsset">&nbsp&nbsp&nbsp<span>Settings window overview</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsimport">&nbsp&nbsp&nbsp<span>Importing members</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsmod">&nbsp&nbsp&nbsp<span>Changing values</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsass">&nbsp&nbsp&nbsp<span>Item assign</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsrque">&nbsp&nbsp&nbsp<span>Raid Queue</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsalts">&nbsp&nbsp&nbsp<span>Alts</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropslogs">&nbsp&nbsp&nbsp<span>Logs</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsll">&nbsp&nbsp&nbsp<span>Loot Logs</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropscontext">&nbsp&nbsp&nbsp<span>Context menu</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsdecay">&nbsp&nbsp&nbsp<span>Decay</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsexport">&nbsp&nbsp&nbsp<span>Export and Import</span></a>
+                    <a class="list-group-item" href="<%= index_wiki_path %>/?page=ropsexport">&nbsp&nbsp&nbsp<span>Timed awards</span></a>
                 </div>
             </form>
             <script>
