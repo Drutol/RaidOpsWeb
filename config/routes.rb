@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'index/uploading'
   get 'index/credits'
   get 'index/changelog'
+  get 'index/wiki'
 
   resources :password_resets
   resources :user_sessions
