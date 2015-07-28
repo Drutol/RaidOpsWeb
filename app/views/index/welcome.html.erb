@@ -70,3 +70,47 @@
   </div> 
 </div><!-- /container -->
 
+<span href = "http://wildstar.datminer.com/item/40093">LOL</span>
+
+<script type="text/javascript">
+               jQuery('span').each(function (index, value) 
+                {
+                    // Set vars
+                    var url  = jQuery(this).attr("href");
+                    var host = null;
+                    if (void 0 != url && url.indexOf('/') > -1)
+                    {  
+                        url = url.split('/');
+                        var host = url[2];
+                    }
+                    var element = jQuery(this);
+                    // If host not undefined and valid address is in hrefs
+                    if (void 0 != host && host.indexOf('wildstar.datminer.com') != -1) 
+                    {
+
+                      jQuery.ajax({
+                        url: "http://tooltipz.com/modules/tooltip/wildtips.php",
+                        data: 
+                        {
+                            language: 'en',
+                            type: 'item',
+                            id: 60417,
+                        },
+                        
+                        cache: true,
+                        type: 'GET',
+                        success: function (data) 
+                        {
+                            try{
+                                data = JSON.parse(data);
+                            }catch(error)
+                            {
+                                return;
+                            }
+                           element.html('<img src="'+ data.icon + '" style="margin:0 5px -5px 0;width:100px;height:100px;vertical-align: initial;" />');
+                        }
+                      });
+                    }
+                  });
+</script>
+

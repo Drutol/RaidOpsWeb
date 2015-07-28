@@ -10,13 +10,44 @@
   table.my-grid tr.even{
     background-color: #ebebeb;
   }
+
+.bs-callout-item-blue {
+  background-color: #B2CCFF;
+  border-color: #0000A3;
+}
+
+.bs-callout-item-epic {
+  background-color: #D1B2D1;
+  border-color: #660066;
+}
+
+.bs-callout-item-green {
+  background-color: #70DB70;
+  border-color: #33CC33;
+}
+
+.bs-callout-item-orange {
+  background-color: #FFCC80;
+  border-color: #FF9900;
+}
+
+.bs-callout-item-pink {
+  background-color: #FF99CC;
+  border-color: #FF33CC;
+}
+
+.bs-callout-item-white {
+  background-color: #CCCCCC;
+  border-color: #999999
+;
+}
+
 </style>
 </head>
 
 <div class="container-fixed">
      <div id="sidebar-wrapper">
           <ul class="col-md-2" id="floatdiv">
-              <br><br>
               <br><br>
               <div class="list-group">
                 <a href="#" class="list-group-item active fixed">
@@ -43,18 +74,17 @@
               </div>  
 
               <div class="bs-callout bs-callout-info">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- UnderLeftControls -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-2889093804964574"
-         data-ad-slot="5647418646"
-         data-ad-format="auto"></ins>
-    <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-    </div>
-
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- UnderLeftControls -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-2889093804964574"
+                     data-ad-slot="5647418646"
+                     data-ad-format="auto"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                </div>
           </ul>
       </div>
     </div>
@@ -74,29 +104,121 @@ var wildstar_datminer_config =
 "color_show": false,
 
 //Do you want to have an icon added?
-"icon_replace": true
+"icon_replace": true,
 
 } </script>
 <%= javascript_include_tag 'dataminer_tooltips.js' %>
 <%= javascript_include_tag 'jabbithole_tooltips.js' %>
 <script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
-  <h1> Items </h1>
-  <%= grid(@items_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
+<div class="row" >
+  <br><br>
+    <div class="col-md-3" align="center">
+      
+      <% for slot in @slot_order_col1 do %>
+      <% item = @member.gear_pieces.find_by_item_type(slot) %>
+      <% if item then %>
+      <div class="row">
+        <div class="col-xs-5" align="right">
+          <div id="item_bubble" style="height:75px">
+            <div style="width:85px;margin-top:-9px">
+              <a href="http://wildstar.datminer.com/item/<%=item.item_id%>/big"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-7" align="left"> 
+          <div class="bs-callout bs-callout-feature" align="center" style="height:90px;width:120px;margin-top:-14px">
+           <div class="row" style="margin-left:1mm;margin-bottom:1mm">
+              <% counter = 0 %>
+              <% for rune in item.gear_runes do %>
+              <% if counter <= 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
+              <% counter+=1 %>
+              <% end %>
+           </div>
+           <div class="row" style="margin-left:1mm" align="center" >
+              <% counter = 0 %>
+              <% for rune in item.gear_runes do %>
+              <% if counter > 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
+              <% counter+=1 %>
+              <% end %>
+           </div>            
+          </div>   
+        </div>
+      </div>
+      <% end %>
+      <% end %>
 
-      g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
 
-      g.column name:  'Item name' do |item|
-       link_to("", "http://wildstar.datminer.com/item/#{item.ingame_id}") + " " +  link_to(item.ingame_id, "http://www.jabbithole.com/items/i-#{item.ingame_id}")
-      end
 
-      g.column  name:  'GP', attribute: 'gp_cost' do |item|
-        item.gp_cost
-      end            
+    </div>      
+    <div class="col-md-3" align="center">
+      <% for slot in @slot_order_col2 do %>
+      <% item = @member.gear_pieces.find_by_item_type(slot) %>
+      <% if item then %>
+      <div class="row">
+        <div class="col-xs-5" align="right">
+          <div id="item_bubble" style="height:75px">
+            <div style="width:85px;margin-top:-9px">
+              <a href="http://wildstar.datminer.com/item/<%=item.item_id%>/big"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-7" align="left"> 
+          <div class="bs-callout bs-callout-feature" align="center" style="height:90px;width:120px;margin-top:-14px">
+           <div class="row" style="margin-left:1mm;margin-bottom:1mm">
+              <% counter = 0 %>
+              <% for rune in item.gear_runes do %>
+              <% if counter <= 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
+              <% counter+=1 %>
+              <% end %>
+           </div>
+           <div class="row" style="margin-left:1mm" align="center" >
+              <% counter = 0 %>
+              <% for rune in item.gear_runes do %>
+              <% if counter > 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
+              <% counter+=1 %>
+              <% end %>
+           </div>            
+          </div>   
+        </div>
+      </div>
+      <% end %>
+      <% end %>
+    </div>    
+    <div class="col-md-6">
+        <h1> Recently looted  items </h1>
+        <%= grid(@items_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
 
-      g.column  name:  'Looted on' , attribute: 'timestamp' do |item|
-        Time.at(item.timestamp.to_i).strftime('%d/%m/%Y , %T')        
-      end
-    end -%>
+            g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
+
+            g.column name:  'Item name' do |item|
+             link_to("", "http://wildstar.datminer.com/item/#{item.ingame_id}") + " " +  link_to(item.ingame_id, "http://www.jabbithole.com/items/i-#{item.ingame_id}")
+            end
+
+            g.column  name:  'GP', attribute: 'gp_cost' do |item|
+              item.gp_cost
+            end            
+
+            g.column  name:  'Looted on' , attribute: 'timestamp' do |item|
+              Time.at(item.timestamp.to_i).strftime('%d/%m/%Y , %T')        
+            end
+          end -%>
+    </div>
+    <div class="col-md-12">
+   <%= form_tag(import_gear_guild_guild_member_path(@guild,@member.id), method: "post") do %>
+      <div class="row">
+      <%= label_tag(:pin, '    PIN')%>
+      <%= text_field_tag(:pin , "",class: "form-control" , :style => "display:inline;width:60px" , :maxlength => 4,)%>
+      &nbsp&nbsp
+      <%= label_tag(:json, '    Import Code')%>
+      <%= text_field_tag(:json , "",class: "form-control" ,:style => "display:inline;max-width:470px")%>
+      &nbsp&nbsp
+      <%= submit_tag("Submit" , class: "btn btn-primary") %>
+      </div>
+    <% end %>
+    </div>
+</div>
+
+  
 
   <h1> Logs </h1>
   <%= grid(@logs_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|

@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
       @guild = Guild.find(params[:guild_id])
   		for member in @guild.guild_members do
   			if member.id.to_i == params[:guild_member_id].to_i then
+          @id = member.id.to_i
           if not member.edit_flag then
   				  @member = member
             @items_grid = initialize_grid(member.items,:name => 'items_grid',:order => 'items.timestamp' ,:order_direction => 'desc')         
@@ -17,6 +18,8 @@ class ItemsController < ApplicationController
           end
   			end 
   		end
+      @slot_order_col1 = [16,15,2,3,0,5,1,4]
+      @slot_order_col2 = [7,8,10,11]
   	end
 
   	def show

@@ -52,6 +52,7 @@ Rails.application.routes.draw do
         post 'undo'
         post 'commit'
         post 'remove'
+        post 'import_gear'
       end
       resources :items
 

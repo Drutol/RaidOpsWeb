@@ -1,5 +1,5 @@
 class GuildMembersController < ApplicationController
-
+	skip_before_filter :require_login, only: [:import_gear]
 
 	def create
 	    @guild = Guild.find(params[:guild_id])
@@ -69,6 +69,31 @@ class GuildMembersController < ApplicationController
 		member.attendances.delete_all
 		member.destroy
 		redirect_to guild_path(params[:guild_id])
+	end
+
+	def import_gear
+		member = GuildMember.find(params[:id])
+		for piece in member.gear_pieces do
+			piece.gear_runes.destroy_all
+			piece.destroy
+		end
+		begin
+			hash = JSON.parse(params[:json])
+			counter = 0 
+			for key in hash.keys do
+				item = hash[key]
+				piece = member.gear_pieces.create(:item_id => item['id'],:item_type => key)
+				counter +=1
+				item["runes"].each do |rune|
+					piece.gear_runes.create(:rune_id => rune)
+				end
+			end
+			redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Upload successful'
+		rescue
+			#redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Upload failed'
+		end
+
+
 	end
  
   private

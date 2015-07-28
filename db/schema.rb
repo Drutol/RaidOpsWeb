@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725083626) do
+ActiveRecord::Schema.define(version: 20150728181410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,25 @@ ActiveRecord::Schema.define(version: 20150725083626) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  create_table "gear_pieces", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "item_type"
+    t.integer  "guild_member_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "gear_pieces", ["guild_member_id"], name: "index_gear_pieces_on_guild_member_id", using: :btree
+
+  create_table "gear_runes", force: :cascade do |t|
+    t.integer  "rune_id"
+    t.integer  "gear_piece_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "gear_runes", ["gear_piece_id"], name: "index_gear_runes_on_gear_piece_id", using: :btree
 
   create_table "guild_members", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -148,5 +167,6 @@ ActiveRecord::Schema.define(version: 20150725083626) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
   add_foreign_key "attendances", "guild_members"
+  add_foreign_key "gear_runes", "gear_pieces"
   add_foreign_key "raids", "guilds"
 end

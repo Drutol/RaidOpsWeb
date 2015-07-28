@@ -4,6 +4,7 @@ class GuildMember < ActiveRecord::Base
   has_many :logs
   has_many :attendances
   has_many :data_sets
+  has_many :gear_pieces
 
 
 	def commit(commit_string = true)
@@ -81,6 +82,7 @@ class GuildMember < ActiveRecord::Base
 
 
 		end
+
 
 	end
 end

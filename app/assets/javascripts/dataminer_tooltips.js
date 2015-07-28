@@ -37,7 +37,7 @@ function wildstar_datminer_replace_links()
         // If host not undefined and valid address is in hrefs
         if (void 0 != host && host.indexOf('wildstar.datminer.com') != -1) 
         {
-            var type, id, name;
+            var type, id, name , bBigIcons , bMediumIcons;
             if(url.length > 6)
             {   
                 //language prefix present
@@ -47,7 +47,10 @@ function wildstar_datminer_replace_links()
             {
                 if (url[3]) { type = url[3]; }
                 if (url[4]) { id= url[4]; }
-            }
+                if (url[5] && url[5] == "big") { bBigIcons = true; }
+                if (url[5] && url[5] == "med") { bMediumIcons = true; }
+            } 
+
 
             var element = jQuery(this);
             void 0 == id || !jQuery.isNumeric(id) || (jQuery.ajax({
@@ -90,7 +93,44 @@ function wildstar_datminer_replace_links()
                         }
                         if (wildstar_datminer_config.icon_replace)   
                         { 
-                            element.html('<img src="'+ data.icon + '" style="margin:0 5px -5px 0;width:20px;height:20px;vertical-align: initial;" />' + element.html());
+                            
+                            if (bBigIcons)
+                            {
+                                element.html('<img src="'+ data.icon + '" style="margin:0 5px -5px 0;width:50px;height:50px;vertical-align: initial;" />' + element.html());
+                                if (data.color == "E167A8")
+                                {
+                                    element.parent().addClass('bs-callout bs-callout-item-pink')
+                                }
+                                else if (data.color == "7133FF")
+                                {
+                                   element.parent().addClass('bs-callout bs-callout-item-epic') 
+                                }                               
+                                 else if (data.color == "FFAD5C")
+                                {
+                                   element.parent().addClass('bs-callout bs-callout-item-orange') 
+                                }                                
+                                else if (data.color == "67A8E1")
+                                {
+                                   element.parent().addClass('bs-callout bs-callout-item-blue') 
+                                }                                 
+                                 else if (data.color == "A7E065")
+                                {
+                                   element.parent().addClass('bs-callout bs-callout-item-green') 
+                                }
+                                else
+                                {
+                                    element.parent().addClass('bs-callout bs-callout-item-white') 
+                                }                                
+                                
+                                //alert(data.color);// - epic E167A8 - arti FFAD5C - orange 67A8E1 - blue A7E065
+                            }
+                            else if (bMediumIcons)
+                            {
+                                element.html('<img src="'+ data.icon + '" style="margin:0 5px -5px 0;width:30px;height:30px;vertical-align: initial;" />' + element.html());
+                            }
+                            else
+                            {element.html('<img src="'+ data.icon + '" style="margin:0 5px -5px 0;width:25px;height:25px;vertical-align: initial;" />' + element.html());}
+                            
                         }
                     }
                      //JQuery('.wildstar-datminer-link').attach_tooltip();
