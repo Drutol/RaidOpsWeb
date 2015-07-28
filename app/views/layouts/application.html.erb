@@ -22,7 +22,36 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
-
+  <style type="text/css">
+  .bs-callout {
+  margin: 20px 0;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #eee;
+}
+.bs-callout h4 {
+  margin-top: 0;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code,
+.bs-callout .highlight {
+  background-color: #fff;
+}
+ 
+/* Themes for different contexts */
+.bs-callout-danger {
+  background-color: #fcf2f2;
+  border-color: #dFb5b4;
+}
+.bs-callout-warning {
+  background-color: #FFE8A3;
+  border-color: #FFBB00;
+}
+.bs-callout-info {
+  background-color: #f0f7fd;
+  border-color: #4770BF;
+}</style>
 </head>
 <body data-no-turbolink>
   <script type="text/javascript">

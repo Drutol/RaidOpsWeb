@@ -1,11 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <body>
+<script type="text/javascript">  
+    floatingMenu.add('floatdiv',  
+        {  
+            targetLeft: 10,   
+            targetTop: 10,  
+        });  
+</script> 
+<div class="row">
+  <div class="col-md-2" id="floatdiv">
+    <div class="bs-callout bs-callout-info" >
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- UnderLeftControls -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2889093804964574"
+         data-ad-slot="5647418646"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    </div>
+  </div>
+  <div class="col-lg-10">
     <%= grid(@guilds_grid) do |g|
-
-            g.column name:  'ID' , ordering: false do |guild|
-              guild.id
-            end
 
             g.column name:  'Name' , attribute: 'name'  do |guild|
               guild.name
@@ -31,8 +47,10 @@
               content_tag(:div,(link_to "More" , guild_path(guild.id) , class: 'btn btn-info'),:align => "center")
             end
           end -%>
-  </body>
-</html>
+        </div>
+</div>
+
+
 
 
 
