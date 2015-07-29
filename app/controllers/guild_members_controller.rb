@@ -91,7 +91,7 @@ class GuildMembersController < ApplicationController
 				end
 				redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Upload successful'
 			rescue
-				redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Upload failed'
+				redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Invalid import code'
 			end
 		else
 			redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Invalid PIN'

@@ -85,7 +85,7 @@
             end
 
             g.column name:  'Name', attribute: 'name' , auto_reload: false  do |task|
-              task.name
+             link_to "#{task.name}" , guild_guild_member_items_path(task.guild_id,task.id)
             end
 
             g.column  name:  'EP', attribute: 'ep', auto_reload: false do |task|
