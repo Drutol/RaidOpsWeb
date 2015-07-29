@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'index/credits'
   get 'index/changelog'
   get 'index/wiki'
-
+  get 'index/search'
   resources :password_resets
   resources :user_sessions
   resources :users do

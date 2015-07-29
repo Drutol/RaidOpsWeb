@@ -417,7 +417,7 @@ class GuildsController < ApplicationController
 				member.update_attribute(:pin,rand(1000..9999))
 			end
 		end
-		@members_grid = initialize_grid(@guild.guild_members)
+		@members_grid = initialize_grid(@guild.guild_members,:order =>'guild_members.name',:order_direction => 'ASC')
 	end
 
 	private

@@ -560,6 +560,9 @@ if (typeof(jQuery) !== 'undefined')
     }) (jQuery);
 }
 </script>
+
+
+
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -576,6 +579,13 @@ if (typeof(jQuery) !== 'undefined')
             <h1 style="color:white"><%= link_to(image_tag("http://fontmeme.com/embed.php?text=Raid%20Ops&name=WildstarFont.ttf&size=15&style_color=FFFFFF") , guilds_path , style: 'color:white') %></h1>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li>
+            <div class="row" style="margin-top:20px">
+            <%= form_tag({controller: "index", action: "search"}, method: "get", :id => "SearchForm") do %>
+            <%= text_field_tag(:search ,if params[:search] then params[:search] else "" end,class: "form-control" , :style => "display:inline;width:150px" , :placeholder => "Search members..." , :id => "MemberSearch")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <% end %>
+            </div>
+          </li>
           <li><%= link_to 'Home', index_welcome_path, class: 'btn btn-inverse navbar-btn' %></li>
           <li><%= link_to 'Guilds', guilds_path, class: 'btn btn-inverse navbar-btn' %></li>
           <li><%= link_to 'About', index_about_path, class: 'btn btn-inverse navbar-btn' %></li>
@@ -598,7 +608,13 @@ if (typeof(jQuery) !== 'undefined')
       </div>
     </div>
   </nav>
-  
+  <script>
+document.getElementById("MemberSearch").addEventListener("keydown", submit_form)
+
+function submit_form(event) {
+   if(event.keyCode == 13){document.getElementById("SearchForm").submit();}
+}
+</script>
   <br><br><br><br>
    <div class="container">
    <!--<div class="alert alert-danger" role="alert">Hosting news , read here: https://github.com/Mordonus/RaidOps/issues/185</div>-->  

@@ -10,4 +10,15 @@ class IndexController < ApplicationController
 
 	end
 
+	def search
+		members = GuildMember.where('name LIKE ? AND guild_id IS NOT NULL', "%#{params[:search]}%")
+		ids = Array.new
+		for member in members do
+			if Guild.where('id = ?',member.guild_id).count > 0 then
+				ids.push(member.id)
+			end
+		end
+		@search_grid = initialize_grid(GuildMember.where(id: ids))
+	end
+
 end

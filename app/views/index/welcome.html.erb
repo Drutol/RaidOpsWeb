@@ -26,8 +26,8 @@
           <h3>Keep your raid members updated!</h3>
           <p style="font-size:13pt">Anyone can check current EP and GP values , logs and items that dropped. </p>        
 
-          <h3>Filter the roster!</h3>
-          <p style="font-size:13pt">You can filter and sort by class , role , minimum PR etc.</p>          
+          <h3>Small armory!</h3>
+          <p style="font-size:13pt">Allow your members to share their gear!</p>          
 
           <h3>Edit on the fly!</h3>
           <p style="font-size:13pt">Make any changes to the guild members , save them and import in-game.</p>
@@ -58,6 +58,7 @@
         </div>
         <div class="panel-body">
           <h4>If you want to help me developing both this website and in-game addon leave me a tip! It really motivates :D</h4>
+          <h4>Disabling adblock will help too!</h4>
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_s-xclick">
             <input type="hidden" name="hosted_button_id" value="TZVVQTZUM6G4Y">
@@ -69,48 +70,4 @@
     </div>
   </div> 
 </div><!-- /container -->
-
-<span href = "http://wildstar.datminer.com/item/40093">LOL</span>
-
-<script type="text/javascript">
-               jQuery('span').each(function (index, value) 
-                {
-                    // Set vars
-                    var url  = jQuery(this).attr("href");
-                    var host = null;
-                    if (void 0 != url && url.indexOf('/') > -1)
-                    {  
-                        url = url.split('/');
-                        var host = url[2];
-                    }
-                    var element = jQuery(this);
-                    // If host not undefined and valid address is in hrefs
-                    if (void 0 != host && host.indexOf('wildstar.datminer.com') != -1) 
-                    {
-
-                      jQuery.ajax({
-                        url: "http://tooltipz.com/modules/tooltip/wildtips.php",
-                        data: 
-                        {
-                            language: 'en',
-                            type: 'item',
-                            id: 60417,
-                        },
-                        
-                        cache: true,
-                        type: 'GET',
-                        success: function (data) 
-                        {
-                            try{
-                                data = JSON.parse(data);
-                            }catch(error)
-                            {
-                                return;
-                            }
-                           element.html('<img src="'+ data.icon + '" style="margin:0 5px -5px 0;width:100px;height:100px;vertical-align: initial;" />');
-                        }
-                      });
-                    }
-                  });
-</script>
 
