@@ -74,17 +74,8 @@
               </div>  
 
               <div class="bs-callout bs-callout-info">
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- UnderLeftControls -->
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-2889093804964574"
-                     data-ad-slot="5647418646"
-                     data-ad-format="auto"></ins>
-                <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-                </div>
+                <%= render 'ad.html.erb' %>
+              </div>
           </ul>
       </div>
     </div>
@@ -111,80 +102,119 @@ var wildstar_datminer_config =
 <%= javascript_include_tag 'jabbithole_tooltips.js' %>
 <script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
 <div class="row" >
-  <br><br>
-    <div class="col-md-3" align="center">
-      
-      <% for slot in @slot_order_col1 do %>
-      <% item = @member.gear_pieces.find_by_item_type(slot) %>
-      <% if item then %>
-      <div class="row">
-        <div class="col-xs-5" align="right">
-          <div id="item_bubble" style="height:75px">
-            <div style="width:85px;margin-top:-9px">
-              <a href="http://wildstar.datminer.com/item/<%=item.item_id%>/big"></a>
+  <br><br><br>
+    
+    <% if @member.gear_pieces.count > 0 then %>
+      <div class="col-md-3" align="center">
+        <div class="well"> 
+          <br>
+          <% for slot in @slot_order_col1 do %>
+          <% item = @member.gear_pieces.find_by_item_type(slot) %>
+          <% if item then %>
+          <div class="row">
+            <div class="col-xs-5" align="right">
+              <div id="item_bubble" style="height:75px">
+                <div style="width:85px;margin-top:-9px">
+                  <a href="http://wildstar.datminer.com/item/<%=item.item_id%>/big"></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-7" align="left"> 
+              <div class="bs-callout bs-callout-feature" align="center" style="height:90px;width:120px;margin-top:-14px">
+               <div class="row" style="margin-left:1mm;margin-bottom:1mm">
+                  <% counter = 0 %>
+                  <% for rune in item.gear_runes do %>
+                  <% if counter <= 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
+                  <% counter+=1 %>
+                  <% end %>
+               </div>
+               <div class="row" style="margin-left:1mm" align="center" >
+                  <% counter = 0 %>
+                  <% for rune in item.gear_runes do %>
+                  <% if counter > 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
+                  <% counter+=1 %>
+                  <% end %>
+               </div>            
+              </div>   
             </div>
           </div>
+          <% end %>
+          <% end %>
         </div>
-        <div class="col-xs-7" align="left"> 
-          <div class="bs-callout bs-callout-feature" align="center" style="height:90px;width:120px;margin-top:-14px">
-           <div class="row" style="margin-left:1mm;margin-bottom:1mm">
-              <% counter = 0 %>
-              <% for rune in item.gear_runes do %>
-              <% if counter <= 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
-              <% counter+=1 %>
-              <% end %>
-           </div>
-           <div class="row" style="margin-left:1mm" align="center" >
-              <% counter = 0 %>
-              <% for rune in item.gear_runes do %>
-              <% if counter > 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
-              <% counter+=1 %>
-              <% end %>
-           </div>            
-          </div>   
-        </div>
-      </div>
-      <% end %>
-      <% end %>
-
-
-
-    </div>      
-    <div class="col-md-3" align="center">
-      <% for slot in @slot_order_col2 do %>
-      <% item = @member.gear_pieces.find_by_item_type(slot) %>
-      <% if item then %>
-      <div class="row">
-        <div class="col-xs-5" align="right">
-          <div id="item_bubble" style="height:75px">
-            <div style="width:85px;margin-top:-9px">
-              <a href="http://wildstar.datminer.com/item/<%=item.item_id%>/big"></a>
+      </div>      
+      <div class="col-md-3" align="center">
+        <div class="well" align="center"> 
+          <br>
+          <% for slot in @slot_order_col2 do %>
+          <% item = @member.gear_pieces.find_by_item_type(slot) %>
+          <% if item then %>
+          <div class="row">
+            <div class="col-xs-5" align="right">
+              <div id="item_bubble" style="height:75px">
+                <div style="width:85px;margin-top:-9px">
+                  <a href="http://wildstar.datminer.com/item/<%=item.item_id%>/big"></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-7" align="left"> 
+              <div class="bs-callout bs-callout-feature" align="center" style="height:90px;width:120px;margin-top:-14px">
+               <div class="row" style="margin-left:1mm;margin-bottom:1mm">
+                  <% counter = 0 %>
+                  <% for rune in item.gear_runes do %>
+                  <% if counter <= 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
+                  <% counter+=1 %>
+                  <% end %>
+               </div>
+               <div class="row" style="margin-left:1mm" align="center" >
+                  <% counter = 0 %>
+                  <% for rune in item.gear_runes do %>
+                  <% if counter > 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
+                  <% counter+=1 %>
+                  <% end %>
+               </div>            
+              </div>   
             </div>
           </div>
-        </div>
-        <div class="col-xs-7" align="left"> 
-          <div class="bs-callout bs-callout-feature" align="center" style="height:90px;width:120px;margin-top:-14px">
-           <div class="row" style="margin-left:1mm;margin-bottom:1mm">
-              <% counter = 0 %>
-              <% for rune in item.gear_runes do %>
-              <% if counter <= 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
-              <% counter+=1 %>
-              <% end %>
-           </div>
-           <div class="row" style="margin-left:1mm" align="center" >
-              <% counter = 0 %>
-              <% for rune in item.gear_runes do %>
-              <% if counter > 3 then %><a href="http://wildstar.datminer.com/item/<%=rune.rune_id%>/med"></a><% end %>
-              <% counter+=1 %>
-              <% end %>
-           </div>            
-          </div>   
-        </div>
+          <% end %>
+          <% end %>
+          </div>
+          <% if @member.alts.count > 0 then %><h3>Alts</h3><% end %>
+          <%= grid(@alts_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
+            g.blank_slate content_tag(:div, "No alts found", class: 'alert alert-info')
+
+              g.column name:  'Alt name' , attribute: 'name' do |alt|
+               alt.name
+              end
+            end -%>
       </div>
-      <% end %>
-      <% end %>
-    </div>    
-    <div class="col-md-6">
+    <% else %>
+      <div class="col-md-6">
+          <div class="alert alert-info">
+            No data about player's gear , collect it during raid or import manually.
+          </div>
+          <%= form_tag(import_gear_guild_guild_member_path(@guild,@member.id), method: "post") do %>
+            <div class="row">
+            &nbsp&nbsp&nbsp&nbsp<%= label_tag(:pin, '    PIN')%>
+            <%= text_field_tag(:pin , "",class: "form-control" , :style => "display:inline;width:60px" , :maxlength => 4,)%>
+            &nbsp
+            <%= label_tag(:json, '    Import Code')%>
+            <%= text_field_tag(:json , "",class: "form-control" ,:style => "display:inline;max-width:470px")%>
+            &nbsp
+            <%= submit_tag("Submit" , class: "btn btn-primary") %>
+            </div>
+          <% end %>
+          <br>
+          <% if @member.alts.count > 0 then %><h3>Alts</h3><% end %>
+          <%= grid(@alts_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
+            g.blank_slate content_tag(:div, "No alts found", class: 'alert alert-info')
+
+              g.column name:  'Alt name' , attribute: 'name' do |alt|
+               alt.name
+              end
+            end -%>
+      </div>
+    <% end %>   
+    <div class="col-md-6" style="margin-top:-50px">
         <h1> Recently looted  items </h1>
         <%= grid(@items_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
 
@@ -203,19 +233,22 @@ var wildstar_datminer_config =
             end
           end -%>
     </div>
+    <% if @member.gear_pieces.count > 0 then %>
     <div class="col-md-12">
-   <%= form_tag(import_gear_guild_guild_member_path(@guild,@member.id), method: "post") do %>
-      <div class="row">
-      <%= label_tag(:pin, '    PIN')%>
-      <%= text_field_tag(:pin , "",class: "form-control" , :style => "display:inline;width:60px" , :maxlength => 4,)%>
-      &nbsp&nbsp
-      <%= label_tag(:json, '    Import Code')%>
-      <%= text_field_tag(:json , "",class: "form-control" ,:style => "display:inline;max-width:470px")%>
-      &nbsp&nbsp
-      <%= submit_tag("Submit" , class: "btn btn-primary") %>
-      </div>
-    <% end %>
+     <%= form_tag(import_gear_guild_guild_member_path(@guild,@member.id), method: "post") do %>
+        <div class="row">
+        &nbsp&nbsp&nbsp&nbsp<%= label_tag(:pin, '    PIN')%>
+        <%= text_field_tag(:pin , "",class: "form-control" , :style => "display:inline;width:60px" , :maxlength => 4,)%>
+        &nbsp
+        <%= label_tag(:json, '    Import Code')%>
+        <%= text_field_tag(:json , "",class: "form-control" ,:style => "display:inline;max-width:470px")%>
+        &nbsp
+        <%= submit_tag("Submit" , class: "btn btn-primary") %>
+        </div>
+      <% end %>
+
     </div>
+    <% end %>
 </div>
 
   

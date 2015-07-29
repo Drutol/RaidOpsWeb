@@ -410,6 +410,16 @@ class GuildsController < ApplicationController
 		redirect_to guild_path(params[:id])
 	end
 
+	def show_pins
+		@guild = Guild.find(params[:id])
+		for member in @guild.guild_members do
+			if not member.pin then
+				member.update_attribute(:pin,rand(1000..9999))
+			end
+		end
+		@members_grid = initialize_grid(@guild.guild_members)
+	end
+
 	private
 		def guild_params
 	  		params.require(:guild).permit(:name, :owner, :realm,:mode)

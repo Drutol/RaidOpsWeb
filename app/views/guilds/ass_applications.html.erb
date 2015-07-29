@@ -1,8 +1,8 @@
-<% if not authorized_full?(@guild.id) %>
+<% if not authorized?(@guild.id) %>
 <script type="text/javascript">
     window.location.href= "<%= "/guilds/#{params[:guild_id]}" %>" 
 </script>
-<% end %>
+<% else %>
 <div class="container-fixed">
   <% if @guild.ass_app.length > 0 %>
     <h2 align="center"> New applications:</h2>
@@ -42,3 +42,4 @@
           </ul>
     </div>
 </div>
+<% end %>

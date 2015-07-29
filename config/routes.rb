@@ -45,6 +45,7 @@ Rails.application.routes.draw do
      post 'reject_ass'
      post 'rem_ass'
      post 'set_main_settings'
+     get 'show_pins'
     end
     resources :guild_members do
       member do

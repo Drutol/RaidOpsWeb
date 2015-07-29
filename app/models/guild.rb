@@ -8,19 +8,28 @@ class Guild < ActiveRecord::Base
 		item_counter = 0
 		log_counter = 0
 		player_logs = Hash.new
+		player_gear = Hash.new
 		begin
 			hash = JSON.parse(params[:json])
 		rescue
 			return "fail"
 		end
 		begin
-		
+			
 			Item.where(:of_guild_id => params[:id].to_i).destroy_all
-			for guild_member in guild_members do
-				player_logs[guild_member.name] = guild_member.logs
-				guild_member.attendances.destroy_all
+			if hash['tMembers'].count != guild_members.count then
+				for guild_member in guild_members do
+					player_logs[guild_member.name] = guild_member.logs
+					player_gear[guild_member.name] = guild_member.gear_pieces
+					guild_member.attendances.destroy_all
+					for piece in guild_member.gear_pieces do
+						piece.gear_runes.destroy_all
+						piece.destroy
+					end
+					for alt in guild_member.alts do alt.destroy end
+				end
+				guild_members.destroy_all
 			end
-			guild_members.destroy_all
 		 	
 		 	raids.delete_all
 	 		if hash.has_key?("tRaids") then
@@ -33,11 +42,22 @@ class Guild < ActiveRecord::Base
 
 
 			hash.each do |arr|
- 		 		member = guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.#{pr_precision}f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
- 		 		create_counter += 1
- 		 		if player_logs[arr['strName']] then
- 		 			for log in player_logs[arr['strName']] do log.update_attribute(:guild_member_id , member.id) end
+				member = guild_members.find_by_name(arr['strName'])
+				if member then
+					member.update_attributes(:ep => arr['EP'],:gp => arr['GP'],:pr => "%.#{pr_precision}f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
+				else
+ 		 			member = guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.#{pr_precision}f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
+ 		 		
+	 		 		if player_logs[arr['strName']] then
+	 		 			for log in player_logs[arr['strName']] do log.update_attribute(:guild_member_id , member.id) end
+	 		 		end	 		 		
+
+	 		 		if player_gear[arr['strName']] then
+	 		 			for piece in player_gear[arr['strName']] do piece.update_attribute(:guild_member_id , member.id) end
+	 		 		end
  		 		end
+ 		 		create_counter += 1
+
  		 		if create_counter > 100 then
 					raise 'Import failed , maximum value of 100 guild members has been reached.'
 				end
@@ -79,6 +99,12 @@ class Guild < ActiveRecord::Base
 	 					arr['tDataSets'].each do |set|
 	 						member.data_sets.create(:str_group => set['strGroup'],:ep => set['tData']['EP'],:gp => set['tData']['GP'],:net => set['tData']['net'],:tot => set['tData']['tot'],:pr => "%.#{pr_precision}f"%(set['tData']['EP'].to_f/set['tData']['GP'].to_f))
 	 					end
+	 				end	 				
+	 				if arr['alts'] and member.name == arr['strName'] then
+	 					member.alts.destroy_all
+	 					arr['alts'].each do |alt|
+	 						member.alts.create(:name => alt)
+	 					end
 	 				end
 	 				if arr['tAtt'] and member.name == arr['strName'] then
 	 					member.attendances.delete_all
@@ -114,7 +140,7 @@ class Guild < ActiveRecord::Base
 
 			for member in guild_members do
 				for log in member.logs do
-	 				if Time.now.to_i - log.n_date.to_i  > 2592000 then log.destroy end
+	 				if Time.now.to_i - log.n_date.to_i  > 604800 then log.destroy end
 	 			end
 	 		end
 

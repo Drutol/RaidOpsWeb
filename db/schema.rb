@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728181410) do
+ActiveRecord::Schema.define(version: 20150729074932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "alts", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "guild_member_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "alts", ["guild_member_id"], name: "index_alts_on_guild_member_id", using: :btree
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "nSecs"
@@ -75,6 +84,7 @@ ActiveRecord::Schema.define(version: 20150728181410) do
     t.integer  "p_ds"
     t.integer  "p_y"
     t.integer  "p_tot"
+    t.integer  "pin"
   end
 
   add_index "guild_members", ["guild_id"], name: "index_guild_members_on_guild_id", using: :btree
@@ -166,6 +176,7 @@ ActiveRecord::Schema.define(version: 20150728181410) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
+  add_foreign_key "alts", "guild_members"
   add_foreign_key "attendances", "guild_members"
   add_foreign_key "gear_runes", "gear_pieces"
   add_foreign_key "raids", "guilds"

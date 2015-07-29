@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-  <head>
     <style type="text/css">
   table.my-grid {
   }
@@ -10,8 +9,6 @@
     background-color: #ebebeb;
   }
 </style>
-
-  </head>
 
   <body>
 
@@ -27,7 +24,8 @@
                 </a>
                 <% if authorized?(@guild.id) %>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-pencil")+" Edit", edit_guild_path(@guild), class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-wrench")+" Settings", settings_guild_path(@guild), class: 'list-group-item' %></a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-wrench")+" Settings", settings_guild_path(@guild), class: 'list-group-item' %></a>             
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-lock")+" Show members' PINs.", show_pins_guild_path, class: 'list-group-item' %> </a>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Upload Data", upload_guild_path, class: 'list-group-item' %> </a>
                 <% end %>
 
@@ -79,17 +77,7 @@
             </div> 
 
             <div class="bs-callout bs-callout-info">
-                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-              <!-- UnderLeftControls -->
-              <ins class="adsbygoogle"
-                   style="display:block"
-                   data-ad-client="ca-pub-2889093804964574"
-                   data-ad-slot="5647418646"
-                   data-ad-format="auto"></ins>
-              <script>
-              (adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
-
+              <%= render 'ad.html.erb' %>
             </div>   
           </ul>
 

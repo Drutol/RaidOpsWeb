@@ -73,27 +73,29 @@ class GuildMembersController < ApplicationController
 
 	def import_gear
 		member = GuildMember.find(params[:id])
-		for piece in member.gear_pieces do
-			piece.gear_runes.destroy_all
-			piece.destroy
-		end
-		begin
-			hash = JSON.parse(params[:json])
-			counter = 0 
-			for key in hash.keys do
-				item = hash[key]
-				piece = member.gear_pieces.create(:item_id => item['id'],:item_type => key)
-				counter +=1
-				item["runes"].each do |rune|
-					piece.gear_runes.create(:rune_id => rune)
-				end
+		if member.pin == params[:pin].to_i then 
+			for piece in member.gear_pieces do
+				piece.gear_runes.destroy_all
+				piece.destroy
 			end
-			redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Upload successful'
-		rescue
-			#redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Upload failed'
+			begin
+				hash = JSON.parse(params[:json])
+				counter = 0 
+				for key in hash.keys do
+					item = hash[key]
+					piece = member.gear_pieces.create(:item_id => item['id'],:item_type => key)
+					counter +=1
+					item["runes"].each do |rune|
+						piece.gear_runes.create(:rune_id => rune)
+					end
+				end
+				redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Upload successful'
+			rescue
+				redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Upload failed'
+			end
+		else
+			redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Invalid PIN'
 		end
-
-
 	end
  
   private

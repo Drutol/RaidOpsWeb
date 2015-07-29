@@ -2,7 +2,7 @@
 <script type="text/javascript">
     window.location.href= "<%= "/guilds/#{params[:guild_id]}" %>" 
 </script>
-<% end %>
+<% else %>
 
 <div class="container">
   <div align="center"><h1>Update <%= @member.name %></h1></div>
@@ -52,3 +52,5 @@
   <% end %>
 
 </div>
+
+<% end %>

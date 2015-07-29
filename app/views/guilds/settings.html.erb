@@ -1,3 +1,9 @@
+<% if not authorized?(@guild.id) %>
+<script type="text/javascript">
+    window.location.href= "<%= "/guilds/#{params[:guild_id]}" %>" 
+</script>
+<% else %>
+
 <div class="col-md-12" align="center">
 <div class="panel panel-primary" align="center">  
   <div class="panel-heading">Settings</div>
@@ -18,3 +24,5 @@
   </div>
 </div> 
 </div>
+
+<% end %>

@@ -14,18 +14,8 @@
         <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>
       </div>
       <div class="bs-callout bs-callout-info">
-                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-              <!-- UnderLeftControls -->
-              <ins class="adsbygoogle"
-                   style="display:block"
-                   data-ad-client="ca-pub-2889093804964574"
-                   data-ad-slot="5647418646"
-                   data-ad-format="auto"></ins>
-              <script>
-              (adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
-
-            </div>    
+        <%= render 'ad.html.erb' %>
+      </div>    
   </ul>
 </div>
 
