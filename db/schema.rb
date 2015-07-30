@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730060654) do
+ActiveRecord::Schema.define(version: 20150730150748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,8 @@ ActiveRecord::Schema.define(version: 20150730060654) do
     t.integer  "guild_member_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "ap"
+    t.integer  "sp"
   end
 
   add_index "member_stats", ["guild_member_id"], name: "index_member_stats_on_guild_member_id", using: :btree
@@ -168,6 +170,16 @@ ActiveRecord::Schema.define(version: 20150730060654) do
   end
 
   add_index "raids", ["guild_id"], name: "index_raids_on_guild_id", using: :btree
+
+  create_table "rune_sets", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "count"
+    t.integer  "guild_member_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "rune_sets", ["guild_member_id"], name: "index_rune_sets_on_guild_member_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                           limit: 255, null: false
@@ -195,4 +207,5 @@ ActiveRecord::Schema.define(version: 20150730060654) do
   add_foreign_key "gear_runes", "gear_pieces"
   add_foreign_key "member_stats", "guild_members"
   add_foreign_key "raids", "guilds"
+  add_foreign_key "rune_sets", "guild_members"
 end

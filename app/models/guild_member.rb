@@ -7,6 +7,7 @@ class GuildMember < ActiveRecord::Base
   has_many :gear_pieces
   has_many :alts
   has_many :member_stats
+  has_many :rune_sets
 
 
 	def commit(commit_string = true)

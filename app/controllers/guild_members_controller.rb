@@ -83,7 +83,12 @@ class GuildMembersController < ApplicationController
 				for key in hash.keys do
 					if key == "tStats" then
 						member.member_stats.destroy_all
-						member.member_stats.create(:mox =>hash[key]['Mox'],:brut => hash[key]['Bru'],:ins => hash[key]['Wis'],:tech =>hash[key]['Tech'],:fin =>hash[key]['Dex'],:grit =>hash[key]['Sta'])
+						member.member_stats.create(:mox =>hash[key]['Mox'],:brut => hash[key]['Bru'],:ins => hash[key]['Wis'],:tech =>hash[key]['Tech'],:fin =>hash[key]['Dex'],:grit =>hash[key]['Sta'],:ap => hash[key]['AP'],:sp => hash[key]['SP'])
+					elsif key == "tSets"
+						member.rune_sets.destroy_all
+						for set_key in hash[key].keys do
+							member.rune_sets.create(:name => set_key,:count => hash[key][set_key])
+						end
 					else
 						item = hash[key]
 						piece = member.gear_pieces.create(:item_id => item['id'],:item_type => key)

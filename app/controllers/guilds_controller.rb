@@ -247,10 +247,15 @@ class GuildsController < ApplicationController
 			Guild.find(params[:id]).update_attributes(:updated_at => DateTime.now)
 
 			begin
+				hash = JSON.parse(params[:json])
+				for member in hash['tMembers'] do
+					member['tArmoryEntry'] = nil
+				end
+				hash = JSON.generate(hash)
 				ftp = Net::FTP.new('31.220.16.113')
 				ftp.passive = true
 				ftp.login('u292965448', ENV['FTP_PASS'])
-				ftp.puttextcontent(params[:json], "/public_html/guild_json_#{params[:id]}.txt")
+				ftp.puttextcontent(hash, "/public_html/guild_json_#{params[:id]}.txt")
 				ftp.close
 			rescue
 				redirect_to @guild , notice: "Import successfull: Processed #{c_counter.to_s} entries . Processed #{i_counter} items and #{l_counter} logs. Backup file upload failed."

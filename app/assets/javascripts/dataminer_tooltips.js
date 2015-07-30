@@ -48,7 +48,7 @@ function wildstar_datminer_replace_links()
                 if (url[3]) { type = url[3]; }
                 if (url[4]) { id= url[4]; }
                 if (url[5] && url[5] == "big") { bBigIcons = true; }
-                if (url[5] && url[5] == "med") { bMediumIcons = true; }
+                if (url[5] && url[5] == "sm") { bMediumIcons = true; }
             } 
 
 
@@ -126,7 +126,7 @@ function wildstar_datminer_replace_links()
                             }
                             else if (bMediumIcons)
                             {
-                                element.html('<img src="'+ data.icon + '" style="margin:0 5px -5px 0;width:30px;height:30px;vertical-align: initial;" />' + element.html());
+                                element.html('<img src="'+ data.icon + '" style="margin:0 5px -5px 0;width:23px;height:23px;vertical-align: initial;" />' + element.html());
                             }
                             else
                             {element.html('<img src="'+ data.icon + '" style="margin:0 5px -5px 0;width:25px;height:25px;vertical-align: initial;" />' + element.html());}
