@@ -6,6 +6,7 @@ class GuildMember < ActiveRecord::Base
   has_many :data_sets
   has_many :gear_pieces
   has_many :alts
+  has_many :member_stats
 
 
 	def commit(commit_string = true)

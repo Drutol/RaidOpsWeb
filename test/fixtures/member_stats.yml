@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mox: 1
+  brut: 1
+  grit: 1
+  tech: 1
+  fin: 1
+  ins: 1
+  guild_member_id: 
+
+two:
+  mox: 1
+  brut: 1
+  grit: 1
+  tech: 1
+  fin: 1
+  ins: 1
+  guild_member_id: 

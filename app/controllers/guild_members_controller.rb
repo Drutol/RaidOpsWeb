@@ -80,13 +80,16 @@ class GuildMembersController < ApplicationController
 			end
 			begin
 				hash = JSON.parse(params[:json])
-				counter = 0 
 				for key in hash.keys do
-					item = hash[key]
-					piece = member.gear_pieces.create(:item_id => item['id'],:item_type => key)
-					counter +=1
-					item["runes"].each do |rune|
-						piece.gear_runes.create(:rune_id => rune)
+					if key == "tStats" then
+						member.member_stats.destroy_all
+						member.member_stats.create(:mox =>hash[key]['Mox'],:brut => hash[key]['Bru'],:ins => hash[key]['Wis'],:tech =>hash[key]['Tech'],:fin =>hash[key]['Dex'],:grit =>hash[key]['Sta'])
+					else
+						item = hash[key]
+						piece = member.gear_pieces.create(:item_id => item['id'],:item_type => key)
+						item["runes"].each do |rune|
+							piece.gear_runes.create(:rune_id => rune)
+						end
 					end
 				end
 				redirect_to guild_guild_member_items_path(params[:guild_id],params[:id]) , notice: 'Upload successful'

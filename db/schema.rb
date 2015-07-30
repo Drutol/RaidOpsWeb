@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729074932) do
+ActiveRecord::Schema.define(version: 20150730060654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,20 @@ ActiveRecord::Schema.define(version: 20150729074932) do
 
   add_index "logs", ["guild_member_id"], name: "index_logs_on_guild_member_id", using: :btree
 
+  create_table "member_stats", force: :cascade do |t|
+    t.integer  "mox"
+    t.integer  "brut"
+    t.integer  "grit"
+    t.integer  "tech"
+    t.integer  "fin"
+    t.integer  "ins"
+    t.integer  "guild_member_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "member_stats", ["guild_member_id"], name: "index_member_stats_on_guild_member_id", using: :btree
+
   create_table "raids", force: :cascade do |t|
     t.string   "name"
     t.integer  "n_time"
@@ -179,5 +193,6 @@ ActiveRecord::Schema.define(version: 20150729074932) do
   add_foreign_key "alts", "guild_members"
   add_foreign_key "attendances", "guild_members"
   add_foreign_key "gear_runes", "gear_pieces"
+  add_foreign_key "member_stats", "guild_members"
   add_foreign_key "raids", "guilds"
 end

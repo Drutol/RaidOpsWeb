@@ -14,7 +14,7 @@ class Guild < ActiveRecord::Base
 		rescue
 			return "fail"
 		end
-		begin
+		#begin
 			
 			Item.where(:of_guild_id => params[:id].to_i).destroy_all
 			if hash['tMembers'].count != guild_members.count then
@@ -105,6 +105,25 @@ class Guild < ActiveRecord::Base
 	 					arr['alts'].each do |alt|
 	 						member.alts.create(:name => alt)
 	 					end
+	 				end	 				
+	 				if arr['tArmoryEntry'] and member.name == arr['strName'] then
+		 				for piece in member.gear_pieces do
+							piece.gear_runes.destroy_all
+							piece.destroy
+						end
+
+	 					for key in arr['tArmoryEntry'].keys do
+							if key == "tStats" then
+								member.member_stats.destroy_all
+								member.member_stats.create(:mox =>arr['tArmoryEntry'][key]['Mox'],:brut => arr['tArmoryEntry'][key]['Bru'],:ins => arr['tArmoryEntry'][key]['Wis'],:tech =>arr['tArmoryEntry'][key]['Tech'],:fin =>arr['tArmoryEntry'][key]['Dex'],:grit =>arr['tArmoryEntry'][key]['Sta'])
+							else
+								item = arr['tArmoryEntry'][key]
+								piece = member.gear_pieces.create(:item_id => item['id'],:item_type => key)
+								item["runes"].each do |rune|
+									piece.gear_runes.create(:rune_id => rune)
+								end
+							end
+						end
 	 				end
 	 				if arr['tAtt'] and member.name == arr['strName'] then
 	 					member.attendances.delete_all
@@ -144,9 +163,9 @@ class Guild < ActiveRecord::Base
 	 			end
 	 		end
 
-	 	rescue Exception => e 
-	 		return e.message
-	 	end
+	 	#rescue Exception => e 
+	 	#	return e.message
+	 	#end
 
  		return "success" , create_counter , log_counter , item_counter
 	end

@@ -106,7 +106,7 @@ var wildstar_datminer_config =
   <br><br><br>
     
     <% if @member.gear_pieces.count > 0 then %>
-      <div class="col-md-3" align="center">
+      <div class="col-md-2" align="center">
         <div class="well"> 
           <br>
           <% for slot in @slot_order_col1 do %>
@@ -115,13 +115,13 @@ var wildstar_datminer_config =
           <div class="row">
             <div class="col-xs-5" align="right">
               <div id="item_bubble" style="height:75px">
-                <div style="width:85px;margin-top:-9px">
+                <div style="width:85px;margin-top:-9px;margin-left:-15px">
                   <a href="http://wildstar.datminer.com/item/<%=item.item_id%>/big"></a>
                 </div>
               </div>
             </div>
             <div class="col-xs-7" align="left"> 
-              <div class="bs-callout bs-callout-feature" align="center" style="height:90px;width:120px;margin-top:-14px">
+              <div class="bs-callout bs-callout-feature" align="center" style="height:90px;width:120px;margin-top:-14px;margin-left:-10px">
                <div class="row" style="margin-left:1mm;margin-bottom:1mm">
                   <% counter = 0 %>
                   <% for rune in item.gear_runes do %>
@@ -143,7 +143,7 @@ var wildstar_datminer_config =
           <% end %>
         </div>
       </div>      
-      <div class="col-md-3" align="center">
+      <div class="col-md-2" align="center">
         <div class="well" align="center"> 
           <br>
           <% for slot in @slot_order_col2 do %>
@@ -152,13 +152,13 @@ var wildstar_datminer_config =
           <div class="row">
             <div class="col-xs-5" align="right">
               <div id="item_bubble" style="height:75px">
-                <div style="width:85px;margin-top:-9px">
+                <div style="width:85px;margin-top:-9px;margin-left:-15px">
                   <a href="http://wildstar.datminer.com/item/<%=item.item_id%>/big"></a>
                 </div>
               </div>
             </div>
             <div class="col-xs-7" align="left"> 
-              <div class="bs-callout bs-callout-feature" align="center" style="height:90px;width:120px;margin-top:-14px">
+              <div class="bs-callout bs-callout-feature" align="center" style="height:90px;width:120px;margin-top:-14px;margin-left:-10px">
                <div class="row" style="margin-left:1mm;margin-bottom:1mm">
                   <% counter = 0 %>
                   <% for rune in item.gear_runes do %>
@@ -188,10 +188,45 @@ var wildstar_datminer_config =
               end
             end -%>
       </div>
+      <div class="col-md-2">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th> Stat </th>
+                <th> Value </th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Brutality</th>
+              <th><%=@member.member_stats.first.brut%></th>
+            </tr>            
+            <tr>
+              <th>Finesse</th>
+              <th><%=@member.member_stats.first.fin%></th>
+            </tr>           
+             <tr>
+              <th>Moxie</th>
+              <th><%=@member.member_stats.first.mox%></th>
+            </tr>            
+            <tr>
+              <th>Technology</th>
+              <th><%=@member.member_stats.first.tech%></th>
+            </tr>            
+            <tr>
+              <th>Insight</th>
+              <th><%=@member.member_stats.first.ins%></th>
+            </tr>            
+            <tr>
+              <th>Grit</th>
+              <th><%=@member.member_stats.first.grit%></th>
+            </tr>
+        </table>
+
+      </div>
     <% else %>
       <div class="col-md-6">
           <div class="alert alert-info">
-            No data about player's gear , collect it during raid or import manually.
+            No data about player's character , collect it during raid or import manually.
           </div>
           <%= form_tag(import_gear_guild_guild_member_path(@guild,@member.id), method: "post") do %>
             <div class="row">
