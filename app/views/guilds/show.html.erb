@@ -184,7 +184,7 @@
             if authorized?(@guild.id) and not params[:set] then size = '80px' else size = '40px' end
             g.column  name:  'Details' , html: {style: "max-width:#{size}"} do |task|
               if authorized?(@guild.id) and not params[:set] then
-              content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline") + "  " + (link_to "Edit" , edit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-warning',:style => "display:inline"),:align => "center")
+              content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline-block") + "  " + (link_to "Edit" , edit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-warning',:style => "display:inline-block"),:align => "center")
               else
               content_tag(:p,(link_to "More" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-primary',:style => "display:inline"))
               end        
