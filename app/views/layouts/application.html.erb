@@ -585,7 +585,7 @@ if (typeof(jQuery) !== 'undefined')
             <li>
             <div class="row" style="margin-top:20px">
             <%= form_tag({controller: "index", action: "search"}, method: "get", :id => "SearchForm") do %>
-            <%= text_field_tag(:search ,if params[:search] then params[:search] else "" end,class: "form-control" , :style => "display:inline;width:150px" , :placeholder => "Search members..." , :id => "MemberSearch")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <%= text_field_tag(:search ,if params[:search] then params[:search] else "" end,class: "form-control" , :style => "display:inline;width:150px" , :placeholder => "Search members..." , :id => "MemberSearch")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             <% end %>
             </div>
           </li>
