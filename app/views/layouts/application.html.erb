@@ -576,16 +576,21 @@ if (typeof(jQuery) !== 'undefined')
       <div id="navbar" class="navbar-collapse collapse">
 
         <ul class="nav navbar-nav navbar-left"> 
-            <h1 style="color:white"><%= link_to(image_tag("http://fontmeme.com/embed.php?text=Raid%20Ops&name=WildstarFont.ttf&size=15&style_color=FFFFFF") , guilds_path , style: 'color:white') %></h1>
+            <div class="row"  >
+                <h1 style="color:white"><%= link_to(image_tag("http://fontmeme.com/embed.php?text=Raid%20Ops&name=WildstarFont.ttf&size=15&style_color=FFFFFF") , guilds_path , style: 'color:white;display:inline') %>  </h1>
+            </div>
+           
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li>
+            <li>
             <div class="row" style="margin-top:20px">
             <%= form_tag({controller: "index", action: "search"}, method: "get", :id => "SearchForm") do %>
-            <%= text_field_tag(:search ,if params[:search] then params[:search] else "" end,class: "form-control" , :style => "display:inline;width:150px" , :placeholder => "Search members..." , :id => "MemberSearch")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <%= text_field_tag(:search ,if params[:search] then params[:search] else "" end,class: "form-control" , :style => "display:inline;width:150px" , :placeholder => "Search members..." , :id => "MemberSearch")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             <% end %>
             </div>
           </li>
+            <li ><div id="adblock_notice" align="center" style="margin-top:6px;width:300px"></div> </li>
+
           <li><%= link_to 'Home', index_welcome_path, class: 'btn btn-inverse navbar-btn' %></li>
           <li><%= link_to 'Guilds', guilds_path, class: 'btn btn-inverse navbar-btn' %></li>
           <li><%= link_to 'About', index_about_path, class: 'btn btn-inverse navbar-btn' %></li>
@@ -616,7 +621,9 @@ function submit_form(event) {
 }
 </script>
   <br><br><br><br>
+
    <div class="container">
+    
    <!--<div class="alert alert-danger" role="alert">Hosting news , read here: https://github.com/Mordonus/RaidOps/issues/185</div>-->  
       <%= flash_messages %>
   </div>
@@ -635,5 +642,20 @@ function submit_form(event) {
 
     </script>
     <% end %>
+    <script type="text/javascript">
+        window.onload = function(){ 
+    setTimeout(function() { 
+    var ad = document.querySelector("ins.adsbygoogle");
+    if (ad && ad.innerHTML.replace(/\s/g, "").length == 0) {
+        document.getElementById("adblock_notice").innerHTML = "<div style='color:white'><div >You seem to have your adblock software\ enabled.Please disable it or consider donating :</div>             <form style='display:inline' action='https://www.paypal.com/cgi-bin/\webscr' method='post' arget='_top'>\
+            <input type='hidden' name='cmd' value='_s-xclick'>\
+            <input type='hidden' name='hosted_button_id' value='TZVVQTZUM6G4Y'>\
+            <input type='image' src='https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif' border='0' name='submit' alt='PayPal – The safer,\ easier way to pay online.'>\
+            <img alt=' border='0' src='https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif' width='1' height='1'>\
+            </form></div>"
+    }
+    }, 1000);
+    };
+    </script>
 </body>
 </html>
