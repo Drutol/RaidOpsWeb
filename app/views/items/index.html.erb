@@ -102,11 +102,15 @@ var wildstar_datminer_config =
 <%= javascript_include_tag 'dataminer_tooltips.js' %>
 <%= javascript_include_tag 'jabbithole_tooltips.js' %>
 <script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
+
 <div class="row" >
   <br><br><br>
-    
+   <h3 style="margin-left:150px"> Player's character: </h3>
+   <div class="bs-callout bs-callout-warning" style="width:300px;margin-left:100px"><a href="http://wildstar.datminer.com/">Wildstar datminer</a> is currently down and the items are unavailable for now.</div>
     <% if @member.gear_pieces.count > 0 then %>
+
       <div class="col-md-2" align="center">
+
         <div class="well"> 
           <br>
           <% for slot in @slot_order_col1 do %>

@@ -20,23 +20,26 @@ class Guild < ActiveRecord::Base
 		begin
 			
 			Item.where(:of_guild_id => params[:id].to_i).destroy_all
-			if hash['tMembers'].count != guild_members.count then
-				for guild_member in guild_members do
-					player_logs[guild_member.name] = guild_member.logs
-					player_gear[guild_member.name] = guild_member.gear_pieces
-					player_stats[guild_member.name] = guild_member.member_stats
-					player_rune_sets[guild_member.name] = guild_member.rune_sets
-					player_pin[guild_member.name] = guild_member.pin
-					guild_member.attendances.delete_all
-					guild_member.member_stats.delete_all
-					guild_member.rune_sets.delete_all
-					#for piece in guild_member.gear_pieces do
-					#	piece.gear_runes.destroy_all
-					#	piece.destroy
-					#end
-					for alt in guild_member.alts do alt.destroy end
+			for guild_member in guild_members do
+				bFound = false
+				for member in hash['tMembers'] do
+					if member['strName'] == guild_member.name then 
+						bFound = true 
+						break 
+					end
 				end
-				guild_members.destroy_all
+				if not bFound then
+					guild_member.attendances.destroy_all
+					guild_member.member_stats.destroy_all
+					guild_member.rune_sets.destroy_all
+					guild_member.logs.destroy_all
+					for piece in guild_member.gear_pieces do
+						piece.gear_runes.destroy_all
+						piece.destroy
+					end
+					for alt in guild_member.alts do alt.destroy end
+					guild_member.destroy
+				end
 			end
 		 	
 		 	raids.delete_all
@@ -55,25 +58,6 @@ class Guild < ActiveRecord::Base
 					member.update_attributes(:ep => arr['EP'],:gp => arr['GP'],:pr => "%.#{pr_precision}f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
 				else
  		 			member = guild_members.create(:name => arr['strName'],:ep => arr['EP'],:gp => arr['GP'],:pr => "%.#{pr_precision}f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
- 		 		
-	 		 		if player_logs[arr['strName']] then
-	 		 			for log in player_logs[arr['strName']] do log.update_attribute(:guild_member_id , member.id) end
-	 		 		end	 		 		
-
-	 		 		if player_gear[arr['strName']] then
-	 		 			for piece in player_gear[arr['strName']] do piece.update_attribute(:guild_member_id , member.id) end
-	 		 		end	
-
-	 		 		if player_stats[arr['strName']] then
-	 		 			for stat in player_stats[arr['strName']] do stat.update_attribute(:guild_member_id , member.id) end
-	 		 		end	 
-
-	 		 		if player_rune_sets[arr['strName']] then
-	 		 			for set in player_rune_sets[arr['strName']] do set.update_attribute(:guild_member_id , member.id) end
-	 		 		end	 		 		
-
-	 		 		if player_pin[arr['strName']] then member.update_attribute(:pin , player_pin[arr['strName']]) end
-
  		 		end
  		 		create_counter += 1
 
