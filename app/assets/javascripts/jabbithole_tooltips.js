@@ -47,7 +47,10 @@ function JHassignTooltips() {
                                 }
                                 if (JH_options.names) {
                                     if (r[n]["n"] && r[n]["n"] != "") {
+                                        if(JHJQ(t).html().indexOf("img style") == -1)
+                                        {
                                         JHJQ(t).text(r[n]["n"])
+                                        }
                                     }
                                 }
                             }
@@ -145,12 +148,6 @@ function JHassignTooltips() {
                             JHJQ(t).addClass("jhitemquality" + i)
                         }
                     }
-                    if (JH_options.names) {
-                        var s = r.attr("data-n");
-                        if (s && s != "") {
-                            JHJQ(t).text(s)
-                        }
-                    }
                 }
                 return JH_tooltip_cache[n]
             } else {
@@ -172,10 +169,6 @@ function JHassignTooltips() {
                                     } else {
                                         JHJQ(t).addClass("jhitemquality" + u)
                                     }
-                                }
-                                if (JH_options.names) {
-                                    var a = o.attr("data-n");
-                                    JHJQ(t).text(a)
                                 }
                             }
                             e(r)
