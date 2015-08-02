@@ -112,30 +112,13 @@ var wildstar_datminer_config =
 
        <div class="well" style="width:120px">
           <% for slot in @slot_order_col1 do %>
-          <% item = @member.gear_pieces.find_by_item_type(slot) %>
+          <% entry , source , sprite , item = get_item_entry_and_source(@member.gear_pieces.find_by_item_type(slot)) %>
           <% if item then %>
           <div class="row">
             <div class="col-xs-6">
               <div id="item_bubble" style="height:75px;margin-bottom:5px">
                 <div style="width:70px;margin-top:-9px">
-                <% entry = ItemDb.find_by_item_id(item.item_id) 
-                   if entry then
-                      sprite = entry.sprite
-
-                      if sprite.include?("IconSprites:") then
-                        sprite = sprite[12..-1]
-                      elsif sprite.include?("ClientSprites:") then
-                        sprite = sprite[14..-1]
-                      end
-
-                      source = ""
-                      if not File.file?("#{Rails.root}/app/assets/images/item_icons/#{sprite}") then
-                        source = "http://www.jabbithole.com/assets/icons/#{sprite.downcase}.png"
-                      end
-                   end
-
-                %>
-                <div class="bs-callout bs-callout-item-orange" style="width:100px;margin-top:10px;margin-left:-10px">
+                <div class="<%= get_class_for_item_qual(entry.quality) %>" style="width:100px;margin-top:10px;margin-left:-10px">
                   <div class="row" style="margin-top:-10px">
                     <div class="col-lg-12" style="margin-top:30px;display:inline-block"><a href="http://www.jabbithole.com/items/i-<%="#{item.item_id}"%>">
                     <% if source == "" then %>
@@ -156,32 +139,14 @@ var wildstar_datminer_config =
       </div>      
       <div class="col-md-2" align="center">
        <div class="well" style="width:120px">
-          <br>
           <% for slot in @slot_order_col2 do %>
-          <% item = @member.gear_pieces.find_by_item_type(slot) %>
+          <% entry , source , sprite , item = get_item_entry_and_source(@member.gear_pieces.find_by_item_type(slot)) %>
           <% if item then %>
           <div class="row">
             <div class="col-xs-6">
               <div id="item_bubble" style="height:75px;margin-bottom:5px">
-                <div style="width:70px;margin-top:-9px">
-                <% entry = ItemDb.find_by_item_id(item.item_id) 
-                   if entry then
-                      sprite = entry.sprite
-
-                      if sprite.include?("IconSprites:") then
-                        sprite = sprite[12..-1]
-                      elsif sprite.include?("ClientSprites:") then
-                        sprite = sprite[14..-1]
-                      end
-
-                      source = ""
-                      if not File.file?("#{Rails.root}/app/assets/images/item_icons/#{sprite}") then
-                        source = "http://www.jabbithole.com/assets/icons/#{sprite.downcase}.png"
-                      end
-                   end
-
-                %>
-                <div class="bs-callout bs-callout-item-orange" style="width:100px;margin-left:-10px">
+                <div style="width:70px;margin-top:-20px">
+                <div class="<%= get_class_for_item_qual(entry.quality) %>" style="width:100px;margin-left:-10px">
                   <div class="row" style="margin-top:-10px">
                     <div class="col-lg-12" style="margin-top:30px;display:inline-block"><a href="http://www.jabbithole.com/items/i-<%="#{item.item_id}"%>">
                     <% if source == "" then %>
@@ -301,7 +266,7 @@ var wildstar_datminer_config =
             g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
 
             g.column name:  'Item name' do |item|
-             link_to("", "http://wildstar.datminer.com/item/#{item.ingame_id}") + " " +  link_to(item.ingame_id, "http://www.jabbithole.com/items/i-#{item.ingame_id}")
+             get_small_icon(item.ingame_id) + " " + link_to(item.ingame_id, "http://www.jabbithole.com/items/i-#{item.ingame_id}")
             end
 
             g.column  name:  'GP', attribute: 'gp_cost' do |item|
