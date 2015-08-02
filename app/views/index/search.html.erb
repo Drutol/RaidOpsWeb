@@ -31,7 +31,7 @@ floatingMenu.add('floatdiv',
               content_tag(:div,(link_to "#{Guild.find(task.guild_id).name}" , guild_path(task.guild_id) , class: 'btn btn-info'),:align => "center")
             end
             g.column  name:  'Details' , html: {style: 'max-width: 40px'} do |task|
-              content_tag(:div,(link_to "More" , guild_guild_member_items_path(task.guild_id,task.id) , class: 'btn btn-default'),:align => "center")
+              content_tag(:div,(link_to "More" , guild_guild_member_items_path(task.guild_id,task.id) , class: 'btn btn-default')+ " " + if task.gear_pieces.count > 0 then get_small_icon(60417,"Armory Entry") else '' end,:align => "center")
             end
           end -%>
         </div>

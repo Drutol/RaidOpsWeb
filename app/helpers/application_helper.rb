@@ -55,7 +55,7 @@ module ApplicationHelper
     return nil , nil, nil , item
   end
 
-  def get_small_icon(id)
+  def get_small_icon(id,alt = "")
     entry = ItemDb.find_by_item_id(id) 
     if entry then
       sprite = entry.sprite
@@ -72,9 +72,9 @@ module ApplicationHelper
       end
 
       if source == "" then
-        return image_tag "item_icons/#{sprite}" ,:style => "width:23px;height:23px"
+        return image_tag "item_icons/#{sprite}" ,:style => "width:23px;height:23px",:title => alt
       else
-        return image_tag source ,:style => "width:23px;height:23px"
+        return image_tag source ,:style => "width:23px;height:23px",:title => alt
       end
     end
     return link_to ""
