@@ -23,11 +23,16 @@ class GuildsController < ApplicationController
    		@guild = Guild.find(params[:id])
    		members = Array.new
    		@edited = Array.new
-   		@sets = Array.new   		
+   		@sets = Array.new 
+   		@values = Hash.new  		
    		for member in @guild.guild_members do
+   			@values[member.name] = Hash.new 
    			if member.data_sets then
    				for set in member.data_sets do
-   					if not @sets.index(set.str_group) then @sets.push(set.str_group) end
+   					if not @sets.index(set.str_group) then 
+   						@sets.push(set.str_group) 		
+   					end
+   					@values[member.name][set.str_group] = set
    				end
    			end
    			if not params[:set] then
@@ -52,7 +57,9 @@ class GuildsController < ApplicationController
 			end
    		end
    		if not @guild.ass_app then @guild.update_attribute(:ass_app,"") end
-   		@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then 'guild_members.pr' else 'guild_members.net' end,:order_direction => 'desc',:per_page => @guild.members_per_page,:include => 'data_sets')
+   			
+   			@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then if params[:set] then 'data_sets.pr' else 'guild_members.pr' end else 'guild_members.net' end,:order_direction => 'desc',:per_page => @guild.members_per_page,:include => 'data_sets')
+
   	end
 
   	def index

@@ -33,6 +33,7 @@ class Guild < ActiveRecord::Base
 					guild_member.member_stats.destroy_all
 					guild_member.rune_sets.destroy_all
 					guild_member.logs.destroy_all
+					guild_member.data_sets.destroy_all
 					for piece in guild_member.gear_pieces do
 						piece.gear_runes.destroy_all
 						piece.destroy
@@ -100,7 +101,7 @@ class Guild < ActiveRecord::Base
 	 				if arr['tDataSets'] and member.name == arr['strName'] then
 	 					member.data_sets.delete_all
 	 					arr['tDataSets'].each do |set|
-	 						member.data_sets.create(:str_group => set['strGroup'],:ep => set['tData']['EP'],:gp => set['tData']['GP'],:net => set['tData']['net'],:tot => set['tData']['tot'],:pr => "%.#{pr_precision}f"%(set['tData']['EP'].to_f/set['tData']['GP'].to_f))
+	 						member.data_sets.create(:str_group => set['strGroup'],:ep => "%.#{pr_precision}f"%(set['tData']['EP']),:gp => "%.#{pr_precision}f"%(set['tData']['GP']),:net => "%.#{pr_precision}f"%(set['tData']['net']),:tot => "%.#{pr_precision}f"%(set['tData']['tot']),:pr => "%.#{pr_precision}f"%(set['tData']['EP'].to_f/set['tData']['GP'].to_f).to_f)
 	 					end
 	 				end	 				
 	 				if arr['alts'] and member.name == arr['strName'] then

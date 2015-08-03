@@ -131,7 +131,9 @@ var wildstar_datminer_config =
                 </div>
               </div>
 
-             <div class="bs-callout bs-callout-feature" align="center" style="width:100px;margin-top:5px;margin-left:-10px">
+              <% if item.gear_runes.count > 0 then %>
+
+             <div class="bs-callout bs-callout-feature" align="center" style="width:100px;margin-top:15px;margin-left:-10px">
               <div class="row" style="margin-left:1mm;margin-bottom:1mm">
                  <% counter = 0 %>
                  <% for rune in item.gear_runes do %>
@@ -147,6 +149,9 @@ var wildstar_datminer_config =
                  <% end %>
               </div>            
              </div>   
+             <% else %>
+              <br>
+             <% end %>
              </div>
           </div>
           <% end %>
@@ -160,7 +165,7 @@ var wildstar_datminer_config =
           <% if item then %>
           <div class="row">
             <div class="col-md-6">
-              <div id="item_bubble" style="height:75px;margin-bottom:3px">
+              <div id="item_bubble" style="height:75px;margin-bottom:0px">
                 <div style="width:70px;margin-top:-9px">
                 <div class="<%= get_class_for_item_qual(entry.quality) %>" style="width:100px;margin-top:5px;margin-left:-10px">
                   <div class="row" style="margin-top:-10px">
@@ -175,7 +180,7 @@ var wildstar_datminer_config =
                   </div>
                 </div>
               </div>
-
+             <% if item.gear_runes.count > 0 then %>
              <div class="bs-callout bs-callout-feature" align="center" style="width:100px;margin-top:5px;margin-left:-10px">
               <div class="row" style="margin-left:1mm;margin-bottom:1mm">
                  <% counter = 0 %>
@@ -191,7 +196,10 @@ var wildstar_datminer_config =
                  <% counter+=1 %>
                  <% end %>
               </div>            
-             </div>   
+             </div>
+             <% else %>
+              <br>
+             <% end %>
              </div>
           </div>
           <% end %>
