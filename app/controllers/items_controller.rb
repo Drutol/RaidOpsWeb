@@ -20,8 +20,8 @@ class ItemsController < ApplicationController
           end
   			end 
   		end
-      @slot_order_col1 = [16,15,2,3,0,5,1,4]
-      @slot_order_col2 = [7,8,10,11]
+      @slot_order_col1 = [16,15,2,3,0,5]
+      @slot_order_col2 = [1,4,7,8,10,11]
   	end
 
   	def show

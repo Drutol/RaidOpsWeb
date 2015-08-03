@@ -14,3 +14,4 @@ Rails.application.config.assets.precompile += %w( dataminer_tooltips.js )
 Rails.application.config.assets.precompile += %w( jabbithole_tooltips.js )
 Rails.application.config.assets.precompile += %w( floating_menu.js )
 
+
