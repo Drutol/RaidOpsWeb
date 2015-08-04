@@ -47,7 +47,7 @@ function JHassignTooltips() {
                                 }
                                 if (JH_options.names) {
                                     if (r[n]["n"] && r[n]["n"] != "") {
-                                        if(JHJQ(t).html().indexOf("img style") == -1)
+                                        if(JHJQ(t).html().indexOf("img") == -1)
                                         {
                                         JHJQ(t).text(r[n]["n"])
                                         }
