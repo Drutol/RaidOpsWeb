@@ -58,7 +58,7 @@ class GuildsController < ApplicationController
    		end
    		if not @guild.ass_app then @guild.update_attribute(:ass_app,"") end
    			
-   			@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then if params[:set] then 'data_sets.pr' else 'guild_members.pr' end else 'guild_members.net' end,:order_direction => 'desc',:per_page => @guild.members_per_page,:include => 'data_sets')
+   		@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then if params[:set] then 'data_sets.pr' else 'guild_members.pr' end elsif @guild.mode == "DKP" then 'guild_members.net' else 'guild_members.name' end,:order_direction => 'desc',:per_page => @guild.members_per_page,:include => 'data_sets')
 
   	end
 

@@ -177,7 +177,8 @@
               end
             end
           end -%>
-        <% else %>
+
+        <% elsif @guild.mode == "DKP" then %>
           <%= grid(@members_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
 
             g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
@@ -245,6 +246,41 @@
 
 
 
+
+        <% else %>
+            <%=grid(@members_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
+
+            g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
+
+            g.column name:  'Class' , attribute: 'str_class' , html: {style: 'max-width: 75px'} ,  custom_filter: [['Esper', 'Esper'], ['Warrior', 'Warrior'], ['Stalker', 'Stalker'], ['Engineer', 'Engineer'],['Medic', 'Medic'],['Spellslinger', 'Spellslinger']]  do |task|
+              #if task.edit_flag then
+              #[content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center"),{style: 'background-color: #EDBD2B;'}] if task.str_class
+              #else
+              content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_class
+              #end
+            end            
+
+            g.column name:  'Role' , attribute: 'str_role' , html: {style: 'max-width: 50px'} , custom_filter: [['Dps', 'DPS'], ['Heal', 'Heal'], ['Tank', 'Tank']] do |task|
+              content_tag(:div ,image_tag("#{task.str_role}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_role
+            end
+
+            g.column name:  'Name', attribute: 'name' , auto_reload: false  do |task|
+              task.name
+            end 
+
+            g.column name: 'Armory' , filter: false , :ordering => false , html: {style: 'max-width: 100px'} do |task|
+              if task.gear_pieces.count > 0 then
+              content_tag(:p,(link_to "Armory entry" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-warning',:style => "display:inline")+ " " + get_small_icon(60417,"Armory Entry"))
+              else
+              content_tag(:p,(link_to "Armory entry empty" , guild_guild_member_items_path(@guild.id,task.id) , class: 'btn btn-info',:style => "display:inline"))
+              end
+            end
+           
+            g.column  name:  'Last update:', attribute: 'updated_at',filter: false do |task|
+              time_ago_in_words(task.updated_at) + " ago"
+            end   
+
+            end-%>
 
         <% end %>
     </div>
