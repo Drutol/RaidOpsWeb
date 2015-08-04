@@ -119,7 +119,7 @@ var wildstar_datminer_config =
                 <div style="width:70px;margin-top:-9px">
                 <div class="<%= get_class_for_item_qual(entry.quality) %>" style="width:100px;margin-top:5px;margin-left:-10px">
                   <div class="row" style="margin-top:-10px">
-                    <div class="col-lg-12" style="margin-top:30px;display:inline-block"><a href="http://www.jabbithole.com/items/i-<%="#{item.item_id}"%>">
+                    <div class="col-lg-12" style="margin-top:30px;display:inline-block" id="icon"><a  href="http://www.jabbithole.com/items/i-<%="#{item.item_id}"%>">
                     <% if source == "" then %>
                     <%=image_tag "item_icons/#{sprite}" ,:style => "margin-top:-20px" %>
                     <% else %>
@@ -130,9 +130,7 @@ var wildstar_datminer_config =
                   </div>
                 </div>
               </div>
-
               <% if item.gear_runes.count > 0 then %>
-
              <div class="bs-callout bs-callout-feature" align="center" style="width:100px;margin-top:15px;margin-left:-10px">
               <div class="row" style="margin-left:1mm;margin-bottom:1mm">
                  <% counter = 0 %>
@@ -165,7 +163,7 @@ var wildstar_datminer_config =
           <% if item then %>
           <div class="row">
             <div class="col-md-6">
-              <div id="item_bubble" style="height:75px;margin-bottom:0px">
+              <div id="item_bubble" style="height:75px;margin-bottom:3px">
                 <div style="width:70px;margin-top:-9px">
                 <div class="<%= get_class_for_item_qual(entry.quality) %>" style="width:100px;margin-top:5px;margin-left:-10px">
                   <div class="row" style="margin-top:-10px">
@@ -181,7 +179,7 @@ var wildstar_datminer_config =
                 </div>
               </div>
              <% if item.gear_runes.count > 0 then %>
-             <div class="bs-callout bs-callout-feature" align="center" style="width:100px;margin-top:5px;margin-left:-10px">
+             <div class="bs-callout bs-callout-feature" align="center" style="width:100px;margin-top:15px;margin-left:-10px">
               <div class="row" style="margin-left:1mm;margin-bottom:1mm">
                  <% counter = 0 %>
                  <% for rune in item.gear_runes do %>
