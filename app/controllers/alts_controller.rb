@@ -1,4 +1,5 @@
 class AltsController < ApplicationController
+	skip_before_filter :require_login, only: [:items]
 	def items
 		@member = Alt.find(params[:alt_id])
 	    @slot_order_col1 = [16,15,2,3,0,5]
