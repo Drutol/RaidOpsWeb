@@ -17,7 +17,7 @@ class Guild < ActiveRecord::Base
 		rescue
 			return "fail"
 		end
-		begin
+		#begin
 			
 			Item.where(:of_guild_id => params[:id].to_i).destroy_all
 			for guild_member in guild_members do
@@ -38,7 +38,12 @@ class Guild < ActiveRecord::Base
 						piece.gear_runes.destroy_all
 						piece.destroy
 					end
-					for alt in guild_member.alts do alt.destroy end
+					for alt in guild_member.alts do
+						alt.gear_pieces.destroy_all
+ 						alt.rune_sets.destroy_all
+ 						alt.member_stats.destroy_all
+ 						alt.destroy
+	 				end
 					guild_member.destroy
 				end
 			end
@@ -105,9 +110,37 @@ class Guild < ActiveRecord::Base
 	 					end
 	 				end	 				
 	 				if arr['alts'] and member.name == arr['strName'] then
-	 					member.alts.destroy_all
+	 					member.alts.each do |alt|
+	 						alt.gear_pieces.destroy_all
+	 						alt.rune_sets.destroy_all
+	 						alt.member_stats.destroy_all
+	 						alt.destroy
+	 					end
 	 					arr['alts'].each do |alt|
-	 						member.alts.create(:name => alt)
+	 						altEntry = member.alts.create(:name => alt['name'])
+
+	 						if alt['tArmoryEntry'] and alt['tArmoryEntry'].count > 0 then
+		 						for key in alt['tArmoryEntry'].keys do
+								if key == "tStats" then
+									altEntry.member_stats.destroy_all
+									altEntry.member_stats.create(:mox =>alt['tArmoryEntry'][key]['Mox'],:brut => alt['tArmoryEntry'][key]['Bru'],:ins => alt['tArmoryEntry'][key]['Wis'],:tech =>alt['tArmoryEntry'][key]['Tech'],:fin =>alt['tArmoryEntry'][key]['Dex'],:grit => alt['tArmoryEntry'][key]['Sta'],:ap => alt['tArmoryEntry'][key]['AP'],:sp => alt['tArmoryEntry'][key]['SP'])
+								elsif key == "tSets"
+									altEntry.rune_sets.destroy_all
+
+									if alt['tArmoryEntry'][key].count > 0 then
+										for set_key in alt['tArmoryEntry'][key].keys do
+											altEntry.rune_sets.create(:name => set_key,:count => alt['tArmoryEntry'][key][set_key])
+										end
+									end
+								else
+									item = alt['tArmoryEntry'][key]
+									piece = altEntry.gear_pieces.create(:item_id => item['id'],:item_type => key)
+									item["runes"].each do |rune|
+										piece.gear_runes.create(:rune_id => rune)
+									end
+								end
+							end
+						end
 	 					end
 	 				end	 				
 	 				if arr['tArmoryEntry'] and member.name == arr['strName'] and arr['tArmoryEntry'].keys.length > 2 then
@@ -122,8 +155,10 @@ class Guild < ActiveRecord::Base
 								member.member_stats.create(:mox =>arr['tArmoryEntry'][key]['Mox'],:brut => arr['tArmoryEntry'][key]['Bru'],:ins => arr['tArmoryEntry'][key]['Wis'],:tech =>arr['tArmoryEntry'][key]['Tech'],:fin =>arr['tArmoryEntry'][key]['Dex'],:grit => arr['tArmoryEntry'][key]['Sta'],:ap => arr['tArmoryEntry'][key]['AP'],:sp => arr['tArmoryEntry'][key]['SP'])
 							elsif key == "tSets"
 								member.rune_sets.destroy_all
-								for set_key in arr['tArmoryEntry'][key].keys do
-									member.rune_sets.create(:name => set_key,:count => arr['tArmoryEntry'][key][set_key])
+								if arr['tArmoryEntry'][key].count > 0 then
+									for set_key in arr['tArmoryEntry'][key].keys do
+										member.rune_sets.create(:name => set_key,:count => arr['tArmoryEntry'][key][set_key])
+									end
 								end
 							else
 								item = arr['tArmoryEntry'][key]
@@ -172,9 +207,9 @@ class Guild < ActiveRecord::Base
 	 			end
 	 		end
 
-	 	rescue Exception => e 
-	 		return e.message
-	 	end
+	 	#rescue Exception => e 
+	 	#	return e.message
+	 	#end
 
  		return "success" , create_counter , log_counter , item_counter
 	end

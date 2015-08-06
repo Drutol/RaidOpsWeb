@@ -1,0 +1,242 @@
+<style type="text/css">
+  table.my-grid {
+  }
+  table.my-grid th.my-header {
+    background-color: #ebebeb;
+  }
+  table.my-grid tr.even{
+    background-color: #ebebeb;
+  }
+
+.bs-callout-item-blue {
+  background-color: #B2CCFF;
+  border-color: #0000A3;
+}
+
+.bs-callout-item-epic {
+  background-color: #D1B2D1;
+  border-color: #660066;
+}
+
+.bs-callout-item-green {
+  background-color: #D6FFD6;
+  border-color: #33CC33;
+}
+
+.bs-callout-item-orange {
+  background-color: #FFCC80;
+  border-color: #FF9900;
+}
+
+.bs-callout-item-pink {
+  background-color: #FF99CC;
+  border-color: #FF33CC;
+}
+
+.bs-callout-item-white {
+  background-color: #CCCCCC;
+  border-color: #999999
+;
+}
+</style>
+<script type="text/javascript">  
+    floatingMenu.add('floatdiv',  
+        {  
+            targetLeft: 10,   
+            targetTop: 10,  
+        });  
+</script>
+<%= javascript_include_tag 'jabbithole_tooltips.js' %>
+<script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script> 
+<div class="row">
+<ul class="col-md-2" id="floatdiv">
+  <br><br>
+    <div class="list-group">
+      <a href="#" class="list-group-item active fixed">
+        Controls
+      </a> 
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_guild_member_items_path(params[:guild_id],@member.guild_member_id) ,class: 'list-group-item' %></a>
+    </div>
+    <div class="bs-callout bs-callout-info">
+      <%= render 'ad.html.erb' %>
+    </div>    
+</ul>
+<div class="col-md-10"> 
+  <h3 style="margin-left:430px"> Alt's character: </h3>
+      <% if @member.gear_pieces.count > 0 then %>
+
+        <div class="col-md-2">
+          <div class="well">
+           <h1 align="center"><%= @member.name %></h1>                              
+           <h3 align="center">alt of</h3>                              
+           <h2 align="center"><%= link_to GuildMember.find(params[:guild_member_id]).name , guild_guild_member_items_path(params[:guild_id],@member.guild_member_id) %></h2>                              
+          </div>
+        </div>
+
+        <div class="col-md-2" align="center">
+
+         <div class="well" style="width:120px">
+            <% for slot in @slot_order_col1 do %>
+            <% entry , source , sprite , item = get_item_entry_and_source(@member.gear_pieces.find_by_item_type(slot)) %>
+            <% if item then %>
+            <div class="row">
+              <div class="col-md-6">
+                <div id="item_bubble" style="height:75px;margin-bottom:3px">
+                  <div style="width:70px;margin-top:-9px">
+                  <div class="<%= get_class_for_item_qual(entry.quality) %>" style="width:100px;margin-top:5px;margin-left:-10px">
+                    <div class="row" style="margin-top:-10px">
+                      <div class="col-lg-12" style="margin-top:30px;display:inline-block" id="icon"><a  href="http://www.jabbithole.com/items/i-<%="#{item.item_id}"%>">
+                      <% if source == "" then %>
+                      <%=image_tag "item_icons/#{sprite}" ,:style => "margin-top:-20px" %>
+                      <% else %>
+                      <img style="margin-top:-20px" src="<%= source %>">
+                      <% end %>
+                      </a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% if item.gear_runes.count > 0 then %>
+               <div class="bs-callout bs-callout-feature" align="center" style="width:100px;margin-top:15px;margin-left:-10px">
+                <div class="row" style="margin-left:1mm;margin-bottom:1mm">
+                   <% counter = 0 %>
+                   <% for rune in item.gear_runes do %>
+                   <% if counter <= 3 then %><a href="http://www.jabbithole.com/items/i-<%="#{rune.rune_id}"%>"><%= get_small_icon(rune.rune_id) %></a><% end %>
+                   <% counter+=1 %>
+                   <% end %>
+                </div>
+                <div class="row" style="margin-left:1mm" align="center" >
+                   <% counter = 0 %>
+                   <% for rune in item.gear_runes do %>
+                   <% if counter > 3 then %><a href="http://www.jabbithole.com/items/i-<%="#{rune.rune_id}"%>"><%= get_small_icon(rune.rune_id) %></a><% end %>
+                   <% counter+=1 %>
+                   <% end %>
+                </div>            
+               </div>   
+               <% else %>
+                <br>
+               <% end %>
+               </div>
+            </div>
+            <% end %>
+            <% end %>
+          </div>
+        </div>      
+        <div class="col-md-2" align="center">
+          <div class="well" style="width:120px">
+            <% for slot in @slot_order_col2 do %>
+            <% entry , source , sprite , item = get_item_entry_and_source(@member.gear_pieces.find_by_item_type(slot)) %>
+            <% if item then %>
+            <div class="row">
+              <div class="col-md-6">
+                <div id="item_bubble" style="height:75px;margin-bottom:3px">
+                  <div style="width:70px;margin-top:-9px">
+                  <div class="<%= get_class_for_item_qual(entry.quality) %>" style="width:100px;margin-top:5px;margin-left:-10px">
+                    <div class="row" style="margin-top:-10px">
+                      <div class="col-lg-12" style="margin-top:30px;display:inline-block"><a href="http://www.jabbithole.com/items/i-<%="#{item.item_id}"%>">
+                      <% if source == "" then %>
+                      <%=image_tag "item_icons/#{sprite}" ,:style => "margin-top:-20px" %>
+                      <% else %>
+                      <img style="margin-top:-20px" src="<%= source %>">
+                      <% end %>
+                      </a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               <% if item.gear_runes.count > 0 then %>
+               <div class="bs-callout bs-callout-feature" align="center" style="width:100px;margin-top:15px;margin-left:-10px">
+                <div class="row" style="margin-left:1mm;margin-bottom:1mm">
+                   <% counter = 0 %>
+                   <% for rune in item.gear_runes do %>
+                   <% if counter <= 3 then %><a href="http://www.jabbithole.com/items/i-<%="#{rune.rune_id}"%>"><%= get_small_icon(rune.rune_id) %></a><% end %>
+                   <% counter+=1 %>
+                   <% end %>
+                </div>
+                <div class="row" style="margin-left:1mm" align="center" >
+                   <% counter = 0 %>
+                   <% for rune in item.gear_runes do %>
+                   <% if counter > 3 then %><a href="http://www.jabbithole.com/items/i-<%="#{rune.rune_id}"%>"><%= get_small_icon(rune.rune_id) %></a><% end %>
+                   <% counter+=1 %>
+                   <% end %>
+                </div>            
+               </div>
+               <% else %>
+                <br>
+               <% end %>
+               </div>
+            </div>
+            <% end %>
+            <% end %>
+          </div>
+
+        </div>
+        <div class="col-md-2">
+          <% if @member.member_stats.first %>
+          <h4>Stats</h4>
+          <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th><b> Stat </b></th>
+                  <th><b> Value </b></th>
+                </tr>
+              </thead>
+              <tr>
+                <th>Assult power</th>
+                <th><%=@member.member_stats.first.ap%></th>
+              </tr>            
+              <tr>
+                <th>Support power</th>
+                <th><%=@member.member_stats.first.sp%></th>
+              </tr>               
+                <th>Brutality</th>
+                <th><%=@member.member_stats.first.brut%></th>
+              </tr>            
+              <tr>
+                <th>Finesse</th>
+                <th><%=@member.member_stats.first.fin%></th>
+              </tr>           
+               <tr>
+                <th>Moxie</th>
+                <th><%=@member.member_stats.first.mox%></th>
+              </tr>            
+              <tr>
+                <th>Technology</th>
+                <th><%=@member.member_stats.first.tech%></th>
+              </tr>            
+              <tr>
+                <th>Insight</th>
+                <th><%=@member.member_stats.first.ins%></th>
+              </tr>            
+              <tr>
+                <th>Grit</th>
+                <th><%=@member.member_stats.first.grit%></th>
+              </tr>
+          </table>
+          <% end %>
+          <h4>Rune sets</h4>
+          <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th><b> Set </b></th>
+                  <th><b> Runes </b></th>
+                </tr>
+              </thead>
+              <% for set in @member.rune_sets do %>
+              <tr>
+                <th><%=set.name%></th>
+                <th><%=set.count%></th>
+              </tr>   
+              <% end %>
+          </table>
+        </div>
+      <% else %>
+        <div class="col-md-6">
+            <div class="alert alert-info">
+              No data about player's character , collect it during raid.
+            </div>
+            <br>        
+        </div>
+      <% end %>   
+  </div>
+</div>

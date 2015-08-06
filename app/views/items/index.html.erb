@@ -22,7 +22,7 @@
 }
 
 .bs-callout-item-green {
-  background-color: #70DB70;
+  background-color: #D6FFD6;
   border-color: #33CC33;
 }
 
@@ -268,7 +268,7 @@ var wildstar_datminer_config =
             g.blank_slate content_tag(:div, "No alts found", class: 'alert alert-info')
 
               g.column name:  'Alt name' , attribute: 'name' do |alt|
-               alt.name
+               link_to  alt.name ,guild_guild_member_alt_items_path(@guild.id,@member.id,alt.id)
               end
             end -%>
       </div>

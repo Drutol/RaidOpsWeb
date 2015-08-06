@@ -56,6 +56,9 @@ Rails.application.routes.draw do
         post 'import_gear'
       end
       resources :items
+      resources :alts do
+        get 'items'
+      end
 
     end
   end

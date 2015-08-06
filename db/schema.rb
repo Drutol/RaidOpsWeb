@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803142021) do
+ActiveRecord::Schema.define(version: 20150806052254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,8 +54,10 @@ ActiveRecord::Schema.define(version: 20150803142021) do
     t.integer  "guild_member_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "alt_id"
   end
 
+  add_index "gear_pieces", ["alt_id"], name: "index_gear_pieces_on_alt_id", using: :btree
   add_index "gear_pieces", ["guild_member_id"], name: "index_gear_pieces_on_guild_member_id", using: :btree
 
   create_table "gear_runes", force: :cascade do |t|
@@ -163,8 +165,10 @@ ActiveRecord::Schema.define(version: 20150803142021) do
     t.datetime "updated_at",      null: false
     t.integer  "ap"
     t.integer  "sp"
+    t.integer  "alt_id"
   end
 
+  add_index "member_stats", ["alt_id"], name: "index_member_stats_on_alt_id", using: :btree
   add_index "member_stats", ["guild_member_id"], name: "index_member_stats_on_guild_member_id", using: :btree
 
   create_table "raids", force: :cascade do |t|
@@ -185,8 +189,10 @@ ActiveRecord::Schema.define(version: 20150803142021) do
     t.integer  "guild_member_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "alt_id"
   end
 
+  add_index "rune_sets", ["alt_id"], name: "index_rune_sets_on_alt_id", using: :btree
   add_index "rune_sets", ["guild_member_id"], name: "index_rune_sets_on_guild_member_id", using: :btree
 
   create_table "spell_dbs", force: :cascade do |t|
@@ -219,8 +225,11 @@ ActiveRecord::Schema.define(version: 20150803142021) do
 
   add_foreign_key "alts", "guild_members"
   add_foreign_key "attendances", "guild_members"
+  add_foreign_key "gear_pieces", "alts"
   add_foreign_key "gear_runes", "gear_pieces"
+  add_foreign_key "member_stats", "alts"
   add_foreign_key "member_stats", "guild_members"
   add_foreign_key "raids", "guilds"
+  add_foreign_key "rune_sets", "alts"
   add_foreign_key "rune_sets", "guild_members"
 end
