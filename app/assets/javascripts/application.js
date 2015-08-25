@@ -13,10 +13,12 @@
 //= require bootstrap
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require wice_grid
 //= require highcharts/highcharts
 //= require highcharts/highcharts-more
 //= require highcharts/highstock
+//= require bootstrap-sprockets
 //= require_tree .
 
 
