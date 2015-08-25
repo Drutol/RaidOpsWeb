@@ -201,7 +201,7 @@ imported.onload = function() {
     e.onload = function() {
         window.JHJQ = window.jQuery;
         JHinitialize();
-	wildstar_datminer_init();
+
         window.jQuery = JHOldJQuery;
         window.$ = JHOldCashSign
     };

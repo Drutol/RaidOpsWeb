@@ -65,8 +65,21 @@ class GuildMembersController < ApplicationController
 			GuildMember.find(member.edit_flag).destroy
 		end
 		Item.where(:of_guild_id => params[:id].to_i).destroy_all
-		member.logs.delete_all
-		member.attendances.delete_all
+		member.attendances.destroy_all
+		member.member_stats.destroy_all
+		member.rune_sets.destroy_all
+		member.logs.destroy_all
+		member.data_sets.destroy_all
+		for piece in member.gear_pieces do
+			piece.gear_runes.destroy_all
+			piece.destroy
+		end
+		for alt in member.alts do
+			alt.gear_pieces.destroy_all
+				alt.rune_sets.destroy_all
+				alt.member_stats.destroy_all
+				alt.destroy
+			end
 		member.destroy
 		redirect_to guild_path(params[:guild_id])
 	end

@@ -561,69 +561,66 @@ if (typeof(jQuery) !== 'undefined')
 }
 </script>
 
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><%=link_to(image_tag("http://fontmeme.com/embed.php?text=Raid%20Ops&name=WildstarFont.ttf&size=15&style_color=FFFFFF") , guilds_path , style: 'color:white;display:flex;margin-top:10px;margin-left:-10px')%></a>
+    </div>
 
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      </ul>
+        <%= form_tag({controller: "index", action: "search"}, method: "get", :id => "SearchForm" ,:role => "search" ,:class => "navbar-form navbar-left") do %>
+        <%= text_field_tag(:search ,if params[:search] then params[:search] else "" end,class: "form-control" , :style => "display:flex;width:300px;margin-top:2px" , :placeholder => "Search members..." , :id => "MemberSearch")%>
+        <% end %>
 
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
+      </ul>
 
-        <ul class="nav navbar-nav navbar-left"> 
-            <div class="row"  >
-                <h1 style="color:white"><%= link_to(image_tag("http://fontmeme.com/embed.php?text=Raid%20Ops&name=WildstarFont.ttf&size=15&style_color=FFFFFF") , guilds_path , style: 'color:white;display:inline') %>  </h1>
-            </div>
-           
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-
-            <li><div id="adblock_notice" align="center" style="margin-top:6px;width:300px;margin-right:20px"></div> </li>
-            <li>
-            <div class="row" style="margin-top:20px">
-            <%= form_tag({controller: "index", action: "search"}, method: "get", :id => "SearchForm") do %>
-            <%= text_field_tag(:search ,if params[:search] then params[:search] else "" end,class: "form-control" , :style => "display:inline;width:150px" , :placeholder => "Search members..." , :id => "MemberSearch")%>&nbsp&nbsp
-            <% end %>
-            </div>
-          </li>
-          <li><%= link_to 'Home', index_welcome_path, class: 'btn btn-inverse navbar-btn' %></li>
-          <li><%= link_to 'Guilds', guilds_path, class: 'btn btn-inverse navbar-btn' %></li>
-          <li><%= link_to 'About', index_about_path, class: 'btn btn-inverse navbar-btn' %></li>
-          <li><%= link_to 'Issue Tracker', 'https://github.com/Mordonus/RaidOps/issues', class: 'btn btn-inverse navbar-btn' %></li>
-          <li><%= link_to 'Addon' , 'http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding' , class: 'btn btn-inverse navbar-btn'%></li>
+      <ul class="nav navbar-nav navbar-right">
+          
+          <li><%= link_to 'Home', index_welcome_path %></li>
+          <li><%= link_to 'Guilds', guilds_path %></li>
+          <li><%= link_to 'About', index_about_path %></li>
+          <li><%= link_to 'Issue Tracker', 'https://github.com/Mordonus/RaidOps/issues' %></li>
+          <li><%= link_to 'Addon' , 'http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding' %></li>
           <% if current_user %>
             <%if User.find_by_email(current_user.email).guild_id == nil %>
-              <li><%= link_to 'Register new guild', new_guild_path , class: 'btn btn-inverse navbar-btn'%></li>
+              <li><%= link_to 'Register new guild', new_guild_path %></li>
             <% else %>
-              <li><%= link_to 'Your guild', guild_path(User.find_by_email(current_user.email).guild_id), class: 'btn btn-inverse navbar-btn' %></li>
+              <li><%= link_to 'Your guild', guild_path(User.find_by_email(current_user.email).guild_id) %></li>
             <% end %>
-            <li><%= link_to "Edit Profile", edit_user_path(current_user.id) , class: 'btn btn-inverse navbar-btn'%></li>
-            <li><%= link_to "Logout", :logout, method: :post , class: 'btn btn-inverse navbar-btn'%></li>
+            <li><%= link_to "Edit Profile", edit_user_path(current_user.id) %></li>
+            <li><%= link_to "Logout", :logout, method: :post %></li>
           <% else %>
-            <li><%= link_to "Register", new_user_path, class: 'btn btn-inverse navbar-btn' %></li>
-            <li><%= link_to "Login", :login, class: 'btn btn-inverse navbar-btn' %></li>
+            <li><%= link_to "Register", new_user_path %></li>
+            <li><%= link_to "Login", :login %></li>
           <% end %>
+      </ul>
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <script>
-document.getElementById("MemberSearch").addEventListener("keydown", submit_form)
+  
+<script>
+    document.getElementById("MemberSearch").addEventListener("keydown", submit_form)
 
-function submit_form(event) {
-   if(event.keyCode == 13){document.getElementById("SearchForm").submit();}
-}
+    function submit_form(event) {
+       if(event.keyCode == 13){document.getElementById("SearchForm").submit();}
+    }
 </script>
-  <br><br><br><br>
+  <br><br>
 
    <div class="container">
-    
+    <div id="adblock_notice" align="center"></div>
    <!--<div class="alert alert-danger" role="alert">Hosting news , read here: https://github.com/Mordonus/RaidOps/issues/185</div>-->  
       <%= flash_messages %>
   </div>
@@ -647,14 +644,15 @@ function submit_form(event) {
     setTimeout(function() { 
     var ad = document.querySelector("ins.adsbygoogle");
     if (ad && ad.innerHTML.replace(/\s/g, "").length == 0) {
-        document.getElementById("adblock_notice").innerHTML = "<div style='color:white'><div>You seem to have your adblock software\ enabled.Please disable it or consider donating:</div>             <form style='display:inline' action='https://www.paypal.com/cgi-bin/\webscr' method='post' arget='_top'>\
+        document.getElementById("adblock_notice").innerHTML = "<div style='color:black;display:inline'><p style='margin-bottom:1px'>You seem to\ have your adblock software\ enabled.Please disable it or consider donating:</p>             <form style='display:inline' action='https:/\/www.paypal.com/cgi-bin/\webscr'\ method='post' arget='_top'>\
             <input type='hidden' name='cmd' value='_s-xclick'>\
             <input type='hidden' name='hosted_button_id' value='TZVVQTZUM6G4Y'>\
-            <input type='image' src='https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif' border='0' name='submit' alt='PayPal – The safer,\ easier way to pay online.'>\
+            <input type='image' src='https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif' border='0' name='submit' style='margin-top:2px' alt='PayPal – The safer,\ easier way to pay online.'>\
             <img alt=' border='0' src='https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif' width='1' height='1'>\
             </form></div>"
+       document.getElementById("adblock_notice").className = "well"
     }
-    }, 1000);
+    }, 500);
     };
     </script>
 </body>
