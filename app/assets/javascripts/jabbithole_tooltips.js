@@ -201,7 +201,6 @@ imported.onload = function() {
     e.onload = function() {
         window.JHJQ = window.jQuery;
         JHinitialize();
-
         window.jQuery = JHOldJQuery;
         window.$ = JHOldCashSign
     };
