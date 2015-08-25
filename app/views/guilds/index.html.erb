@@ -5,41 +5,78 @@
             targetTop: 10,  
         });  
 </script> 
+
 <div class="row">
   <div class="col-md-2" id="floatdiv">
     <div class="bs-callout bs-callout-info">
       <%= render 'ad.html.erb' %>
     </div>
   </div>
-  <div class="col-lg-10">
-    <%= grid(@guilds_grid) do |g|
+      <div class="col-lg-9">
+      <div class="row" style="margin-left:10px">
+      <% if @active_guilds.count > 0 %>   
+        <h2> Active guilds </h2>
+        <%= grid(@active_guilds_grid) do |g|
 
-            g.column name:  'Name' , attribute: 'name'  do |guild|
-              guild.name
-            end
+          g.column name:  'Name' , attribute: 'name'  do |guild|
+            guild.name
+          end
 
-            g.column name:  'Realm', attribute: 'realm' , custom_filter: [['Jabbit', 'Jabbit'], ['Entity', 'Entity'], ['Luminai', 'Luminai'], ['Warhound', 'Warhound']]  do |guild|
-              guild.realm
-            end            
+          g.column name:  'Realm', attribute: 'realm' , custom_filter: [['Jabbit', 'Jabbit'], ['Entity', 'Entity'], ['Luminai', 'Luminai'], ['Warhound', 'Warhound']]  do |guild|
+            guild.realm
+          end            
 
-            g.column name:  'Mode', attribute: 'mode' , custom_filter: [['EPGP', 'EPGP'], ['DKP', 'DKP'], ['Armory','Armory']]  do |guild|
-              guild.mode
-            end
+          g.column name:  'Mode', attribute: 'mode' , custom_filter: [['EPGP', 'EPGP'], ['DKP', 'DKP'], ['Armory','Armory']]  do |guild|
+            guild.mode
+          end
 
-            g.column  name:  'Owner', attribute: 'owner' do |guild|
-              guild.owner
-            end
+          g.column  name:  'Owner', attribute: 'owner' do |guild|
+            guild.owner
+          end
 
-            g.column  name:  'Last update:', attribute: 'updated_at',filter: false do |guild|
-              time_ago_in_words(guild.updated_at) + " ago    at: " + guild.updated_at.to_s
-            end            
-            
-            g.column  name:  'Details' , html: {style: 'max-width: 40px'} do |guild|
-              content_tag(:div,(link_to "More" , guild_path(guild.id) , class: 'btn btn-info'),:align => "center")
-            end
-          end -%>
+          g.column  name:  'Last update:', attribute: 'updated_at',filter: false,html: {style: "max-width:200px"} do |guild|
+            time_ago_in_words(guild.updated_at) + " ago    at: " + guild.updated_at.to_s
+          end            
+          
+          g.column  name:  'Details' , html: {style: 'max-width: 40px'} do |guild|
+            content_tag(:div,(link_to "More" , guild_path(guild.id) , class: 'btn btn-info'),:align => "center")
+          end
+        end -%>
+      </div>
+      <% end %>
+      <% if @inactive_guilds_grid %>
+        <div class="row" style="margin-left:10px">
+            <h2> Inactive guilds </h2>
+            <%= grid(@inactive_guilds_grid) do |g|
+
+              g.column name:  'Name' , attribute: 'name'  do |guild|
+                guild.name
+              end
+
+              g.column name:  'Realm', attribute: 'realm' , custom_filter: [['Jabbit', 'Jabbit'], ['Entity', 'Entity'], ['Luminai', 'Luminai'], ['Warhound', 'Warhound']]  do |guild|
+                guild.realm
+              end            
+
+              g.column name:  'Mode', attribute: 'mode' , custom_filter: [['EPGP', 'EPGP'], ['DKP', 'DKP'], ['Armory','Armory']]  do |guild|
+                guild.mode
+              end
+
+              g.column  name:  'Owner', attribute: 'owner' do |guild|
+                guild.owner
+              end
+
+          g.column  name:  'Last update:', attribute: 'updated_at',filter: false,html: {style: "max-width:200px"} do |guild|
+                time_ago_in_words(guild.updated_at) + " ago    at: " + guild.updated_at.to_s
+              end            
+              
+              g.column  name:  'Details' , html: {style: 'max-width: 40px'} do |guild|
+                content_tag(:div,(link_to "More" , guild_path(guild.id) , class: 'btn btn-info'),:align => "center")
+              end
+            end -%>
+          </div>
         </div>
-</div>
+      <% end %>
+  </div>
 
 
 

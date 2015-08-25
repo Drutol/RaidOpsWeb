@@ -63,14 +63,24 @@ class GuildsController < ApplicationController
   	end
 
   	def index
-  		@guilds_grid = initialize_grid(Guild.all,:order => 'guilds.name')
+  		@active_guilds = Array.new
+  		@inactive_guilds = Array.new
+  		for guild in Guild.all do 
+  			if guild.guild_members.count > 0 and Time.now.to_i - guild.updated_at.to_i < 1209600 then 
+  				@active_guilds.push(guild.id)
+  			else
+				@inactive_guilds.push(guild.id)
+  			end
+  		end
+  		@active_guilds_grid = initialize_grid(Guild.where(id:  @active_guilds),:order => 'guilds.name',:name =>"aguilds")
+  		@inactive_guilds_grid = initialize_grid(Guild.where(id:  @inactive_guilds),:order => 'guilds.name',:name =>"iguilds")
   	end
   	def download
   		begin
 	  		f = ""
 		  	ftp = Net::FTP.new
-			ftp.connect('31.220.16.113')
-			ftp.login('u292965448', ENV['FTP_PASS'])
+			ftp.connect('85.17.73.180')
+			ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
 			ftp.passive = true
 			filename = "/public_html/guild_json_#{params[:id]}.txt"
 			raw = StringIO.new('')
@@ -259,9 +269,9 @@ class GuildsController < ApplicationController
 					member['tArmoryEntry'] = nil
 				end
 				hash = JSON.generate(hash)
-				ftp = Net::FTP.new('31.220.16.113')
+				ftp = Net::FTP.new('85.17.73.180')
 				ftp.passive = true
-				ftp.login('u292965448', ENV['FTP_PASS'])
+				ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
 				ftp.puttextcontent(hash, "/public_html/guild_json_#{params[:id]}.txt")
 				ftp.close
 			rescue

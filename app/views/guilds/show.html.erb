@@ -12,7 +12,11 @@
 
   <body>
 
-  <h1 align="center"><%= @guild.name %>    -   <%= @guild.realm %>   -  <%= pluralize(GuildMember.where("guild_id = #{params[:id]}").count,"member")%></h1><br>
+  <h1 align="center"><%= @guild.name %>    -   <%= @guild.realm %>   - 
+  <% 
+    mem_count = GuildMember.where("guild_id = #{params[:id]}").count
+    if mem_count > 0 then mem_count -= 1 end
+   %>  <%= pluralize(mem_count,"member")%></h1><br>
 
   <div id="wrapper">
     <div class="container-fixed">

@@ -218,8 +218,8 @@ class Guild < ActiveRecord::Base
 		
 		begin
 		  	ftp = Net::FTP.new
-			ftp.connect('31.220.16.113')
-			ftp.login('u292965448', ENV['FTP_PASS'])
+			ftp.connect('85.17.73.180')
+			ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
 			ftp.passive = true
 			filename = "/public_html/guild_json_#{id}.txt"
 			raw = StringIO.new('')
