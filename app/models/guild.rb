@@ -17,8 +17,7 @@ class Guild < ActiveRecord::Base
 		rescue
 			return "fail"
 		end
-		#begin
-			
+		begin	
 			Item.where(:of_guild_id => params[:id].to_i).destroy_all
 			for guild_member in guild_members do
 				bFound = false
@@ -207,9 +206,9 @@ class Guild < ActiveRecord::Base
 	 			end
 	 		end
 
-	 	#rescue Exception => e 
-	 	#	return e.message
-	 	#end
+	 	rescue Exception => e 
+	 		return e.message
+	 	end
 
  		return "success" , create_counter , log_counter , item_counter
 	end
