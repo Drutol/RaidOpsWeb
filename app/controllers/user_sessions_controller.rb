@@ -22,7 +22,12 @@ class UserSessionsController < ApplicationController
     end
   end
 
-  def destroy
+  def log_out
+    logout
+    redirect_to(guilds_path, notice: 'Logged out!')
+  end
+
+  def show
     logout
     redirect_to(guilds_path, notice: 'Logged out!')
   end

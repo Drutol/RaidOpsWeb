@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'index/changelog'
   get 'index/wiki'
   get 'index/search'
+
   resources :password_resets
   resources :user_sessions
   resources :users do
@@ -21,7 +22,8 @@ Rails.application.routes.draw do
   end
 
   get 'login' => 'user_sessions#new', :as => :login
-  post 'logout' => 'user_sessions#destroy', :as => :logout
+  #post 'logout' => 'user_sessions#destroy', :as => :logout
+  post 'user_sessions/log_out'
 
 
   resources :guilds do
