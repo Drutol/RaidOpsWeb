@@ -1,3 +1,8 @@
+<% if not authorized?(@guild.id) %>
+<script type="text/javascript">
+    window.location.href= "<%= "/guilds/#{params[:guild_id]}" %>" 
+</script>
+<% else %>
   <div class="col-lg-12">
    <div align="center">  
           <%= form_tag({controller: "guilds", action: "import"}, method: "post") do %>
@@ -14,3 +19,4 @@
           <br>
     </div>
   </div>
+<% end %>
