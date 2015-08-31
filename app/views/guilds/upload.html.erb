@@ -3,20 +3,29 @@
     window.location.href= "<%= "/guilds/#{params[:guild_id]}" %>" 
 </script>
 <% else %>
+<script type="text/javascript">
+  function show_progress() {
+    document.getElementById('import').style.display = ""
+  }
+</script>
   <div class="col-lg-12">
    <div align="center">  
           <%= form_tag({controller: "guilds", action: "import"}, method: "post") do %>
             <h1>Input export data:</h1>
             <%= text_area_tag(:json, nil ,class: "form-control",:size => "30x10")%>
             <br>
-            <div>
-            <%= button_tag class: 'btn lg btn-info' , :style => "display:inline" do %>
+            <%= button_tag class: 'btn lg btn-info' , :style => "display:inline" ,:onclick => "show_progress()" do %>
               <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Import 
             <% end %>
                   <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" %>
-            <div>
           <% end %> 
           <br>
+          <div class="progress" id="import" style="display:none">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+              Import in progress , it may take a few seconds...
+            </div>
+          </div>
     </div>
   </div>
 <% end %>
+
