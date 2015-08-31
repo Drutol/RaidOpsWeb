@@ -38,7 +38,10 @@ class Guild < ActiveRecord::Base
 						piece.destroy
 					end
 					for alt in guild_member.alts do
-						alt.gear_pieces.destroy_all
+						alt.gear_pieces.each do |piece|
+							piece.gear_runes.destroy_all
+							piece.destroy
+						end
  						alt.rune_sets.destroy_all
  						alt.member_stats.destroy_all
  						alt.destroy
@@ -112,6 +115,7 @@ class Guild < ActiveRecord::Base
 	 					member.alts.each do |alt|
 	 						alt.gear_pieces.each do |piece|
 	 							piece.gear_runes.destroy_all
+	 							piece.destroy
 	 						end
 	 						alt.rune_sets.destroy_all
 	 						alt.member_stats.destroy_all
