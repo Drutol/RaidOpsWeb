@@ -110,7 +110,9 @@ class Guild < ActiveRecord::Base
 	 				end	 				
 	 				if arr['alts'] and member.name == arr['strName'] then
 	 					member.alts.each do |alt|
-	 						alt.gear_pieces.destroy_all
+	 						alt.gear_pieces.each do |piece|
+	 							piece.gear_runes.destroy_all
+	 						end
 	 						alt.rune_sets.destroy_all
 	 						alt.member_stats.destroy_all
 	 						alt.destroy

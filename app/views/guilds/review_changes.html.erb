@@ -68,7 +68,7 @@
 
             g.column  name:  'Modified' , attribute: 'edit_flag', filter: false , html: {style: 'max-width: 80px'} do |task|
               if task.edit_flag then 
-                content_tag(:p,(link_to "Undo" , undo_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-danger',:style => "display:inline",method: :undo) + "  " + (link_to "Commit" , commit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-info',:style => "display:inline",method: :commit),:align => "center") 
+                content_tag(:p,(link_to "Undo" , undo_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-danger',:style => "display:inline",method: :post) + "  " + (link_to "Commit" , commit_guild_guild_member_path(@guild.id,task.id) , class: 'btn btn-info',:style => "display:inline",method: :post),:align => "center") 
               end
             end
           end -%>
