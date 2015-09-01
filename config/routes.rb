@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  post 'api/post_status'
+
+  post 'api/import'
+
   default_url_options :host => "smtp.mandrillapp.com"  
   get 'password_resets/create'
 
@@ -43,6 +47,9 @@ Rails.application.routes.draw do
      post 'assistant_apply'
      get 'ass_applications'
      get 'settings'
+     get 'api_keys'
+     post 'api_keys/new' => 'guilds#api_key_new'
+     post 'api_keys/rem' => 'guilds#api_key_rem'
      post 'add_ass'
      post 'reject_ass'
      post 'rem_ass'

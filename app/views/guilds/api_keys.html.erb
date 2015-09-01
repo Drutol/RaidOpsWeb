@@ -1,0 +1,24 @@
+<% if not authorized?(@guild.id) %>
+<script type="text/javascript">
+    window.location.href= "<%= "/guilds/#{params[:guild_id]}" %>" 
+</script>
+<% else %>
+<div class="row"></div>
+	<div class="col-md-2" align="center"></div>
+	<div class="col-md-8" align="center">
+	<div class="panel panel-primary" align="center">  
+	  <div class="panel-heading">Keys</div>
+	  <div class="panel-body">
+	  	<% for key in @guild.api_keys do %>
+	  		<div class="well"><%= key.key %>&nbsp&nbsp<%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Remove", api_keys_rem_guild_path(@guild,:key_id => key.id), class: ' btn lg btn-danger' ,:style => "display:inline" , method: :post %></div>
+
+	  	<% end -%>
+	  </div>
+	  <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-asterisk")+" New", api_keys_new_guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" , method: :post %>
+	  <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" %>
+	  <br><br>
+	</div>
+	<div class="col-md-2" align="center"></div> 
+</div>
+
+<% end %>

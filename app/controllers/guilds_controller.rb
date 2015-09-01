@@ -1,6 +1,8 @@
 class GuildsController < ApplicationController
 	require 'net/ftp'
 	require 'stringio'
+	require 'securerandom'
+
 
 	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity,:attendance,:raids]
  	before_filter do
@@ -440,6 +442,21 @@ class GuildsController < ApplicationController
 			end
 		end
 		@members_grid = initialize_grid(@guild.guild_members,:order =>'guild_members.name',:order_direction => 'ASC')
+	end
+
+	def api_keys
+		@guild = Guild.find(params[:id])
+	end
+
+	def api_key_new
+		random_string = SecureRandom.hex
+		Guild.find(params[:id]).api_keys.create(:key => random_string)
+		redirect_to api_keys_guild_path(params[:id])
+	end
+
+	def api_key_rem
+		Guild.find(params[:id]).api_keys.find(params[:key_id]).destroy
+		redirect_to api_keys_guild_path(params[:id])
 	end
 
 	private

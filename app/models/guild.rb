@@ -263,6 +263,7 @@ class Guild < ActiveRecord::Base
 	
 	has_many :guild_members
 	has_many :raids
+	has_many :api_keys
  	validates_uniqueness_of :name
  	
 
