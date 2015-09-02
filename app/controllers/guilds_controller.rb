@@ -450,8 +450,13 @@ class GuildsController < ApplicationController
 
 	def api_key_new
 		random_string = SecureRandom.hex
-		Guild.find(params[:id]).api_keys.create(:key => random_string)
-		redirect_to api_keys_guild_path(params[:id])
+		guild = Guild.find(params[:id])
+		if guild.api_keys.count <= 5 then 
+			guild.api_keys.create(:key => random_string)
+			redirect_to api_keys_guild_path(params[:id])
+		else
+			redirect_to api_keys_guild_path(params[:id]) ,notice:  "You can have up to 6 keys."
+		end
 	end
 
 	def api_key_rem

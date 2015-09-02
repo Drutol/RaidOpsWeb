@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901120527) do
+ActiveRecord::Schema.define(version: 20150902064737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20150901120527) do
     t.integer  "guild_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "cooldown"
+    t.integer  "triggered"
   end
 
   add_index "api_keys", ["guild_id"], name: "index_api_keys_on_guild_id", using: :btree
@@ -115,6 +117,7 @@ ActiveRecord::Schema.define(version: 20150901120527) do
     t.integer  "items_per_page",               default: 20
     t.integer  "pr_precision",                 default: 2
     t.string   "auto_raid_name",               default: "Auto"
+    t.string   "import_status"
   end
 
   create_table "item_data", force: :cascade do |t|

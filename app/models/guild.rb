@@ -15,9 +15,12 @@ class Guild < ActiveRecord::Base
 		begin
 			hash = JSON.parse(params[:json])
 		rescue
+			update_attribute(:import_status, "Failed parsing json...")
 			return "fail"
 		end
-		begin	
+		begin
+			to_process = "#{hash['tMembers'].count*2}"	
+			update_attribute(:import_status, "0/#{to_process.to_s}")
 			Item.where(:of_guild_id => params[:id].to_i).destroy_all
 			for guild_member in guild_members do
 				bFound = false
@@ -61,6 +64,7 @@ class Guild < ActiveRecord::Base
 
 
 			hash.each do |arr|
+				update_attribute(:import_status, "#{create_counter.to_s}/#{to_process.to_s}")
 				member = guild_members.find_by_name(arr['strName'])
 				if member then
 					member.update_attributes(:ep => arr['EP'],:gp => arr['GP'],:pr => "%.#{pr_precision}f"%(arr['EP'].to_f/arr['GP'].to_f),:str_class => arr['class'],:str_role => arr['role'],:tot => arr['tot'],:net => arr['net'])
@@ -79,7 +83,10 @@ class Guild < ActiveRecord::Base
 			y_total = raids.where("raid_type = 2").count
 			totalRaids = raids.count
 
+			fill_counter = create_counter
 	 		hash.each do |arr|
+	 			fill_counter += 1
+				update_attribute(:import_status, "#{fill_counter.to_s}/#{to_process.to_s}")
 	 			guild_members.each do |member|
 	 				if arr['tLLogs'] and member.name == arr['strName'] then
 	 					member.items.delete_all
@@ -212,10 +219,11 @@ class Guild < ActiveRecord::Base
 	 			end
 	 		end
 
-	 	rescue Exception => e 
+	 	rescue Exception => e
+	 		update_attribute(:import_status, "#{e.message}") 
 	 		return e.message
 	 	end
-
+	 	update_attribute(:import_status,"Import successful")
  		return "success" , create_counter , log_counter , item_counter
 	end
 

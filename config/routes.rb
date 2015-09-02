@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  post 'api/post_status'
+  post 'api/get_status'
 
   post 'api/import'
 

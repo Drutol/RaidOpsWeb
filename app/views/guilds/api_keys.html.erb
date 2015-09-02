@@ -9,10 +9,24 @@
 	<div class="panel panel-primary" align="center">  
 	  <div class="panel-heading">Keys</div>
 	  <div class="panel-body">
-	  	<% for key in @guild.api_keys do %>
-	  		<div class="well"><%= key.key %>&nbsp&nbsp<%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Remove", api_keys_rem_guild_path(@guild,:key_id => key.id), class: ' btn lg btn-danger' ,:style => "display:inline" , method: :post %></div>
-
+	  	<table class="table table-hover">
+	  	<thead><tr><td><b>Key</b></td><td><b>Cooldown</b></td><td><b>Uses</b></td><td><b>Remove</b></td></tr></thead>
+  	  	<% for key in @guild.api_keys do %>
+  	  		<tr>
+		  		<td><%= key.key %></td>
+		  		<td><%= if not key.cooldown then "Ready" else 
+		  			cd = (Time.now.to_i - key.cooldown)
+		  			if cd < 0 then "#{cd/60*-1} minutes" else "Ready" end
+		  			end
+		  		%> 
+		  		</td>
+		  		<td><%= (key.triggered if key.triggered) or 0 %></td>
+		  		<td><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Remove", api_keys_rem_guild_path(@guild,:key_id => key.id), class: ' btn lg btn-danger' ,:style => "display:inline" , method: :post %></div>
+		  		</td>
+	  		</tr>
 	  	<% end -%>
+		</table>
+
 	  </div>
 	  <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-asterisk")+" New", api_keys_new_guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" , method: :post %>
 	  <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" %>
