@@ -92,6 +92,7 @@ class ApiController < ApplicationController
 	  		respond_to do |format|
 	  			format.json {render :json => {:msg =>"Key is on cooldown", :code => 4}}
 	  		end
+	  		return
   		end
   	end
   	key.update_attributes(:cooldown => Time.now.to_i+60,:triggered => key.triggered + 1)
@@ -116,6 +117,7 @@ class ApiController < ApplicationController
 		respond_to do |format|
   			format.json {render :json => {:msg =>"Download failed...", :code => 5}}
   		end
+  		return
  	end
   end
 
