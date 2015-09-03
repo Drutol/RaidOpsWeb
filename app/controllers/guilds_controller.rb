@@ -77,6 +77,7 @@ class GuildsController < ApplicationController
   		@active_guilds_grid = initialize_grid(Guild.where(id:  @active_guilds),:order => 'guilds.name',:name =>"aguilds")
   		@inactive_guilds_grid = initialize_grid(Guild.where(id:  @inactive_guilds),:order => 'guilds.name',:name =>"iguilds")
   	end
+  	
   	def download
   		begin
 	  		f = ""

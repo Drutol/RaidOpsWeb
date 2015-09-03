@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   post 'api/get_status'
-
   post 'api/import'
+  post 'api/download'
 
   default_url_options :host => "smtp.mandrillapp.com"  
   get 'password_resets/create'

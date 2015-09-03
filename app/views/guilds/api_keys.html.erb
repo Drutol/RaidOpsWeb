@@ -14,12 +14,9 @@
   	  	<% for key in @guild.api_keys do %>
   	  		<tr>
 		  		<td><%= key.key %></td>
-		  		<td><%= if not key.cooldown then "Ready" else 
-		  			cd = (Time.now.to_i - key.cooldown)
-		  			if cd < 0 then "#{cd/60*-1} minutes" else "Ready" end
-		  			end
-		  		%> 
-		  		</td>
+		  		<% cd = (Time.now.to_i - key.cooldown) if key.cooldown %>
+		  		<td <%="countdown-start=#{cd*-1}" if cd and cd < 0%>>Ready</td>
+		  		<% cd = nil %>
 		  		<td><%= (key.triggered if key.triggered) or 0 %></td>
 		  		<td><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-remove")+" Remove", api_keys_rem_guild_path(@guild,:key_id => key.id), class: ' btn lg btn-danger' ,:style => "display:inline" , method: :post %></div>
 		  		</td>
@@ -34,5 +31,49 @@
 	</div>
 	<div class="col-md-2" align="center"></div> 
 </div>
+
+<script type="text/javascript">
+	function startTimer(duration, display) 
+	{
+	    var timer = duration, minutes, seconds;
+	    var id = setInterval(function () 
+	    {
+	        minutes = parseInt(timer / 60, 10);
+	        seconds = parseInt(timer % 60, 10);
+
+	        minutes = minutes < 10 ? "0" + minutes : minutes;
+	        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+	        display.textContent = minutes + ":" + seconds;
+
+	        if (--timer < 0) 
+	        {
+	            display.textContent = "Ready";
+	            clearInterval(id);
+	        }
+	    }, 1000);
+	}
+
+function getAllElementsWithAttribute(attribute)
+{
+  var matchingElements = [];
+  var allElements = document.getElementsByTagName('*');
+  for (var i = 0, n = allElements.length; i < n; i++)
+  {
+    if (allElements[i].getAttribute(attribute) !== null)
+    {
+      matchingElements.push(allElements[i]);
+    }
+  }
+  return matchingElements;
+}
+
+$(document).ready(function(){
+	var timers = getAllElementsWithAttribute("countdown-start")
+	for (var i = 0; i < timers.length; i++) {
+		startTimer(timers[i].getAttribute("countdown-start"),timers[i]);
+	};
+});
+</script>
 
 <% end %>
