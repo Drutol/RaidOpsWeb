@@ -51,7 +51,7 @@ class ApiController < ApplicationController
   		cd = Time.now.to_i - key.cooldown
   		if cd < 0 then
 	  		respond_to do |format|
-	  			format.json {render :json => {:msg =>"Key is on cooldown - " + cd*-1 + "s", :code => 4}}
+	  			format.json {render :json => {:msg =>"Key is on cooldown", :code => 4}}
 	  		end
   		end
   	end
@@ -90,7 +90,7 @@ class ApiController < ApplicationController
   		cd = Time.now.to_i - key.cooldown
   		if cd < 0 then
 	  		respond_to do |format|
-	  			format.json {render :json => {:msg =>"Key is on cooldown - " + cd*-1 + "s", :code => 4}}
+	  			format.json {render :json => {:msg =>"Key is on cooldown", :code => 4}}
 	  		end
   		end
   	end
@@ -114,7 +114,7 @@ class ApiController < ApplicationController
   		end
 	rescue Exception => e
 		respond_to do |format|
-  			format.json {render :json => {:msg =>e.message, :code => 5}}
+  			format.json {render :json => {:msg =>"Download failed...", :code => 5}}
   		end
  	end
   end
