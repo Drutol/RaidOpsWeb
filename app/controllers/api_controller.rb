@@ -56,7 +56,7 @@ class ApiController < ApplicationController
   		end
   	end
   	if not key.triggered then key.update_attribute(:triggered, 0) end
-  	key.update_attributes(:cooldown => Time.now.to_i+60,:triggered => key.triggered + 1)
+  	key.update_attributes(:cooldown => Time.now.to_i,:triggered => key.triggered + 1)
 
   	Thread.new do
   	  guild.import(params)
