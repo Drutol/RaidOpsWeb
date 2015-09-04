@@ -1,0 +1,64 @@
+<script type="text/javascript">  
+    floatingMenu.add('floatdiv',  
+        {    
+            targetLeft: 10,  
+            targetTop: 10,  
+        });  
+</script> 
+<style type="text/css">/* Base styles (regardless of theme) */
+/* Panels colors */
+.panel-warning {
+  background-color: #FFF9ED;
+  border-color: #FFBD42;
+}
+.panel-warning .panel-heading {
+  background-color: #FFBD42;
+  border-color: #FFBD42;
+}
+</style>
+<div class="row">
+  <%= render 'sidebar.html.erb'%>
+  <div class="col-lg-9 text-center">
+    <div class="panel panel-primary">
+        <div class="panel-heading"><h1>Uploader</h1></div>
+        <div class="panel-body">
+          <div class="bs-callout bs-callout-info">
+            <h2>Uploader guide</h2>
+            <h4>
+              In order to simplify the process of downloading and uploading data I have created small app that will help you with that.
+
+              <br><br><b>It does only 2 things:</b><br><br>                       
+                  <u>
+                  Upload to website from clipboard or addon's save file.<br>
+                  Download from website and import data to addon.<br>
+                  </u>
+            </h4>
+                <img class="media-object center-block" src="https://cloud.githubusercontent.com/assets/6102530/9665000/a0fdd36e-526d-11e5-8040-7fb9fb7d25c9.png" alt="..." style="align:center">
+                <br>
+                <a href="https://github.com/Mordonus/RaidOpsUploader/releases" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-arrow-down"></span> Download</a>
+          </div>
+          <div class="bs-callout bs-callout-info">
+            <h2>Setup</h2>
+            <h4 align="center">First of all you will want to generate API key. It's just a random string that will point the uploader to your guild.<br><br> In order to do so go to your guild's page and <b>find this button on the left sidebar</b>.&nbsp&nbsp<a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-flash")+"  Api keys", '' ,class: 'list-group-item',:style => "display:inline;width:200px" %></a>
+            </h4>
+            <br>
+            <h4>Once there <b>press create button</b>. <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-asterisk")+" New", '', class: ' btn lg btn-primary' ,:style => "display:inline" %></h4>
+            <img class="media-object center-block" src="http://i.imgur.com/UiPubrT.png" alt="..." style="align:center">
+            <br><h4>You can create up to 6 keys , each key has trigger count and cooldown period. You can download or upload once per 60 seconds.<br><br> You will want to <b>paste this key to the uploader</b>. Once pasted it will be saved for future use.</h4>
+            <img class="media-object center-block" src="https://cloud.githubusercontent.com/assets/6102530/9665000/a0fdd36e-526d-11e5-8040-7fb9fb7d25c9.png" alt="..." style="align:center">
+          </div>
+          <div class="bs-callout bs-callout-info">
+            <h2>Upload</h2>
+            <h4>Uploader can upload data either <u>from clipboard</u> or <u>addon's xml save file</u> , clipboard will be checked first.<br><br> All you have to do is to go to addon's Export window and <b>press Website Export</b> button and then <b>copy to clipboard</b>. If you want to use xml method just <b>press small button on the left</b> from the said button.<br><br> Once you have done this all you have to do is to <b>press upload button</b> in uploader.
+          </div>
+          <div class="bs-callout bs-callout-info">
+            <h2>Download and import</h2>
+            <h3><b>Log out from Wildstar! Character selection will do.</b></h3>
+            <br>
+            <h4>Once logged out just <b>press download button in uploader</b> and wait for confirmation message. When you log in again you should be presented with this window:</h4>
+            <img class="media-object center-block" src="https://cloud.githubusercontent.com/assets/6102530/9664896/ece10d92-526c-11e5-9cda-a99066f1b1e6.png" alt="..." style="align:center">
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

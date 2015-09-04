@@ -8,8 +8,10 @@
       <p class="lead">Store your Wildstar EPGP and raid data online!</p>
       <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-th-list",:style => "margin-top:10px")+" See all registered guilds.", guilds_path, class: 'btn-success btn-lg',:style => "display:inline-block" %></a>    
       <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-plus",:style => "margin-top:10px")+" Register your guild.", new_guild_path, class: 'btn-info btn-lg',:style => "display:inline-block" %></a>    
-      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-download",:style => "margin-top:10px")+" Download in-game addon.", 'http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding', class: 'btn-warning btn-lg' ,:style => "display:inline-block"%></a>    
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-download",:style => "margin-top:10px")+" Download in-game addon.", 'http://www.curse.com/ws-addons/wildstar/224405-raidops-epgp-loot-distribution-network-bidding', class: 'btn-warning btn-lg' ,:style => "display:inline-block"%></a>      
+      <br><br>
       <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-question-sign",:style => "margin-top:10px")+" What is it all about?", index_about_path, class: 'btn-primary btn-lg',:style => "display:inline-block" %></a>
+      <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-flash",:style => "margin-top:10px")+" Uploader application.", index_uploader_path, class: 'btn-danger btn-lg' ,:style => "display:inline-block"%></a>   
       </div>
     </div>
 

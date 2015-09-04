@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'index/changelog'
   get 'index/wiki'
   get 'index/search'
+  get 'index/uploader'
 
   resources :password_resets
   resources :user_sessions

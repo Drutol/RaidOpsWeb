@@ -31,7 +31,7 @@
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-wrench")+" Settings", settings_guild_path(@guild), class: 'list-group-item' %></a>             
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-lock")+" Show members' PINs", show_pins_guild_path, class: 'list-group-item' %> </a>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Upload Data", upload_guild_path, class: 'list-group-item' %> </a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-lock")+" Api keys - WIP", api_keys_guild_path, class: 'list-group-item' %> </a>
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-flash")+" Api keys", api_keys_guild_path, class: 'list-group-item' %> </a>
                 <% end %>
 
                 <% if @guild.guild_members.count > 0 %>

@@ -16,40 +16,18 @@
   border-color: #FFBD42;
 }
 </style>
-<div id="wrapper">
-  <div class="container-fixed">
-     <div id="sidebar-wrapper">
-          <ul class="col-md-2" id ="floatdiv">
-              <div class="list-group">
-                <a href="#" class="list-group-item active fixed">
-                  About
-                </a>      
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-book")+" Wiki", index_wiki_path ,class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-info-sign")+" General info", index_about_path ,class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Upload Data", index_uploading_path ,class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-asterisk")+" Credits", index_credits_path ,class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-tasks")+" Changelog", index_changelog_path ,class: 'list-group-item' %></a>
-    
-              </div>  
-               <div class="bs-callout bs-callout-info" style="height:550px">
-                  <%= render 'ad.html.erb' %>
-                </div>
-          </ul>
+<div class="row">
+  <%= render 'sidebar.html.erb'%>
+  <div class="col-lg-9 text-center">
+    <div class="panel panel-primary">
+        <div class="panel-heading"><h1>Changelog</h1></div>
+        <div class="panel-body">
+          <div class="bs-callout bs-callout-info">
+            <h2>Website version v1.3</h2>
+            <h4>04.09.2015</h4>
+            <p>Added API</p>
+          </div>
+      </div>
     </div>
-<div class="container">
-    <div class="row" align="center">
-        <div class="col-lg-12 text-center">
-            <div class="panel panel-primary">
-                <div class="panel-heading"><h1>Changelog</h1></div>
-                <div class="panel-body">
-                    <div class="bs-callout bs-callout-info">
-                        <h2>Website version v1.2</h2>
-                        <h4>06.08.2015</h4>
-                        <p>Added Armory mode</p>
-                        <p>Now alts have their own armory pages</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

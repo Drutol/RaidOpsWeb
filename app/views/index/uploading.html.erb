@@ -18,31 +18,11 @@
 }
 </style>
 <div class="row">
-<div id="wrapper">
-  <div class="container-fixed">
-     <div id="sidebar-wrapper">
-          <ul class="col-md-2" id ="floatdiv">
-              <div class="list-group">
-                <a href="#" class="list-group-item active fixed">
-                  About
-                </a>      
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-book")+" Wiki", index_wiki_path ,class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-info-sign")+" General info", index_about_path ,class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-cloud-upload")+" Upload Data", index_uploading_path ,class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-asterisk")+" Credits", index_credits_path ,class: 'list-group-item' %></a>
-                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-tasks")+" Changelog", index_changelog_path ,class: 'list-group-item' %></a>
-    
-              </div> 
-              <div class="bs-callout bs-callout-info" style="height:550px">
-                <%= render 'ad.html.erb' %>
-              </div> 
-          </ul>
-    </div>
-  <div class="container">
-        <div class="col-lg-12 text-center">
+     <%= render 'sidebar.html.erb'%>
+        <div class="col-lg-9 ">
             <div class="panel panel-primary">
                 <div class="panel-heading"><h1>How to import data?</h1></div>
-                <div class="panel-body">
+                <div class="panel-body" align="center">
                     <div class="bs-callout bs-callout-info">First of all you will want to have an account created.&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-check")+" Register", new_user_path, class: ' btn lg btn-primary' ,:style => "display:inline" %>
                     </div>                
                     <div class="bs-callout bs-callout-info">Now you have to create your guild profile.&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-check")+" Create Guild", new_guild_path, class: ' btn lg btn-primary' ,:style => "display:inline" %>
@@ -54,6 +34,7 @@
                     <div class="bs-callout bs-callout-info">You can see how this will look after import by checking out one of other guilds' profiles. &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-ok")+" All guilds", guilds_path, class: ' btn lg btn-success' ,:style => "display:inline" %>
                     </div>
                 </div>
+                <div class="panel-footer" align="center"><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-export")+" Or you can use uploader...", "#", class: ' btn lg btn-warning' ,:style => "display:inline" %></div>
             </div>
             <div class="panel panel-warning">
                 <div class="panel-heading"><h1>How to export data?</h1></div>
@@ -81,5 +62,4 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>

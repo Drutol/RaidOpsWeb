@@ -18,6 +18,7 @@
               <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Import 
             <% end %>
                   <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" %>
+                  <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-export")+" Or you can use uploader...", guild_path(@guild), class: ' btn lg btn-warning' ,:style => "display:inline" %>
           <% end %> 
           <br>
           <div class="progress" id="import" style="display:none">

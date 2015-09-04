@@ -26,6 +26,7 @@
 
 	  </div>
 	  <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-asterisk")+" New", api_keys_new_guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" , method: :post %>
+	  <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-export")+" What is it for?", index_uploader_path, class: ' btn lg btn-warning' ,:style => "display:inline" %>
 	  <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" %>
 	  <br><br>
 	</div>
