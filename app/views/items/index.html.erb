@@ -344,6 +344,12 @@
         log.n_after
       end      
 
+      if @logs_group_filter.count > 1 then
+        g.column  name:  'Group' , attribute: 'str_group',custom_filter: @logs_group_filter do |log|
+          if log.str_group == "Def" then "Default" else log.str_group end
+        end     
+      end
+
       g.column  name:  'Timestamp' , attribute: 'n_date' do |log|
         if log.n_date then Time.at(log.n_date.to_i).strftime('%d/%m/%Y , %T') else log.strTimestamp end
       end

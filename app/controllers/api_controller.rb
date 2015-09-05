@@ -5,18 +5,21 @@ class ApiController < ApplicationController
   skip_before_filter  :verify_authenticity_token
   skip_before_filter :require_login, only: [:get_status, :import ,:download]
   def get_status
-  	
+  	if params[:id] then params[:key] = params[:id] end
   	if not params[:key] then
   		respond_to do |format| 
   			format.json {render :json => {:msg =>"No data", :code => 1}}
   		end
   		return 
   	end
-
-  	key = ApiKey.find_by_key(params[:key])
+    if params[:id] then 
+      guild = Guild.find(params[:id]) 
+    else
+  	  key = ApiKey.find_by_key(params[:key])
+    end
     if key then guild = Guild.find(key.guild_id) end
 
-  	if not key or not guild then 
+  	if (not key or not guild) and not params[:id] then 
   		respond_to do |format|
   			format.json {render :json => {:msg =>"Unknown key", :code => 2}}
   		end

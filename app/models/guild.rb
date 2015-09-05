@@ -102,13 +102,10 @@ class Guild < ActiveRecord::Base
 	 					arr['logs'].each do |log|
 	 						if log['nDate'] and not member.logs.where("n_date = ? and str_comment = ?",log['nDate'],log['strComment']).first then
 		 						if not log['nAfter'] then after = 0 else after = log['nAfter'] end
-
-		 						member.logs.create(:str_comment => log['strComment'],:n_date => log['nDate'],:strType => log['strType'],:strModifier => log['strModifier'],:n_after => after)
+		 						if log['strGroup'] then strGroup = log['strGroup'] else strGroup = "Def" end
+		 						member.logs.create(:str_comment => log['strComment'],:n_date => log['nDate'],:strType => log['strType'],:strModifier => log['strModifier'],:n_after => after,:str_group => strGroup)
 
 		 						log_counter += 1
-		 						if log_counter > 20 then
-									#raise 'Import failed , your export string is not compliant with specifications (Logs count > 20).'
-								end
 							end
 	 					end
 	 				end
@@ -215,6 +212,7 @@ class Guild < ActiveRecord::Base
 
 			for member in guild_members do
 				for log in member.logs do
+					if not log.str_group then log.update_attribute(:str_group, "Def") end
 	 				if Time.now.to_i - log.n_date.to_i  > 604800 then log.destroy end
 	 			end
 	 		end

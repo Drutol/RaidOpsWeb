@@ -23,22 +23,6 @@
 
     <% if @raid then %>  
         <h2 style="display:inline"><%= "#{if @raid.name != "Raid" then @raid.name end}  #{if @raid.name == "Raid" then if @raid.raid_type == 0 then "Genetic Archives" elsif @raid.raid_type == 1 then "Datascape" else "Y-83" end end } #{Time.at(@raid.n_finish-raid.n_time).strftime('%d/%m/%Y') if @raid.name == "Raid" }"%>   &nbsp;&nbsp;&nbsp;           <div align="right" style="display:inline"><%="#{Time.at(@raid.n_finish - @raid.n_time).utc.strftime("%H:%M:%S")}  -  #{Time.at(@raid.n_finish).utc.strftime("%H:%M:%S")}"%></div></h2>
-      <script> 
-      var wildstar_datminer_config = 
-      {
-      //language: 1: English, 2: Deutsch, 3: Francais
-      "language": 1, 
-
-      //Do you want to replace the name of the link?
-      "name_replace": false, 
-
-      //Do you want to show quality colors?
-      "color_show": false,
-
-      //Do you want to have an icon added?
-      "icon_replace": true
-      } </script>
-      <%= javascript_include_tag 'dataminer_tooltips.js' %>
       <%= javascript_include_tag 'jabbithole_tooltips.js' %>
       <script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
         <h1> Items </h1>

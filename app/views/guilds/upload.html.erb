@@ -6,6 +6,17 @@
 <script type="text/javascript">
   function show_progress() {
     document.getElementById('import').style.display = ""
+
+    setInterval(function () 
+    {
+      $.ajax({
+        type: "POST",
+        url: "<%= "#{api_get_status_path}?id=#{@guild.id}" %>",
+        success: function (data) {
+          document.getElementById('progress_bar').innerHTML = data.msg;
+        },
+      });
+    },500)
   }
 </script>
   <div class="col-lg-12">
@@ -18,14 +29,15 @@
               <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Import 
             <% end %>
                   <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" %>
-                  <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-export")+" Or you can use uploader...", guild_path(@guild), class: ' btn lg btn-warning' ,:style => "display:inline" %>
+                  <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-export")+" Or you can use uploader...", index_uploader_path, class: ' btn lg btn-warning' ,:style => "display:inline" %>
           <% end %> 
           <br>
           <div class="progress" id="import" style="display:none">
-            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" id="progress_bar">
               Import in progress , it may take a few seconds...
             </div>
           </div>
+
     </div>
   </div>
 <% end %>

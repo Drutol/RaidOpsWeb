@@ -10,6 +10,22 @@ class ItemsController < ApplicationController
             @items_grid = initialize_grid(member.items,:name => 'items_grid',:order => 'items.timestamp' ,:order_direction => 'desc',:per_page => 15)         
             @logs_grid = initialize_grid(member.logs,:name => 'logs_grid',:order => 'logs.n_date' ,:order_direction => 'desc')
             @alts_grid = initialize_grid(member.alts,:name => 'alts_grid',:order => 'alts.name' ,:order_direction => 'desc',:per_page => 5)
+            logs_groups = Hash.new
+
+            for log in member.logs do
+              if log.str_group and log.str_group != "Def" then
+                if not logs_groups[log.str_group] then logs_groups[log.str_group] = true end
+              end
+            end
+
+            @logs_group_filter = Array.new
+
+            for key in logs_groups.keys do
+              @logs_group_filter.push([key,key])
+            end
+            @logs_group_filter.push(["No group","Def"])
+
+
   				  break
           else
             redirect_member = GuildMember.find(member.edit_flag)
@@ -17,11 +33,31 @@ class ItemsController < ApplicationController
             @items_grid = initialize_grid(redirect_member.items,:name => 'items_grid',:per_page => 15)         
             @logs_grid = initialize_grid(redirect_member.logs,:name => 'logs_grid')
             @alts_grid = initialize_grid(redirect_member.alts,:name => 'alts_grid',:per_page => 5)
+            logs_groups = Hash.new
+
+
+            for log in redirect_member.logs do
+              if log.str_group and log.str_group != "Def" then
+                if not logs_groups[log.str_group] then logs_groups[log.str_group] = true end
+              end
+            end
+
+            @logs_group_filter = Array.new
+
+            for key in logs_groups.keys do
+              @logs_group_filter.push([key,key])
+            end
+            @logs_group_filter.push(["No group","Def"])
+            
           end
   			end 
   		end
       @slot_order_col1 = [16,15,2,3,0,5]
       @slot_order_col2 = [1,4,7,8,10,11]
+
+      
+
+
   	end
 
   	def show
