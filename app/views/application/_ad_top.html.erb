@@ -1,5 +1,5 @@
 
-<% if @guild and @guild.add_profile == "Left+Top" then%>
+<% if @guild and @guild.add_profile and @guild.add_profile == "Left+Top" then%>
 <div class="well">
     <div class="row">
         <p style="font-size:12px" align="center">These ads are here because guild has decided to put them  , see more <%= link_to 'here.' , ad_profiles_guild_path(@guild) %>.</p>
