@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150905154614) do
+ActiveRecord::Schema.define(version: 20150907181822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20150905154614) do
     t.integer  "pr_precision",                 default: 2
     t.string   "auto_raid_name",               default: "Auto"
     t.string   "import_status"
+    t.string   "add_profile"
   end
 
   create_table "item_data", force: :cascade do |t|

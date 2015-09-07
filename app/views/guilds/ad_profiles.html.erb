@@ -1,0 +1,32 @@
+<script type="text/javascript">  
+    floatingMenu.add('floatdiv',  
+        {  
+            targetLeft: 10,  
+            targetTop: 10,  
+        });  
+</script> 
+<div class="row">
+    <ul class="col-md-2" id="floatdiv">
+        <div class="list-group">
+          <a href="#" class="list-group-item active fixed">
+            Ad settings for <%= @guild.name %>
+          
+          </a>
+          <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>
+    </div> 
+    <div class="bs-callout bs-callout-info">
+      <%= render 'ad.html.erb' %>
+    </div>       
+  </ul>
+  <div class="col-md-9">
+    <div class="well">
+      <% if authorized?(@guild.id) then hash = {controller: "guilds", action: "set_ads_profile"} else hash = {controller: "guilds", action: "show"} end  %>
+      <%= form_tag(hash, method: "post",) do %>
+      <%= label_tag(:ad_profile, 'How would you like to have your ads served:')%>
+      <%= select_tag(:ad_profile, options_for_select([['No ads', 'No'], ['Ads on left sidebar', 'Left'],['Ads on left sidebar + just below upper navbar.','Left+Top']],@guild.add_profile) ,class: "form-control")%>
+      <br>
+      <%= if authorized?(@guild.id) then submit_tag("Submit" , class: "btn btn-primary") else "Log in to change profile" end %></br>
+    <% end %>
+    </div>
+  </div>
+</div>

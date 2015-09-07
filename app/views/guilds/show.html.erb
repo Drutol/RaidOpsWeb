@@ -51,6 +51,7 @@
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-edit")+" Commit changes (#{@edited.count})", review_changes_guild_path(@guild),class: 'list-group-item' %></a>
                 <% end %>
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-road")+" Recent Activity", recent_activity_guild_path(@guild) ,class: 'list-group-item' %></a>                
+                <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-heart")+" Ad profiles", ad_profiles_guild_path(@guild) ,class: 'list-group-item' %></a>                
                 <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guilds_path ,class: 'list-group-item' %></a>
     
               </div>  

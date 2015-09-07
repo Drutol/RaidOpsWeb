@@ -2,9 +2,7 @@ class GuildsController < ApplicationController
 	require 'net/ftp'
 	require 'stringio'
 	require 'securerandom'
-
-
-	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity,:attendance,:raids]
+	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity,:attendance,:raids,:ad_profiles]
  	before_filter do
 	    if request.host != "www.raidops.net" && Rails.env.production? then redirect_to "http://raidops.net" end
             if request.ssl? && Rails.env.production?
@@ -62,6 +60,15 @@ class GuildsController < ApplicationController
    			
    		@members_grid = initialize_grid(GuildMember.where(id: members),:order => if @guild.mode == "EPGP" then if params[:set] then 'data_sets.pr' else 'guild_members.pr' end elsif @guild.mode == "DKP" then 'guild_members.net' else 'guild_members.name' end,:order_direction => if @guild.mode == "Armory" then'asc' else 'desc' end,:per_page => @guild.members_per_page,:include => 'data_sets')
 
+  	end
+
+  	def ad_profiles
+  		@guild = Guild.find(params[:id])
+  	end
+
+  	def set_ads_profile
+  		Guild.find(params[:id]).update_attribute(:add_profile,params[:ad_profile])
+  		redirect_to ad_profiles_guild_path(params[:id])
   	end
 
   	def index
