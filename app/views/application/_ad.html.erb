@@ -1,5 +1,13 @@
 
-<% if @guild and @guild.add_profile != nil and @guild.add_profile.include?("Left") or not @guild or @guild and @guild.add_profile == nil then %>
+<% 
+bRender = false
+if not @guild then bRender = true end
+if not bRender then
+    if @guild and @guild.add_profile and @guild.add_profile.include?("Left") then bRender = true end
+    if @guild and not @guild.add_profile then bRender = true end
+end
+    %>
+<% if bRender then %>
 <h4 align="center">Advertisement</h4 >
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- UnderLeftControls -->
