@@ -62,7 +62,7 @@ class ApiController < ApplicationController
   	key.update_attributes(:cooldown => Time.now.to_i+60,:triggered => key.triggered + 1)
 
   	Thread.new do
-  	  guild.import(params)
+  	  guild.import(params,true)
 	  ActiveRecord::Base.connection.close
 	end
 

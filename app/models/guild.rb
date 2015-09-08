@@ -1,7 +1,7 @@
 class Guild < ActiveRecord::Base
 	require 'fileutils'
 
-	def import(params)
+	def import(params,upl = false)
 
 		create_counter = 0
 		update_counter = 0
@@ -220,6 +220,22 @@ class Guild < ActiveRecord::Base
 	 	rescue Exception => e
 	 		update_attribute(:import_status, "#{e.message}") 
 	 		return e.message
+	 	end
+	 	if upl then
+			begin
+				hash = JSON.parse(params[:json])
+				for member in hash['tMembers'] do
+					member['tArmoryEntry'] = nil
+				end
+				hash = JSON.generate(hash)
+				ftp = Net::FTP.new('85.17.73.180')
+				ftp.passive = true
+				ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
+				ftp.puttextcontent(hash, "/public_html/guild_json_#{params[:id]}.txt")
+				ftp.close
+			rescue
+				return
+			end
 	 	end
 	 	update_attribute(:import_status,"Import successful")
  		return "success" , create_counter , log_counter , item_counter

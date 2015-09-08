@@ -113,7 +113,7 @@
             g.column  name:  'Total', attribute: 'tot', auto_reload: false do |task|
               task.tot
             end
-            g.column name: 'Time', attribute: 'nSecs' , model: 'Attendance' do |task|
+            g.column name: 'Time', attribute: 'nSecs' , assoc: :attendances do |task|
               Time.at(task.attendances.where("n_time = ? and guild_member_id = ?",@raid.n_finish,task.id).first.nSecs).utc.strftime("%H:%M:%S")
             end             
           end -%>
