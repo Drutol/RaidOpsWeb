@@ -32,7 +32,8 @@ gem 'bcrypt', :require => 'bcrypt'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'sorcery'
-gem "wice_grid"
+gem "wice_grid", '3.6.0.pre4' #was 3.4.14)
+gem 'font-awesome-sass',  '~> 4.3'
 gem 'jquery-ui-rails'
 gem 'pg', '~> 0.18.1'
 gem 'puma'

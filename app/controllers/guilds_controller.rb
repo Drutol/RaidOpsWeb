@@ -245,7 +245,28 @@ class GuildsController < ApplicationController
 			guild_member.attendances.destroy_all
 		end
 		@guild.raids.destroy_all
-		@guild.guild_members.destroy_all
+		@guild.guild_members.each do |guild_member|
+			guild_member.attendances.destroy_all
+			guild_member.member_stats.destroy_all
+			guild_member.rune_sets.destroy_all
+			guild_member.logs.destroy_all
+			guild_member.data_sets.destroy_all
+			for piece in guild_member.gear_pieces do
+				piece.gear_runes.destroy_all
+				piece.destroy
+			end
+			for alt in guild_member.alts do
+				alt.gear_pieces.each do |piece|
+					piece.gear_runes.destroy_all
+					piece.destroy
+				end
+					alt.rune_sets.destroy_all
+					alt.member_stats.destroy_all
+					alt.destroy
+				end
+			guild_member.destroy
+		end
+		@guild.api_keys.destroy_all
 		@guild.destroy
 		User.find_by_email(current_user.email).update_attribute(:guild_id , nil)
 		redirect_to guilds_path , notice: 'Guild deleted successfully.'
@@ -470,6 +491,28 @@ class GuildsController < ApplicationController
 	def api_key_rem
 		Guild.find(params[:id]).api_keys.find(params[:key_id]).destroy
 		redirect_to api_keys_guild_path(params[:id])
+	end
+
+	def armor_compare
+		@guild = Guild.find(params[:id])
+		members = Array.new
+		@edited = Array.new
+		for member in @guild.guild_members do
+			begin
+	        	edit_member = GuildMember.find_by(edit_flag: member.id)
+				if edit_member then
+					members.push(edit_member.id)
+					@edited.push(edit_member.id)
+				elsif member.name != "Guild Bank" then
+					members.push(member.id)
+				end
+			rescue
+				members.push(member.id)
+			end
+		end
+		@members_grid = initialize_grid(GuildMember.where(id: members),:per_page => 7)
+		@slot_order = [16,15,2,3,0,5,1,4,7,8,10,11]
+
 	end
 
 	private

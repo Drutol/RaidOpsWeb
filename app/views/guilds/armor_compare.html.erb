@@ -1,0 +1,125 @@
+<script type="text/javascript">  
+    floatingMenu.add('floatdiv',  
+        {  
+            targetLeft: 10,  
+            targetTop: 10,  
+        });  
+</script> 
+<%= javascript_include_tag 'jabbithole_tooltips.js' %>
+<script>JH_options = { colors: true, names: true, whitebg: true, preload: true, zIndex: null };</script>
+<div class="row">
+    <ul class="col-md-2" id="floatdiv">
+        <div class="list-group">
+          <a href="#" class="list-group-item active fixed">
+            Armor comparison for <%= @guild.name %>
+          
+          </a>
+          <a><%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild) ,class: 'list-group-item' %></a>
+    </div> 
+    <div class="bs-callout bs-callout-info">
+      <%= render 'ad.html.erb' %>
+    </div>       
+  </ul>
+  <div class="col-md-9">
+    <%= grid(@members_grid,html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
+
+      g.blank_slate content_tag(:div, "No records found", class: 'alert alert-info')
+
+      #for slot in @slot_order do #Idk but loop doesn't work here :(
+         # g.column name:  "#{slot}" do |member|
+         #   item = member.gear_pieces.find_by_item_type(slot)
+         #   if item then
+         #     content_tag(:span,get_small_icon(item.item_id) + link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}"))
+         #   end
+         # end
+     # end
+    g.column name:  'Class' , attribute: 'str_class' , html: {style: 'width: 40px'} ,  custom_filter: [['Esper', 'Esper'], ['Warrior', 'Warrior'], ['Stalker', 'Stalker'], ['Engineer', 'Engineer'],['Medic', 'Medic'],['Spellslinger', 'Spellslinger']]  do |task|
+      content_tag(:div ,image_tag("Icon#{task.str_class}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_class
+    end            
+
+    g.column name:  'Role' , attribute: 'str_role' , html: {style: 'width: 50px'} , custom_filter: [['Dps', 'DPS'], ['Heal', 'Heal'], ['Tank', 'Tank']] do |task|
+      content_tag(:div ,image_tag("#{task.str_role}.png" , :height => "40px" , :width => "40px" , :align => "middle" ),:align => "center") if task.str_role
+    end
+
+    g.column name:  'Name - check runes', attribute: 'name' , auto_reload: false  do |task|
+      link_to task.name , guild_guild_member_items_path(@guild,task) , :class => 'btn btn-default'
+    end
+
+
+    g.column name:  "Weapon" do |member|
+      item = member.gear_pieces.find_by_item_type(16)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end
+    g.column name:  "Shield" do |member|
+      item = member.gear_pieces.find_by_item_type(15)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end    
+    g.column name:  "Head" do |member|
+      item = member.gear_pieces.find_by_item_type(2)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end    
+    g.column name:  "Shoulders" do |member|
+      item = member.gear_pieces.find_by_item_type(3)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end    
+    g.column name:  "Chest" do |member|
+      item = member.gear_pieces.find_by_item_type(0)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end    
+    g.column name:  "Hands" do |member|
+      item = member.gear_pieces.find_by_item_type(5)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end
+    g.column name:  "Legs" do |member|
+      item = member.gear_pieces.find_by_item_type(1)
+      if item then
+        content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end    
+    g.column name:  "Feet" do |member|
+      item = member.gear_pieces.find_by_item_type(4)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end    
+    g.column name:  "Attachment" do |member|
+      item = member.gear_pieces.find_by_item_type(7)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end    
+    g.column name:  "Support" do |member|
+      item = member.gear_pieces.find_by_item_type(8)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end    
+    g.column name:  "Support" do |member|
+      item = member.gear_pieces.find_by_item_type(10)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end    
+    g.column name:  "Support" do |member|
+      item = member.gear_pieces.find_by_item_type(11)
+      if item then
+                content_tag(:div,get_small_icon(item.item_id,"",'30px','30px'),:align => 'center') +  link_to('',"http://www.jabbithole.com/items/i-#{item.item_id}")
+      end
+    end
+
+
+     end -%>
+  </div>
+</div>

@@ -40,15 +40,14 @@ Rails.application.routes.draw do
      get 'review_changes'
      get 'attendance'
      get 'raids'
-     post :import
-     post :update_settings
-     post 'commit_changes'
-     post 'undo_all'
-     post 'commit_all'
-     post 'assistant_apply'
      get 'ass_applications'
      get 'settings'
      get 'api_keys'
+     get 'armor_compare'
+     get 'stats_compare'
+
+     get 'show_pins'
+     get 'ad_profiles'
      post 'api_keys/new' => 'guilds#api_key_new'
      post 'api_keys/rem' => 'guilds#api_key_rem'
      post 'add_ass'
@@ -56,8 +55,12 @@ Rails.application.routes.draw do
      post 'rem_ass'
      post 'set_main_settings'
      post 'set_ads_profile'
-     get 'show_pins'
-     get 'ad_profiles'
+     post :import
+     post :update_settings
+     post 'commit_changes'
+     post 'undo_all'
+     post 'commit_all'
+     post 'assistant_apply'
     end
     resources :guild_members do
       member do

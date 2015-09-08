@@ -46,7 +46,7 @@ module ApplicationHelper
       end
 
       source = ""
-      if not File.file?("#{Rails.root}/app/assets/images/item_icons/#{sprite}") then
+      if not File.file?("#{Rails.root}/app/assets/images/item_icons/#{sprite.downcase}") then
         source = "http://www.jabbithole.com/assets/icons/#{sprite.downcase}.png"
       end
 
@@ -55,7 +55,9 @@ module ApplicationHelper
     return nil , nil, nil , item
   end
 
-  def get_small_icon(id,alt = "")
+  def get_small_icon(id,alt = "",w = nil,h = nil)
+    if not w then w = "23px" end
+    if not h then h = "23px" end
     entry = ItemDb.find_by_item_id(id) 
     if entry then
       sprite = entry.sprite
@@ -74,7 +76,7 @@ module ApplicationHelper
       if source == "" then
         return image_tag "item_icons/#{sprite}" ,:style => "width:23px;height:23px",:title => alt
       else
-        return image_tag source ,:style => "width:23px;height:23px",:title => alt
+        return image_tag source ,:style => "width:#{w};height:#{h}",:title => alt
       end
     end
     return link_to ""
