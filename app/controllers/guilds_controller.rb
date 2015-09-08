@@ -510,7 +510,7 @@ class GuildsController < ApplicationController
 				end
 			end
 		end
-		@members_grid = initialize_grid(GuildMember.where(id: members),:per_page => 8)
+		@members_grid = initialize_grid(GuildMember.where(id: members),:per_page => 7)
 		@slot_order = [16,15,2,3,0,5,1,4,7,8,10,11]
 
 	end
