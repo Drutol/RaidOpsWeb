@@ -38,7 +38,7 @@
             item.gp_cost
           end
 
-          g.column name: 'Looter' , attribute: 'name' , model: 'GuildMember' , auto_reload: false  do |item|
+          g.column name: 'Looter' , attribute: 'name' , assoc: :guild_member , auto_reload: false  do |item|
             if @item_owners[item.timestamp] then
             link_to(@guild.guild_members.find(@item_owners[item.timestamp]).name, guild_guild_member_items_path(@guild.id , @guild.guild_members.find(@item_owners[item.timestamp]).id))
             end 
@@ -84,7 +84,7 @@
               [task.pr, {style: 'background-color: #F8FFD1;'}]  
             end
 
-            g.column name: 'Time', attribute: 'nSecs' , model: 'Attendance' do |task|
+            g.column name: 'Time', attribute: 'nSecs' , assoc: :attendances do |task|
                 Time.at(task.attendances.where("n_time = ? and guild_member_id = ?",@raid.n_finish,task.id).first.nSecs).utc.strftime("%H:%M:%S")
             end 
       

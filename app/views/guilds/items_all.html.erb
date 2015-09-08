@@ -55,7 +55,7 @@
         end     
       end       
 
-      g.column name: 'Looter' , attribute: 'name' , model: 'GuildMember' , auto_reload: false  do |item|
+      g.column name: 'Looter' , attribute: 'name' , assoc: :guild_member , auto_reload: false  do |item|
         if @itemHash[item.timestamp] then
         link_to(@guild.guild_members.find(@itemHash[item.timestamp]).name, guild_guild_member_items_path(@guild.id , @guild.guild_members.find(@itemHash[item.timestamp]).id))
         end 
