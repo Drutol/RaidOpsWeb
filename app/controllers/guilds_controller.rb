@@ -2,7 +2,7 @@ class GuildsController < ApplicationController
 	require 'net/ftp'
 	require 'stringio'
 	require 'securerandom'
-	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity,:attendance,:raids,:ad_profiles]
+	skip_before_filter :require_login, only: [:index, :show,:items_all,:download,:recent_activity,:attendance,:raids,:ad_profiles,:armor_compare]
  	before_filter do
 	    if request.host != "www.raidops.net" && Rails.env.production? then redirect_to "http://raidops.net" end
             if request.ssl? && Rails.env.production?
