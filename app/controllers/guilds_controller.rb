@@ -496,21 +496,21 @@ class GuildsController < ApplicationController
 	def armor_compare
 		@guild = Guild.find(params[:id])
 		members = Array.new
-		@edited = Array.new
 		for member in @guild.guild_members do
-			begin
-	        	edit_member = GuildMember.find_by(edit_flag: member.id)
-				if edit_member then
-					members.push(edit_member.id)
-					@edited.push(edit_member.id)
-				elsif member.name != "Guild Bank" then
+			if member.gear_pieces.count > 4 then
+				begin
+		        	edit_member = GuildMember.find_by(edit_flag: member.id)
+					if edit_member then
+						members.push(edit_member.id)
+					elsif member.name != "Guild Bank" then
+						members.push(member.id)
+					end
+				rescue
 					members.push(member.id)
 				end
-			rescue
-				members.push(member.id)
 			end
 		end
-		@members_grid = initialize_grid(GuildMember.where(id: members),:per_page => 7)
+		@members_grid = initialize_grid(GuildMember.where(id: members),:per_page => 8)
 		@slot_order = [16,15,2,3,0,5,1,4,7,8,10,11]
 
 	end
