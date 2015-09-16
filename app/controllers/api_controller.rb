@@ -3,7 +3,15 @@ class ApiController < ApplicationController
 
   respond_to :json
   skip_before_filter  :verify_authenticity_token
-  skip_before_filter :require_login, only: [:get_status, :import ,:download]
+  skip_before_filter :require_login, only: [:get_status, :import ,:download,:curr_version]
+  
+  def curr_version
+	  respond_to do |format| 
+	  	format.json {render :json => {:msg =>"No data", :code => 1, :data => '1.1'}}
+	  end
+	  return 
+  end
+  
   def get_status
   	if params[:id] then params[:key] = params[:id] end
   	if not params[:key] then
