@@ -1,4 +1,4 @@
-## [RaidOpsWeb](www.raidops.net)
+## [RaidOpsWeb](http://www.raidops.net)
 
 Ruby on rails project built on purpose of displaying data gathered by EPGP type of addon online.
 
