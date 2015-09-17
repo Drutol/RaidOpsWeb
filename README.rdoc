@@ -1,28 +1,5 @@
-== README
+## [RaidOpsWeb](www.raidops.net)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on rails project built on purpose of displaying data gathered by EPGP type of addon online.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Code is somewhat messy due to its being my first Rails/Ruby or website project at all.
