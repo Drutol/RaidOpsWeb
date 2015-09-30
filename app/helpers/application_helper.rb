@@ -34,6 +34,7 @@ module ApplicationHelper
   end
 
   def get_item_entry_and_source(item)
+   if not item then return end
     id = item.item_id
     entry = ItemDb.find_by_item_id(id) 
     if entry then
