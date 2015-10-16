@@ -161,7 +161,7 @@
                 @values[task.name][params[:set]][:gp]
               end            
 
-              g.column  name:  'PR' , attribute: 'pr', auto_reload: false , assoc: :data_sets , :ordering => false do |task|
+              g.column  name:  'PR' , attribute: 'pr', auto_reload: false , assoc: :data_sets , :ordering => false  do |task|
                 [@values[task.name][params[:set]][:pr], {style: 'background-color: #F8FFD1;'}]  
               end
 
@@ -210,7 +210,7 @@
                 task.tot
               end            
             else
-              g.column  name:  'Net', attribute: 'net', auto_reload: false , assoc: :data_sets, :ordering => false do |task|
+              g.column  name:  'Net', attribute: 'net', auto_reload: false , assoc: :data_sets do |task|
                 set_net = 0
                 for set in task.data_sets do
                   if set.str_group == params[:set] then 
@@ -221,7 +221,7 @@
                 [set_net, {style: 'background-color: #F8FFD1;'}]  
               end
 
-              g.column  name:  'Total', attribute: 'tot', auto_reload: false , assoc: :data_sets, :ordering => false do |task|
+              g.column  name:  'Total', attribute: 'tot', auto_reload: false , assoc: :data_sets do |task|
               set_tot = 0
                 for set in task.data_sets do
                   if set.str_group == params[:set] then 
