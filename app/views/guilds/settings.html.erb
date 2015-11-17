@@ -16,10 +16,14 @@
       <%= label_tag(:pr_precision, 'PR precision (takes effect after next import):')%>
       <%= text_field_tag(:pr_precision, @guild.pr_precision  ,class: "form-control")%>      
       <%= label_tag(:auto_raid_name, 'Raid session name generation:')%>
-      <%= select_tag(:auto_raid_name, options_for_select([['Automatic', 'Auto'], ['Manual', 'Manual']],@guild.auto_raid_name)  ,class: "form-control")%>
+      <%= select_tag(:auto_raid_name, options_for_select([['Automatic', 'Auto'], ['Manual', 'Manual']],@guild.auto_raid_name)  ,class: "form-control")%>      
+      <%= label_tag(:display_last_update, "Add last update column which displays the date of last log that isn't {Decay}")%>
       <br>
-      <%= submit_tag("Submit" , class: "btn btn-primary") %></br>
-
+      <%= check_box_tag(:display_last_update , value = !@guild.display_last_update , checked = @guild.display_last_update)%>
+      <br>
+      <br>
+      <%= submit_tag("Submit" , class: "btn btn-success" ,:style => "display:inline") %>
+      <%= link_to content_tag(:p , '' , :class => "glyphicon glyphicon-arrow-left")+" Back", guild_path(@guild), class: ' btn lg btn-primary' ,:style => "display:inline" %>
     <% end %>
   </div>
 </div> 

@@ -467,7 +467,8 @@ class GuildsController < ApplicationController
 		rescue
 			pr_precision = 1
 		end
-		guild.update_attributes(:pr_precision => pr_precision.to_i ,:members_per_page => params[:members_per_page],:items_per_page => params[:items_per_page],:auto_raid_name => params[:auto_raid_name])
+		#raise params.to_s
+		guild.update_attributes(:pr_precision => pr_precision.to_i ,:members_per_page => params[:members_per_page],:items_per_page => params[:items_per_page],:auto_raid_name => params[:auto_raid_name],:display_last_update => params[:display_last_update])
 
 		redirect_to guild_path(params[:id])
 	end
@@ -490,7 +491,7 @@ class GuildsController < ApplicationController
 		random_string = SecureRandom.hex
 		guild = Guild.find(params[:id])
 		if guild.api_keys.count <= 5 then 
-			guild.api_keys.create(:key => random_string)
+			guild.api_keys.create(:key => random_string,:str_creator => params[:email])
 			redirect_to api_keys_guild_path(params[:id])
 		else
 			redirect_to api_keys_guild_path(params[:id]) ,notice:  "You can have up to 6 keys."

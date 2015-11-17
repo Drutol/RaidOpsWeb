@@ -100,7 +100,7 @@ class Guild < ActiveRecord::Base
 	 				end 				
 	 				if arr['logs'] and member.name == arr['strName'] then
 	 					arr['logs'].each do |log|
-	 						if log['nDate'] and not member.logs.where("n_date = ? and str_comment = ?",log['nDate'],log['strComment']).first then
+	 						if log and log['nDate'] and not member.logs.where("n_date = ? and str_comment = ?",log['nDate'],log['strComment']).first then
 		 						if not log['nAfter'] then after = 0 else after = log['nAfter'] end
 		 						if log['strGroup'] then strGroup = log['strGroup'] else strGroup = "Def" end
 		 						member.logs.create(:str_comment => log['strComment'],:n_date => log['nDate'],:strType => log['strType'],:strModifier => log['strModifier'],:n_after => after,:str_group => strGroup)

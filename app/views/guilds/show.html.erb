@@ -183,6 +183,16 @@
                 end
               end
             end
+            if @guild.display_last_update then
+              g.column name: 'Last update' , html: {style: 'max-width: 30px'} do |task|
+                value = task.logs.where("str_type != '{Decay}'").order("n_date DESC").first
+                if value then
+                  time_ago_in_words(Time.at(value.n_date)) + " ago"
+                else
+                  "Never"
+                end
+              end
+            end
           end -%>
 
         <% elsif @guild.mode == "DKP" then %>
@@ -249,6 +259,17 @@
                 end
               end
             end
+
+            if @guild.display_last_update then
+              g.column name: 'Last update' , html: {style: 'max-width: 30px'} do |task|
+                value = task.logs.where("str_type != '{Decay}'").order("n_date DESC").first
+                if value then
+                  time_ago_in_words(Time.at(value.n_date)) + " ago"
+                else
+                  "Never"
+                end
+              end
+            end
           end -%>
 
 
@@ -285,7 +306,18 @@
            
             g.column  name:  'Last update:', attribute: 'updated_at',filter: false do |task|
               time_ago_in_words(task.updated_at) + " ago"
-            end   
+            end  
+
+            if @guild.display_last_update then
+              g.column name: 'Last update (logs)' , html: {style: 'max-width: 30px'} do |task|
+                value = task.logs.where("str_type != '{Decay}'").order("n_date DESC").first
+                if value then
+                  time_ago_in_words(Time.at(value.n_date)) + " ago"
+                else
+                  "Never"
+                end
+              end
+            end 
 
             end-%>
 

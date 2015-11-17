@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907181822) do
+ActiveRecord::Schema.define(version: 20151117144145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,10 +28,11 @@ ActiveRecord::Schema.define(version: 20150907181822) do
   create_table "api_keys", force: :cascade do |t|
     t.string   "key"
     t.integer  "guild_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "cooldown"
     t.integer  "triggered"
+    t.string   "str_creator"
   end
 
   add_index "api_keys", ["guild_id"], name: "index_api_keys_on_guild_id", using: :btree
@@ -103,22 +104,23 @@ ActiveRecord::Schema.define(version: 20150907181822) do
   add_index "guild_members", ["guild_id"], name: "index_guild_members_on_guild_id", using: :btree
 
   create_table "guilds", force: :cascade do |t|
-    t.string   "name",             limit: 255
-    t.string   "owner",            limit: 255
-    t.string   "email",            limit: 255
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
-    t.string   "realm",            limit: 255
-    t.string   "mode",                         default: "EPGP"
-    t.integer  "max_events",                   default: 10
-    t.integer  "min_affected",                 default: 2
-    t.string   "ass_app",                      default: ""
-    t.integer  "members_per_page",             default: 20
-    t.integer  "items_per_page",               default: 20
-    t.integer  "pr_precision",                 default: 2
-    t.string   "auto_raid_name",               default: "Auto"
+    t.string   "name",                limit: 255
+    t.string   "owner",               limit: 255
+    t.string   "email",               limit: 255
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.string   "realm",               limit: 255
+    t.string   "mode",                            default: "EPGP"
+    t.integer  "max_events",                      default: 10
+    t.integer  "min_affected",                    default: 2
+    t.string   "ass_app",                         default: ""
+    t.integer  "members_per_page",                default: 20
+    t.integer  "items_per_page",                  default: 20
+    t.integer  "pr_precision",                    default: 2
+    t.string   "auto_raid_name",                  default: "Auto"
     t.string   "import_status"
     t.string   "add_profile"
+    t.boolean  "display_last_update"
   end
 
   create_table "item_data", force: :cascade do |t|
@@ -155,7 +157,7 @@ ActiveRecord::Schema.define(version: 20150907181822) do
   create_table "logs", force: :cascade do |t|
     t.string   "strModifier",     limit: 255
     t.string   "str_comment",     limit: 255
-    t.string   "strType",         limit: 255
+    t.string   "str_type",        limit: 255
     t.string   "strTimestamp",    limit: 255
     t.integer  "guild_member_id"
     t.datetime "created_at",                  null: false
