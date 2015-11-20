@@ -61,6 +61,7 @@ class GuildMember < ActiveRecord::Base
 
 			target.update_attributes(:ep => source.ep,:gp => source.gp,:net => source.net,:pr => source.pr,:tot => source.tot,:str_class => source.str_class,:str_role => source.str_role)
 			source.member_stats.destroy_all
+			source.rune_sets.destroy_all
 			source.destroy
 			target.logs.create(:str_comment => comment,:str_type => "{Website}",:strModifier => strModifier,:guild_member_id => target.id,:n_date => Time.now.to_i)
 			if commit_string then Guild.find(target.guild_id).update_json end
