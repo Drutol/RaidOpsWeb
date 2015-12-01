@@ -228,11 +228,15 @@ class Guild < ActiveRecord::Base
 					member['tArmoryEntry'] = nil
 				end
 				hash = JSON.generate(hash)
-				ftp = Net::FTP.new('85.17.73.180')
-				ftp.passive = true
-				ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
-				ftp.puttextcontent(hash, "/public_html/guild_json_#{id}.txt")
-				ftp.close
+				filename = "#{Rails.root.to_s}/app/guild_data/guild_json_#{id}.txt"
+				File.open(filename, "w+") do |f|
+				  f.write(hash)
+				end
+				#ftp = Net::FTP.new('85.17.73.180')
+				#ftp.passive = true
+				#ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
+				#ftp.puttextcontent(hash, "/public_html/guild_json_#{id}.txt")
+				#ftp.close
 			rescue
 				return
 			end
