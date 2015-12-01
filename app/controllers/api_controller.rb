@@ -111,19 +111,20 @@ class ApiController < ApplicationController
 
 	begin
   		f = ""
-	  	ftp = Net::FTP.new
-		ftp.connect('85.17.73.180')
-		ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
-		ftp.passive = true
-		filename = "/public_html/guild_json_#{key.guild_id}.txt"
-		raw = StringIO.new('')
-		ftp.retrbinary('RETR ' + filename, 4096) { |data|
-		raw << data
-		}
-		ftp.close
-		raw.rewind
+	  	#ftp = Net::FTP.new
+	#	ftp.connect('85.17.73.180')
+	#	ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
+	#	ftp.passive = true
+		filename = "#{Rails.root.to_s}/app/guild_data/guild_json_#{params[:id]}.txt"
+		f = File.read(filename)
+	#	raw = StringIO.new('')
+	#	ftp.retrbinary('RETR ' + filename, 4096) { |data|
+	#	raw << data
+	#	}
+	#	ftp.close
+	#	raw.rewind
 		respond_to do |format|
-  			format.json {render :json => {:msg =>"Download successful", :code => 3 , :data => raw.string}}
+  			format.json {render :json => {:msg =>"Download successful", :code => 3 , :data => f}}
   		end
 	rescue Exception => e
 		respond_to do |format|
