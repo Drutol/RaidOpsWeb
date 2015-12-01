@@ -248,18 +248,19 @@ class Guild < ActiveRecord::Base
 	def update_json
 		
 		begin
-		  	ftp = Net::FTP.new
-			ftp.connect('85.17.73.180')
-			ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
-			ftp.passive = true
-			filename = "/public_html/guild_json_#{id}.txt"
-			raw = StringIO.new('')
-			ftp.retrbinary('RETR ' + filename, 4096) { |data|
-			raw << data
-			}
-			raw.rewind
-
-			json_data = JSON.parse(raw.read)
+		  	#ftp = Net::FTP.new
+			#ftp.connect('85.17.73.180')
+			#ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
+			#ftp.passive = true
+			#filename = "/public_html/guild_json_#{id}.txt"
+			#raw = StringIO.new('')
+			#ftp.retrbinary('RETR ' + filename, 4096) { |data|
+			#raw << data
+			#}
+			#raw.rewind
+			filename = "#{Rails.root.to_s}/app/guild_data/guild_json_#{params[:id]}.txt"
+			f = File.read(filename)
+			json_data = JSON.parse(f)
 			for arr in json_data['tMembers'] do
 				for member in guild_members do
 					if member.name.to_s == arr['strName'].to_s then# and member.differ?(arr) then
@@ -274,8 +275,12 @@ class Guild < ActiveRecord::Base
 				end
 			end
 
-			ftp.puttextcontent(JSON.generate(json_data), "/public_html/guild_json_#{id}.txt")
-			ftp.close
+			#ftp.puttextcontent(JSON.generate(json_data), "/public_html/guild_json_#{id}.txt")
+			#ftp.close
+			filename = "#{Rails.root.to_s}/app/guild_data/guild_json_#{id}.txt"
+			File.open(filename, "w+") do |f|
+			  f.write(JSON.generate(json_data))
+			end
 		rescue
 			return "Data not updated , if problem persists notify me via issue tracker."
 		end
