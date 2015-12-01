@@ -115,7 +115,7 @@ class ApiController < ApplicationController
 	#	ftp.connect('85.17.73.180')
 	#	ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
 	#	ftp.passive = true
-		filename = "#{Rails.root.to_s}/app/guild_data/guild_json_#{params[:id]}.txt"
+		filename = "#{Rails.root.to_s}/app/guild_data/guild_json_#{guild.id}.txt"
 		f = File.read(filename)
 	#	raw = StringIO.new('')
 	#	ftp.retrbinary('RETR ' + filename, 4096) { |data|
