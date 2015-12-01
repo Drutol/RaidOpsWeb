@@ -317,7 +317,7 @@ class GuildsController < ApplicationController
 				#ftp.close
 				filename = "#{Rails.root.to_s}/app/guild_data/guild_json_#{params[:id]}.txt"
 				File.open(filename, "w+") do |f|
-				  f.write(content)
+				  f.write(hash)
 				end
 			rescue
 				redirect_to @guild , notice: "Import successfull: Processed #{c_counter.to_s} entries . Processed #{i_counter} items and #{l_counter} logs. Backup file upload failed."
