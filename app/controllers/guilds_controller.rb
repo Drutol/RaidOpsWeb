@@ -97,18 +97,19 @@ class GuildsController < ApplicationController
   	def download
   		begin
 	  		f = ""
-		  	ftp = Net::FTP.new
-			ftp.connect('85.17.73.180')
-			ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
-			ftp.passive = true
-			filename = "/public_html/guild_json_#{params[:id]}.txt"
-			raw = StringIO.new('')
-			ftp.retrbinary('RETR ' + filename, 4096) { |data|
-			raw << data
-			}
-			ftp.close
-			raw.rewind
-			send_data raw.read, :filename => "guild_json_#{params[:id]}.txt"
+		  	#ftp = Net::FTP.new
+		#	ftp.connect('85.17.73.180')
+		#	ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
+		#	ftp.passive = true
+			filename = "#{Rails.root.to_s}/app/guild_data/guild_json_#{params[:id]}.txt"
+			f = File.read(filename)
+		#	raw = StringIO.new('')
+		#	ftp.retrbinary('RETR ' + filename, 4096) { |data|
+		#	raw << data
+		#	}
+		#	ftp.close
+		#	raw.rewind
+			send_data f, :filename => "guild_json_#{params[:id]}.txt"
 		rescue
 	 		redirect_to Guild.find(params[:id]) , notice: 'Download failed'
 	 	end
@@ -309,11 +310,15 @@ class GuildsController < ApplicationController
 					member['tArmoryEntry'] = nil
 				end
 				hash = JSON.generate(hash)
-				ftp = Net::FTP.new('85.17.73.180')
-				ftp.passive = true
-				ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
-				ftp.puttextcontent(hash, "/public_html/guild_json_#{params[:id]}.txt")
-				ftp.close
+				#ftp = Net::FTP.new('85.17.73.180')
+				#ftp.passive = true
+				#ftp.login(ENV['FTP_USER'], ENV['FTP_PASS'])
+				#ftp.puttextcontent(hash, "/public_html/guild_json_#{params[:id]}.txt")
+				#ftp.close
+				filename = "#{Rails.root.to_s}/app/guild_data/guild_json_#{params[:id]}.txt"
+				File.open(filename, "w+") do |f|
+				  f.write(content)
+				end
 			rescue
 				redirect_to @guild , notice: "Import successfull: Processed #{c_counter.to_s} entries . Processed #{i_counter} items and #{l_counter} logs. Backup file upload failed."
 				return
