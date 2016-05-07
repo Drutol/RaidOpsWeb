@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to login_path, notice: 'Check your email for activation link.' }
+        format.html { redirect_to login_path, notice: 'You can now log in.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
