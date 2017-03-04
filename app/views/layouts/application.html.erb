@@ -621,14 +621,6 @@ if (typeof(jQuery) !== 'undefined')
 </script>
     
   <br><br><br>
-<%= render 'ad_top.html.erb' %>
-   <div class="container">
-    <div id="adblock_notice" align="center"></div>
-    <div class="alert alert-danger" role="alert">News! Domain name will change to raidops.tk soon. You have been warned :)</div>
-      <%= flash_messages %>
-  </div>
-
-
 <%= yield %>
       <% if Rails.env.production? %>
       <script>
